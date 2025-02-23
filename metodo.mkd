@@ -18,7 +18,7 @@ O PBL permite que os alunos se envolvam com o conteúdo de forma prática e apli
 
 ## Método Ajustado ao PBL
 
-### Estrutura do Curso
+### Estrutura da Aula
 
 - **Formação dos Grupos**: Os alunos serão organizados em grupos de trabalho chamados **squads**. Cada squad terá um papel específico durante as aulas.
 
