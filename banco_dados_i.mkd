@@ -1,0 +1,85 @@
+## Sistemas de Banco de Dados
+
+### Dado, Informação e Conhecimento
+
+- **Dado**: é o componente básico de um arquivo, é um elemento com um significado no mundo real, que compõe um sistema de arquivos. Como exemplo, podemos citar nome, sobrenome, cidade, bairro e outros.
+- **Informação**: após a interpretação dos dados, é possível associar um significado aos dados ou processá-los. Normalmente, a informação vem de convenções utilizadas por pessoas por meio de associações aos dados.
+- **Conhecimento**: todo discernimento, obtido por meio de critérios, e apreciação aos dados e informações.
+
+#### Exemplo
+
+O registro é composto por seis itens de dados (campos): código, CPF, nome, rua, bairro, cidade. Dentro do Banco de Dados, as fichas de todos os clientes que estão inseridas formarão o arquivo cliente.
+
+Tomando como exemplo uma pesquisa eleitoral: cada entrevistado fornece opiniões conforme as suas preferências entre os candidatos, mas essa opinião individual não significa muita coisa no contexto da eleição. A opinião de um entrevistado único é um dado. Porém, depois de ser integrada às opiniões dos demais respondentes, torna-se algo com significado, uma informação.
+
+Agora, tomando como exemplo um número de telefone: `(11) 58899.3587` é um número, mas não carrega significado por si só; é um dado. Já na frase **"O número do telefone da Viviane é (11) 58899.3587"**, temos uma informação!
+
+---
+
+### Definição de Banco de Dados
+
+- **Chu (1983)**: "Um Banco de Dados é um conjunto de arquivos relacionados entre si".
+- **C. J. Date (1985)**: "Um Banco de Dados é uma coleção de dados operacionais armazenados, sendo usados pelos sistemas de aplicação de uma determinada organização".
+- **Elmasri e Navathe (2005)**: "Um Banco de Dados é uma coleção de dados relacionais".
+- **Torey et al. (2007, p.2)**: "Um Banco de Dados é um objeto mais complexo, é uma coleção de dados armazenados e inter-relacionados, que atende às necessidades de vários usuários dentro de uma ou mais organizações, ou seja, coleções inter-relacionadas de muitos tipos diferentes de tabelas".
+
+---
+
+### Sistema de Gerenciamento de Banco de Dados
+
+Segundo **DATE (2004)**, um **Sistema Gerenciador de Banco de Dados (SGBD)** é um software genérico para manipular Banco de Dados. Ele permite a definição, construção e manejo de um Banco de Dados para diversas aplicações. Um SGBD possui:
+
+- **Visão lógica**: projeto do BD.
+- **Linguagem de definição de dados (DDL)**: usada para definir o esquema conceitual do Banco de Dados.
+- **Linguagem de manipulação de dados (DML)**: empregada para especificar as recuperações e atualizações do Banco de Dados.
+- **Utilitários importantes**: auxiliam na administração e manutenção do BD.
+
+Os SGBDs também facilitam a conversão e a reorganização do Banco de Dados. Dessa forma, podemos dizer que os SGBDs são programas de computador que ajudam na:
+
+- **Definição e construção do Banco de Dados**: processo de criar uma estrutura inicial com tabelas e preenchê-las com dados.
+- **Manipulação dos dados do Banco de Dados**: operações de consultas, alteração e exclusão realizadas nos dados.
+
+
+### Funções básicas dos SGBD estão listadas abaixo:
+
+- Métodos de acesso
+- Restrições de Integridade
+- Segurança de dados
+- Controle de Concorrência
+- Indepêndicia de dados
+
+---
+
+### Níveis de Abstração
+
+Uma das funções essenciais ao **DBA** é utilizar **abstração de dados**. Com a utilização da abstração de dados, é possível esconder certos “detalhes” sobre como os dados estão armazenados e como é realizada a manutenção, para facilitar o entendimento do usuário (**JUKIC, VRBSKY S e NESTOROV, 2013**).
+
+- **Nível físico**: Descreve como os dados estão armazenados. Este é o nível mais baixo de abstração.
+- **Nível lógico**: Esse nível de abstração está acima do físico e descreve quais dados estão armazenados no BD e quais são suas relações. Descreve o Banco de Dados inteiro em termos de um pequeno número de estruturas relativamente simples.
+- **Nível de visões (View)**: Esse nível pode ser visto pelo usuário de diversas formas, pois quem opera são os sistemas aplicativos. Esse nível existe para facilitar sua interação com o sistema, ou seja, o sistema pode fornecer muitas visões para o mesmo Banco de Dados.
+
+---
+
+### Projeto de Banco de Dados
+
+1. **Definição do sistema**: nesta etapa é determinado o escopo do sistema, o que deverá ser armazenado e quais serão as operações realizadas, assim como seus usuários.
+2. **Projeto do Banco de Dados**: criação do projeto conceitual, lógico e físico.
+3. **Implementação do Banco de Dados**: criação real do Banco de Dados conforme os esquemas definidos na etapa anterior.
+4. **Carga ou conversão de dados**: o Banco de Dados é preenchido com dados já existentes ou preenchido manualmente.
+5. **Conversão de aplicação**: programas que antes acessavam o banco são informados sobre as modificações do novo banco (etapa auxiliar).
+6. **Teste e validação**: verifica-se se tudo está funcionando de acordo com o planejamento.
+7. **Operação**: disponibilização do sistema para uso.
+8. **Monitoramento e manutenção**: observação do funcionamento do sistema para possíveis ajustes.
+
+---
+
+## Modelo Conceitual
+
+(*Conteúdo a ser adicionado posteriormente*)
+
+---
+
+### Referências
+
+- [Fascículo Introdução Banco de Dados](https://educapes.capes.gov.br/bitstream/capes/564494/2/FASCICULO_Introducao_Banco_Dados_30_08.pdf)
+- [Univesp - Introdução a Banco de Dados](https://apps.univesp.br/novotec/introducao-a-banco-de-dados/)
