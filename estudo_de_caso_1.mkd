@@ -144,3 +144,114 @@ FULL JOIN pedidos ON clientes.id_cliente = pedidos.id_cliente;
 #### 13. Quais clientes fizeram pedidos e quais pedidos não possuem clientes registrados? (FULL JOIN)
 
 #### 14. Liste todos os pedidos e os produtos neles, incluindo pedidos sem produtos. (LEFT JOIN)
+
+
+### Subconsultas
+
+#### 1. **Obter o total de um pedido específico com base no id_cliente (Subconsulta)**
+
+A subconsulta retorna o total de um pedido específico para um determinado cliente. Caso o cliente tenha vários pedidos, a subconsulta calcula o total de cada um.
+
+```sql
+SELECT nome, email, 
+    (SELECT SUM(subtotal) FROM itens_pedido 
+     WHERE id_pedido = p.id_pedido) AS total_pedido
+FROM clientes c
+JOIN pedidos p ON c.id_cliente = p.id_cliente
+WHERE c.id_cliente = 1;
+```
+
+#### 2. Obter os clientes que realizaram pedidos com total superior a um valor específico (Subconsulta no WHERE)
+Aqui, a subconsulta é usada para verificar se o total de um pedido supera um valor específico, retornando apenas os clientes que atenderam a essa condição.
+```sql
+SELECT nome, email
+FROM clientes
+WHERE id_cliente IN (
+    SELECT id_cliente
+    FROM pedidos
+    WHERE total > 200
+);
+```
+
+#### 3.  Listar os produtos que não foram comprados em nenhum pedido (Subconsulta com NOT EXISTS)
+```sql
+SELECT nome
+FROM produtos p
+WHERE NOT EXISTS (
+    SELECT 1
+    FROM itens_pedido i
+    WHERE i.id_produto = p.id_produto
+);
+```
+
+#### 4. Listar os clientes que nunca fizeram um pedido (Subconsulta com NOT EXISTS)
+```sql
+SELECT nome, email
+FROM clientes c
+WHERE NOT EXISTS (
+    SELECT 1
+    FROM pedidos p
+    WHERE p.id_cliente = c.id_cliente
+);
+```
+
+#### 5. Obter os produtos mais vendidos (Subconsulta no SELECT)
+```sql
+SELECT nome, 
+       (SELECT SUM(quantidade) 
+        FROM itens_pedido 
+        WHERE id_produto = p.id_produto) AS total_vendido
+FROM produtos p
+ORDER BY total_vendido DESC;
+```
+#### 6. Listar pedidos com produtos que não estão mais disponíveis (Subconsulta com NOT IN)
+```sql
+SELECT p.id_pedido, i.produto, i.quantidade
+FROM pedidos p
+JOIN itens_pedido i ON p.id_pedido = i.id_pedido
+WHERE i.id_produto NOT IN (
+    SELECT id_produto
+    FROM produtos
+    WHERE descricao IS NOT NULL
+);
+```
+
+#### 7. Obter o total de pedidos feitos por cliente (Subconsulta no SELECT)
+```sql
+SELECT c.nome, 
+    (SELECT COUNT(*) 
+     FROM pedidos 
+     WHERE id_cliente = c.id_cliente) AS total_pedidos
+FROM clientes c;
+```
+
+#### 8. Obter o cliente que fez o pedido de maior valor (Subconsulta com LIMIT)
+```sql
+SELECT nome, email
+FROM clientes
+WHERE id_cliente = (
+    SELECT id_cliente
+    FROM pedidos
+    ORDER BY total DESC
+    LIMIT 1
+);
+```
+
+#### 9. Listar todos os pedidos e seus itens, incluindo produtos de pedidos sem itens (Subconsulta com LEFT JOIN)
+```sql
+SELECT p.id_pedido, 
+       (SELECT nome FROM produtos WHERE id_produto = i.id_produto) AS produto, 
+       i.quantidade
+FROM pedidos p
+LEFT JOIN itens_pedido i ON p.id_pedido = i.id_pedido;
+```
+
+#### 10. Obter a soma total de todos os pedidos de um cliente (Subconsulta no SELECT)
+```sql
+SELECT nome, 
+       (SELECT SUM(total) 
+        FROM pedidos 
+        WHERE id_cliente = c.id_cliente) AS total_compras
+FROM clientes c
+WHERE c.id_cliente = 1;
+```
