@@ -1,6 +1,6 @@
 ## Banco de Dados: Sistema de Pedidos
 
-Este banco de dados foi projetado para registrar e gerenciar as compras feitas por clientes, garantindo que todas as informações sobre os pedidos e os produtos adquiridos sejam devidamente armazenadas e acessíveis para futuras consultas. Ele é composto por três tabelas principais: `clientes`, `pedidos` e `itens_pedido`, que se relacionam entre si para fornecer um histórico completo das transações.
+Este banco de dados foi projetado para registrar e gerenciar as compras feitas por clientes, garantindo que todas as informações sobre os pedidos e os produtos adquiridos sejam devidamente armazenadas e acessíveis para futuras consultas. Ele é composto por quatro tabelas principais: `clientes`, `pedidos`, `produtos` e `itens_pedido`, que se relacionam entre si para fornecer um histórico completo das transações.
 
 ### Estrutura das Tabelas
 
@@ -26,22 +26,6 @@ CREATE TABLE clientes (
 );
 ```
 
-##### Inserção de dados
-```sql
-INSERT INTO clientes (id_cliente, nome, email, telefone, endereco) 
-VALUES (1, 'João Silva', 'joao@email.com', '11999999999', 'Rua A, 123');
-```
-
-##### Atualização de dados
-```sql
-UPDATE clientes SET telefone = '11888888888' WHERE id_cliente = 1;
-```
-
-##### Seleção de dados
-```sql
-SELECT * FROM clientes WHERE id_cliente = 1;
-```
-
 #### 2. Tabela `pedidos`
 A tabela `pedidos` armazena as informações dos pedidos realizados pelos clientes, vinculando-os à tabela `clientes`.
 
@@ -63,77 +47,100 @@ CREATE TABLE pedidos (
 );
 ```
 
-##### Inserção de dados
+#### 3. Tabela `produtos`
+A tabela `produtos` armazena os produtos disponíveis para venda.
+
+Campos:
+- `id_produto`: Identificador único do produto.
+- `nome`: Nome do produto.
+- `preco`: Preço unitário do produto.
+- `descricao`: Descrição opcional do produto.
+
 ```sql
-INSERT INTO pedidos (id_pedido, id_cliente, total, status) 
-VALUES (1, 1, 150.00, 'Em processamento');
+CREATE TABLE produtos (
+    id_produto INT PRIMARY KEY,
+    nome VARCHAR(255) NOT NULL,
+    preco DECIMAL(10,2) NOT NULL,
+    descricao TEXT
+);
 ```
 
-##### Atualização de dados
-```sql
-UPDATE pedidos SET status = 'Finalizado' WHERE id_pedido = 1;
-```
-
-##### Seleção de dados
-```sql
-SELECT * FROM pedidos WHERE id_pedido = 1;
-```
-
-#### 3. Tabela `itens_pedido`
+#### 4. Tabela `itens_pedido`
 A tabela `itens_pedido` registra os produtos incluídos em cada pedido, possibilitando o detalhamento do que foi comprado.
 
 Campos:
 - `id_item`: Identificador único do item no pedido.
 - `id_pedido`: Referência ao pedido ao qual o item pertence.
-- `produto`: Nome do produto adquirido.
+- `id_produto`: Referência ao produto adquirido.
 - `quantidade`: Quantidade do produto no pedido.
-- `preco_unitario`: Preço unitário do produto.
 - `subtotal`: Valor total do item no pedido (quantidade multiplicada pelo preço unitário).
 
 ```sql
 CREATE TABLE itens_pedido (
     id_item INT PRIMARY KEY,
     id_pedido INT,
-    produto VARCHAR(255) NOT NULL,
+    id_produto INT,
     quantidade INT NOT NULL,
-    preco_unitario DECIMAL(10,2) NOT NULL,
     subtotal DECIMAL(10,2) NOT NULL,
-    FOREIGN KEY (id_pedido) REFERENCES pedidos(id_pedido)
+    FOREIGN KEY (id_pedido) REFERENCES pedidos(id_pedido),
+    FOREIGN KEY (id_produto) REFERENCES produtos(id_produto)
 );
-```
-
-##### Inserção de dados
-```sql
-INSERT INTO itens_pedido (id_item, id_pedido, produto, quantidade, preco_unitario, subtotal) 
-VALUES (1, 1, 'Notebook', 1, 150.00, 150.00);
-```
-
-##### Atualização de dados
-```sql
-UPDATE itens_pedido SET quantidade = 2, subtotal = 300.00 WHERE id_item = 1;
-```
-
-##### Seleção de dados
-```sql
-SELECT * FROM itens_pedido WHERE id_pedido = 1;
 ```
 
 ### Consultas SQL
 
-#### 1. Listar os pedidos e seus clientes
-Consulta que recupera os pedidos realizados e os respectivos clientes:
+#### 1. Listar os pedidos e seus clientes (INNER JOIN)
 ```sql
 SELECT pedidos.id_pedido, clientes.nome, pedidos.data_pedido, pedidos.total 
 FROM pedidos 
-JOIN clientes ON pedidos.id_cliente = clientes.id_cliente;
+INNER JOIN clientes ON pedidos.id_cliente = clientes.id_cliente;
 ```
 
-#### 2. Obter os itens de um pedido específico junto com os detalhes do cliente
-Consulta que detalha os itens de um pedido específico, relacionando-os ao cliente:
+#### 2. Obter os itens de um pedido específico junto com os detalhes do cliente e dos produtos (INNER JOIN)
 ```sql
-SELECT clientes.nome, pedidos.id_pedido, itens_pedido.produto, itens_pedido.quantidade, itens_pedido.subtotal
+SELECT clientes.nome, pedidos.id_pedido, produtos.nome AS produto, itens_pedido.quantidade, itens_pedido.subtotal
 FROM itens_pedido
-JOIN pedidos ON itens_pedido.id_pedido = pedidos.id_pedido
-JOIN clientes ON pedidos.id_cliente = clientes.id_cliente
+INNER JOIN pedidos ON itens_pedido.id_pedido = pedidos.id_pedido
+INNER JOIN clientes ON pedidos.id_cliente = clientes.id_cliente
+INNER JOIN produtos ON itens_pedido.id_produto = produtos.id_produto
 WHERE pedidos.id_pedido = 1;
 ```
+
+#### 3. Listar todos os clientes e seus pedidos, incluindo aqueles que ainda não fizeram pedidos (LEFT JOIN)
+```sql
+SELECT clientes.nome, pedidos.id_pedido, pedidos.total 
+FROM clientes 
+LEFT JOIN pedidos ON clientes.id_cliente = pedidos.id_cliente;
+```
+
+#### 4. Listar todos os pedidos e seus clientes, incluindo pedidos sem clientes (RIGHT JOIN)
+```sql
+SELECT pedidos.id_pedido, clientes.nome, pedidos.total 
+FROM pedidos 
+RIGHT JOIN clientes ON pedidos.id_cliente = clientes.id_cliente;
+```
+
+#### 5. Listar todos os clientes e seus pedidos, mostrando também os clientes sem pedidos e pedidos sem clientes (FULL JOIN)
+```sql
+SELECT clientes.nome, pedidos.id_pedido, pedidos.total 
+FROM clientes 
+FULL JOIN pedidos ON clientes.id_cliente = pedidos.id_cliente;
+```
+ 
+#### 6. Liste todos os produtos que nunca foram comprados. (LEFT JOIN)
+
+#### 7. Liste todos os clientes que nunca fizeram um pedido. (LEFT JOIN)
+
+#### 8. Quais são os pedidos que possuem pelo menos um item cadastrado? (INNER JOIN)
+
+#### 9. Liste todos os pedidos, mesmo aqueles sem itens. (LEFT JOIN)
+
+#### 10. Liste todos os produtos e os pedidos em que foram comprados, incluindo produtos nunca vendidos. (LEFT JOIN)
+
+#### 11. Liste todos os produtos comprados em um determinado período de tempo. (INNER JOIN com filtro de data)
+
+#### 12. Liste todos os clientes e os produtos que compraram, incluindo clientes que nunca compraram nada. (LEFT JOIN)
+
+#### 13. Quais clientes fizeram pedidos e quais pedidos não possuem clientes registrados? (FULL JOIN)
+
+#### 14. Liste todos os pedidos e os produtos neles, incluindo pedidos sem produtos. (LEFT JOIN)
