@@ -622,16 +622,58 @@ As operações da álgebra relacional fornecem uma maneira poderosa e declarativ
 Esses operadores são fundamentais para a construção de consultas complexas em **SQL** e em sistemas de gerenciamento de banco de dados relacionais (SGBDR).
 
 ## Apresentação:
-A apresentação da aula se dará da seguinte forma:
+# Critérios para Avaliação da Apresentação
 
-A squad deverá apresentar todos os conceitos de **Modelo Conceitual** ilustrando sempre com exemplos. 
-- Tempo de 30 a 40 min
+A avaliação será dividida em três partes: apresentação teórica, estudo de caso e exercícios práticos. O total de pontos será 10.
 
-Em seguida, deverá apresetnar um estudo de caso onde contemple todos os assuntos apresentados. 
-- Tempo de 20 a 30 min
+## 1. Apresentação Teórica (30 a 40 minutos) - **Total: 4 pontos**
 
-Por fim, deverá passar alguns exercícios para os colegas fazerem, e depois reselverem
-- Tempo de 20 a 30 min
+- **Completude, Clareza e Domínio dos Conceitos** (2 pontos)
+  - Todos os conceitos do Modelo Conceitual são apresentados de maneira clara e detalhada.
+  - Exemplos práticos são fornecidos para ilustrar cada conceito.
+  - A explicação é lógica e segue uma sequência didática.
+  - O grupo demonstra domínio sobre os conceitos, respondendo de forma precisa a eventuais perguntas.
+
+- **Qualidade dos Exemplos** (1 ponto)
+  - Os exemplos usados são relevantes e bem escolhidos.
+  - Cada conceito é claramente ilustrado com exemplos práticos.
+
+- **Clareza na Apresentação Visual** (1 ponto)
+  - A apresentação visual (slides, diagramas, gráficos) é bem organizada e facilita o entendimento.
+
+## 2. Estudo de Caso (20 a 30 minutos) - **Total: 3 pontos**
+- **Relevância e Aplicação Prática** (1 ponto)
+  - O estudo de caso está diretamente relacionado aos conceitos apresentados na teoria.
+  - O estudo de caso demonstra como os conceitos do modelo conceitual são aplicados de maneira clara.
+
+- **Completação do Estudo de Caso** (1 ponto)
+  - O estudo de caso aborda todos os aspectos solicitados, como o uso de todas as operações da álgebra relacional, terminologia e domínio.
+
+- **Resolução e Conclusão do Caso** (1 ponto)
+  - O estudo de caso é concluído com uma análise clara das soluções obtidas.
+
+## 3. Exercícios Práticos (20 a 30 minutos) - **Total: 2 pontos**
+- **Desafio e Clareza das Perguntas** (0,5 ponto)
+  - Os exercícios são bem formulados e desafiam os colegas a aplicar os conceitos discutidos.
+
+- **Participação e Engajamento da Audiência** (0,5 ponto)
+  - Durante a resolução dos exercícios, os colegas são incentivados a participar ativamente e a esclarecer dúvidas.
+
+- **Solução dos Exercícios** (1 ponto)
+  - As soluções dos exercícios são apresentadas de forma clara, com explicações passo a passo.
+
+## 4. Apresentação Geral - **Total: 1 ponto**
+- **Organização e Distribuição de Tarefas na Squad** (0,5 ponto)
+  - A apresentação foi bem organizada, com todos os membros da equipe participando de maneira equilibrada.
+
+- **Tempo de Apresentação** (0,5 ponto)
+  - O tempo total foi bem gerido, respeitando os tempos estipulados para cada seção.
+
+---
+
+**Total de Pontos: 10 pontos**
+
+A avaliação será realizada com base nos critérios acima, e a nota final será a soma dos pontos obtidos em cada parte da apresentação.
 
 A avaliação será individual e o trabalho vale 10 pts, que será a nota da AV2.
 
