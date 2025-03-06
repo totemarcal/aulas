@@ -345,9 +345,6 @@ Esses conceitos são fundamentais para a **modelagem de dados** no **Modelo Rela
 
 ---
 
-Se precisar de mais exemplos ou detalhes, não hesite em perguntar! 😊🚀
-
-
 ### **Relacionamento com outra Tabela**
 
 Agora, vamos adicionar uma tabela relacionada, a **Orders (Pedidos)**:
@@ -376,8 +373,6 @@ Agora, vamos adicionar uma tabela relacionada, a **Orders (Pedidos)**:
 ---
 
 Essa estrutura mostra a aplicação da **terminologia do Modelo Relacional**, incluindo **relações, tuplas, atributos, domínios, chaves primária e estrangeira**.  
-
-Se precisar de mais detalhes ou quiser outro exemplo, é só avisar! 😊  
 
 ### 5. Aspecto de Manipulação  
 - O modelo relacional introduziu a Álgebra Relacional e o Cálculo Relacional, permitindo operações como seleção, projeção, junção e união de dados.
@@ -626,8 +621,19 @@ As operações da álgebra relacional fornecem uma maneira poderosa e declarativ
 
 Esses operadores são fundamentais para a construção de consultas complexas em **SQL** e em sistemas de gerenciamento de banco de dados relacionais (SGBDR).
 
----
-Se precisar de mais exemplos ou explicações, é só avisar! 😊
+## Apresentação:
+A apresentação da aula se dará da seguinte forma:
+
+A squad deverá apresentar todos os conceitos de **Modelo Conceitual** ilustrando sempre com exemplos. 
+- Tempo de 30 a 40 min
+
+Em seguida, deverá apresetnar um estudo de caso onde contemple todos os assuntos apresentados. 
+- Tempo de 20 a 30 min
+
+Por fim, deverá passar alguns exercícios para os colegas fazerem, e depois reselverem
+- Tempo de 20 a 30 min
+
+A avaliação será individual e o trabalho vale 10 pts, que será a nota da AV2.
 
 ---
 
