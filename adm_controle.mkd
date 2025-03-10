@@ -60,10 +60,110 @@ REVOKE ALL ON empregado FROM alan;
 REVOKE ALL ON empregado FROM PUBLIC;
 ```
 
-## Considerações Finais
+## Especificação de Restrições Básicas em SQL
 
-- O gerenciamento de permissões é essencial para garantir a segurança e integridade dos dados no banco de dados.
-- Deve-se conceder apenas as permissões necessárias para cada usuário, evitando acessos desnecessários.
-- O uso da opção `WITH GRANT OPTION` deve ser feito com cautela, pois permite que os usuários concedam permissões a terceiros.
+Além das restrições de chave, é possível incluir restrições adicionais de domínio para garantir a integridade dos dados.
 
-O controle adequado de permissões é fundamental para a administração segura de bancos de dados em ambientes corporativos e de produção.
+### CHECK Constraint
+A restrição `CHECK` é usada para definir uma condição que os valores de uma coluna devem satisfazer. Se um valor não atender à condição especificada, a inserção ou atualização da linha será rejeitada.
+
+### Restrições sobre Campos
+As restrições podem ser aplicadas diretamente nas colunas da tabela para impor regras de integridade.
+
+```sql
+CREATE TABLE Produto (
+    Codigo VARCHAR(20),
+    Nome VARCHAR(50),
+    Saldo NUMBER,
+    CHECK (Saldo BETWEEN 0 AND 40)
+);
+```
+
+### Restrições sobre Tuplas
+As restrições também podem ser adicionadas para garantir relações entre os valores das colunas.
+
+```sql
+ALTER TABLE entrega ADD
+    CHECK (DataSaida <= DataChegada);
+```
+
+## Gatilhos ou Triggers
+
+Os *Triggers* são procedimentos armazenados que são automaticamente executados em resposta a eventos específicos em uma tabela, como operações `INSERT`, `UPDATE` ou `DELETE`.
+
+### Tipos de Triggers
+
+1. **BEFORE TRIGGER**: Executa antes da operação (`INSERT`, `UPDATE`, `DELETE`).
+2. **AFTER TRIGGER**: Executa após a operação.
+3. **INSTEAD OF TRIGGER**: Substitui a operação original, muito útil para `VIEWs`.
+
+### Criando um Trigger para Auditoria de Alterações no Salário
+
+O exemplo abaixo cria um *trigger* que registra todas as alterações feitas no atributo `salario` de um empregado na tabela `Audit_Salario`.
+
+```sql
+CREATE TABLE Audit_Salario (
+    ID NUMBER(6),
+    data DATE,
+    new_sal NUMBER(8,2),
+    old_sal NUMBER(8,2)
+);
+
+CREATE OR REPLACE TRIGGER Audit_sal
+AFTER UPDATE OF salario ON Empregado FOR EACH ROW
+BEGIN
+    INSERT INTO Audit_Salario VALUES(:OLD.Matricula, SYSDATE, :NEW.salario, :OLD.salario);
+END;
+```
+
+Para testar o *trigger*, podemos executar o seguinte comando:
+
+```sql
+UPDATE empregado SET salario = salario * 1.01 WHERE Bairro = 'Pituba';
+```
+
+Em seguida, podemos verificar os registros na tabela de auditoria:
+
+```sql
+SELECT * FROM Audit_Salario;
+```
+
+### Criando Triggers para Atualizar o Campo `TotalSal` na Tabela `Departamento`
+
+```sql
+ALTER TABLE Departamento ADD TotalSal NUMBER;
+UPDATE Departamento SET TotalSal = 0;
+
+CREATE TRIGGER TotalSalario
+AFTER INSERT ON empregado FOR EACH ROW
+BEGIN
+    UPDATE departamento
+    SET totalsal = totalsal + :new.salario
+    WHERE cod = :new.coddepart;
+END;
+```
+
+### Exemplo de INSTEAD OF TRIGGER para VIEW
+
+Se tivermos uma `VIEW` chamada `Empregado_Departamento`, podemos criar um `INSTEAD OF TRIGGER` para gerenciar inserções:
+
+```sql
+CREATE VIEW Empregado_Departamento AS
+SELECT e.Matricula, e.Nome, d.Nome AS Departamento
+FROM Empregado e
+JOIN Departamento d ON e.CodDepart = d.Cod;
+
+CREATE TRIGGER InsteadOfInsertEmpDept
+INSTEAD OF INSERT ON Empregado_Departamento
+FOR EACH ROW
+BEGIN
+    INSERT INTO Empregado (Matricula, Nome, CodDepart)
+    VALUES (:NEW.Matricula, :NEW.Nome, (SELECT Cod FROM Departamento WHERE Nome = :NEW.Departamento));
+END;
+```
+
+Esse `INSTEAD OF TRIGGER` permite que insiramos dados na `VIEW`, e o banco de dados automaticamente os distribua para as tabelas correspondentes.
+
+---
+
+Os *triggers* são ferramentas poderosas para garantir integridade, automação de regras de negócio e auditoria dentro de um banco de dados relacional.
