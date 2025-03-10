@@ -129,81 +129,22 @@ FULL JOIN pedidos ON clientes.id_cliente = pedidos.id_cliente;
  
 #### 6. Liste todos os produtos que nunca foram comprados. (LEFT JOIN)
 
-```sql
-SELECT p.id_produto, p.nome
-FROM produtos p
-LEFT JOIN itens_pedido ip ON p.id_produto = ip.id_produto
-WHERE ip.id_produto IS NULL;
-```
-
 #### 7. Liste todos os clientes que nunca fizeram um pedido. (LEFT JOIN)
-```sql
-SELECT c.id_cliente, c.nome
-FROM clientes c
-LEFT JOIN pedidos p ON c.id_cliente = p.id_cliente
-WHERE p.id_pedido IS NULL;
-```
 
 #### 8. Quais são os pedidos que possuem pelo menos um item cadastrado? (INNER JOIN)
-```sql
-SELECT DISTINCT p.id_pedido, p.status
-FROM pedidos p
-INNER JOIN itens_pedido ip ON p.id_pedido = ip.id_pedido;
-
-```
 
 #### 9. Liste todos os pedidos, mesmo aqueles sem itens. (LEFT JOIN)
-```sql
-SELECT p.id_pedido, p.status
-FROM pedidos p
-LEFT JOIN itens_pedido ip ON p.id_pedido = ip.id_pedido;
-```
-
 
 #### 10. Liste todos os produtos e os pedidos em que foram comprados, incluindo produtos nunca vendidos. (LEFT JOIN)
-```sql
-SELECT p.id_produto, p.nome, p.preco, pd.id_pedido
-FROM produtos p
-LEFT JOIN itens_pedido ip ON p.id_produto = ip.id_produto
-LEFT JOIN pedidos pd ON ip.id_pedido = pd.id_pedido;
-```
-
 
 #### 11. Liste todos os produtos comprados em um determinado período de tempo. (INNER JOIN com filtro de data)
-```sql
-SELECT p.id_produto, p.nome, ip.quantidade, ip.subtotal
-FROM itens_pedido ip
-INNER JOIN pedidos pe ON ip.id_pedido = pe.id_pedido
-INNER JOIN produtos p ON ip.id_produto = p.id_produto
-WHERE pe.data_pedido BETWEEN '2025-01-01' AND '2025-01-31';
-```
-
 
 #### 12. Liste todos os clientes e os produtos que compraram, incluindo clientes que nunca compraram nada. (LEFT JOIN)
-```sql
-SELECT c.id_cliente, c.nome, p.id_produto, p.nome AS produto
-FROM clientes c
-LEFT JOIN pedidos pd ON c.id_cliente = pd.id_cliente
-LEFT JOIN itens_pedido ip ON pd.id_pedido = ip.id_pedido
-LEFT JOIN produtos p ON ip.id_produto = p.id_produto;
-```
-
 
 #### 13. Quais clientes fizeram pedidos e quais pedidos não possuem clientes registrados? (FULL JOIN)
-```sql
-SELECT c.id_cliente, c.nome, p.id_pedido, p.status
-FROM clientes c
-FULL JOIN pedidos p ON c.id_cliente = p.id_cliente;
-```
-
 
 #### 14. Liste todos os pedidos e os produtos neles, incluindo pedidos sem produtos. (LEFT JOIN)
-```sql
-SELECT p.id_pedido, p.status, ip.id_produto, prod.nome
-FROM pedidos p
-LEFT JOIN itens_pedido ip ON p.id_pedido = ip.id_pedido
-LEFT JOIN produtos prod ON ip.id_produto = prod.id_produto;
-```
+
 
 ### Subconsultas
 
@@ -313,105 +254,4 @@ SELECT nome,
         WHERE id_cliente = c.id_cliente) AS total_compras
 FROM clientes c
 WHERE c.id_cliente = 1;
-```
-
-### Trigger
-
-1. Trigger: Atualiza o status do pedido quando o total for alterado
-
-Este exercício cria uma Trigger que será acionada toda vez que o total de um pedido (total) for alterado. Se o valor total do pedido for maior que 500, o status do pedido será alterado para "Em Processamento", caso contrário, será alterado para "Aguardando Pagamento".
-
-```sql
-CREATE OR REPLACE TRIGGER atualiza_status_pedido
-AFTER UPDATE OF total ON pedidos
-FOR EACH ROW
-BEGIN
-    IF :NEW.total > 500 THEN
-        UPDATE pedidos
-        SET status = 'Em Processamento'
-        WHERE id_pedido = :NEW.id_pedido;
-    ELSE
-        UPDATE pedidos
-        SET status = 'Aguardando Pagamento'
-        WHERE id_pedido = :NEW.id_pedido;
-    END IF;
-END atualiza_status_pedido;
-
-```
-
-2. Trigger: Impede a exclusão de um cliente se ele tiver pedidos
-Esta trigger impedirá a exclusão de um cliente da tabela clientes se ele tiver feito um ou mais pedidos. Ela verifica se o cliente possui registros na tabela pedidos antes de permitir a exclusão
-
-```sql
-CREATE OR REPLACE TRIGGER impede_exclusao_cliente
-BEFORE DELETE ON clientes
-FOR EACH ROW
-BEGIN
-    DECLARE
-        v_count INTEGER;
-    BEGIN
-        SELECT COUNT(*) INTO v_count
-        FROM pedidos
-        WHERE id_cliente = :OLD.id_cliente;
-        
-        IF v_count > 0 THEN
-            RAISE_APPLICATION_ERROR(-20001, 'Não é possível excluir o cliente. Ele possui pedidos associados.');
-        END IF;
-    END;
-END impede_exclusao_cliente;
-```
-
-3. Procedure: Atualiza o preço de um produto
-Aqui está um exemplo de Procedure que permite ajustar o preço de um produto com base em um percentual informado. A procedure recebe dois parâmetros: o id_produto e o percentual de reajuste.
-
-```sql
-CREATE OR REPLACE PROCEDURE reajustar_preco_produto (
-    p_id_produto INT,
-    p_percentual DECIMAL
-) AS
-BEGIN
-    UPDATE produtos
-    SET preco = preco + (preco * p_percentual / 100)
-    WHERE id_produto = p_id_produto;
-    COMMIT;
-END reajustar_preco_produto;
-
-```
-
-4. Procedure: Registra um novo pedido
-Esta Procedure cria um novo pedido e insere os itens correspondentes. Ela recebe o id_cliente e um array de produtos com suas quantidades.
-
-```sql
-CREATE OR REPLACE PROCEDURE registrar_pedido (
-    p_id_cliente INT,
-    p_produtos IN SYS.ODCINUMBERLIST, -- Tipo de dado para armazenar lista de números (ID dos produtos)
-    p_quantidades IN SYS.ODCINUMBERLIST -- Tipo de dado para armazenar lista de quantidades
-) AS
-    v_id_pedido INT;
-    v_total DECIMAL(10,2) := 0;
-BEGIN
-    -- Insere o pedido na tabela pedidos
-    INSERT INTO pedidos (id_cliente, total, status)
-    VALUES (p_id_cliente, 0, 'Aguardando Pagamento')
-    RETURNING id_pedido INTO v_id_pedido;
-    
-    -- Insere os itens do pedido
-    FOR i IN 1..p_produtos.COUNT LOOP
-        INSERT INTO itens_pedido (id_pedido, id_produto, quantidade, subtotal)
-        VALUES (v_id_pedido, p_produtos(i), p_quantidades(i), p_quantidades(i) * (SELECT preco FROM produtos WHERE id_produto = p_produtos(i)));
-        
-        -- Calcula o total do pedido
-        SELECT preco * p_quantidades(i) INTO v_total
-        FROM produtos
-        WHERE id_produto = p_produtos(i);
-    END LOOP;
-    
-    -- Atualiza o total do pedido
-    UPDATE pedidos
-    SET total = v_total
-    WHERE id_pedido = v_id_pedido;
-    
-    COMMIT;
-END registrar_pedido;
-
 ```
