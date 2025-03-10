@@ -59,6 +59,7 @@ REVOKE DELETE ON empregado FROM alan;
 REVOKE ALL ON empregado FROM alan;
 REVOKE ALL ON empregado FROM PUBLIC;
 ```
+---
 
 ## Especificação de Restrições Básicas em SQL
 
@@ -79,6 +80,13 @@ CREATE TABLE Produto (
 );
 ```
 
+- CREATE TABLE Produto (: Cria uma nova tabela chamada Produto.
+- Codigo VARCHAR(20),: Define a coluna Codigo como um tipo de dado VARCHAR (texto variável) com comprimento máximo de 20 caracteres.
+- Nome VARCHAR(50),: Define a coluna Nome como um tipo de dado VARCHAR com comprimento máximo de 50 caracteres.
+- Saldo NUMBER,: Define a coluna Saldo como um tipo de dado numérico (NUMBER), que pode armazenar valores numéricos.
+- CHECK (Saldo BETWEEN 0 AND 40): Aplica uma restrição de verificação (CHECK) na coluna Saldo, garantindo que os valores inseridos nesta coluna estejam entre 0 e 40 (inclusive).
+- ): Finaliza a definição da tabela.
+
 ### Restrições sobre Tuplas
 As restrições também podem ser adicionadas para garantir relações entre os valores das colunas.
 
@@ -86,6 +94,8 @@ As restrições também podem ser adicionadas para garantir relações entre os 
 ALTER TABLE entrega ADD
     CHECK (DataSaida <= DataChegada);
 ```
+
+---
 
 ## Gatilhos ou Triggers
 
@@ -209,6 +219,160 @@ END;
 
 Esse `INSTEAD OF TRIGGER` permite que insiramos dados na `VIEW`, e o banco de dados automaticamente os distribua para as tabelas correspondentes.
 
+Os *triggers* são ferramentas poderosas para garantir integridade, automação de regras de negócio e auditoria dentro de um banco de dados relacional.
+
 ---
 
-Os *triggers* são ferramentas poderosas para garantir integridade, automação de regras de negócio e auditoria dentro de um banco de dados relacional.
+
+# Procedimentos Armazenados ou Stored Procedures
+
+## Definição
+
+Procedimentos armazenados, ou *Stored Procedures*, são um conjunto de instruções SQL que são armazenadas e executadas no banco de dados. Elas são acionadas por um comando `EXECUTE`.
+
+Um procedimento armazenado forma uma unidade lógica que executa uma tarefa específica no banco de dados. São usados para encapsular operações ou acessos para execução em um servidor de banco de dados.
+
+Podem ser compiladas e executadas com diferentes parâmetros e resultados, além de suportar qualquer combinação de parâmetros de entrada e saída. São compatíveis com a maioria dos SGBDs, mas a sintaxe e as capacidades podem variar entre eles.
+
+### Exemplos de linguagens usadas para Procedimentos Armazenados
+
+- **ORACLE**: PL/SQL ou Java
+- **SYBASE**: TRANSACT-SQL
+- **MS SQL SERVER**: TRANSACT-SQL
+
+## Benefícios dos Procedimentos Armazenados
+
+- **Promoção da programação modular**: Facilitam a organização do código, permitindo que partes específicas da lógica sejam reutilizadas.
+- **Execução mais rápida**: Como são compilados e otimizados previamente, procedimentos armazenados têm um desempenho superior em relação a instruções SQL executadas diretamente.
+- **Redução do tráfego na rede**: Como a lógica é executada no servidor de banco de dados, não há necessidade de enviar múltiplas instruções SQL pela rede.
+
+Procedimentos armazenados podem ser alterados com o comando `ALTER` ou excluídos com o comando `DROP`.
+
+## Exemplo 1: Criação de uma Stored Procedure
+
+```sql
+CREATE OR REPLACE PROCEDURE data_atual AS
+BEGIN
+    -- Mostra a data do sistema em um formato completo
+    DBMS_OUTPUT.PUT_LINE('Hoje é ' || TO_CHAR(SYSDATE, 'DL'));
+END data_atual;
+```
+
+1. CREATE OR REPLACE PROCEDURE data_atual AS:
+
+- Esse comando cria um novo procedimento armazenado chamado data_atual, ou substitui um procedimento existente com esse nome, caso já exista no banco de dados.
+- CREATE OR REPLACE: A palavra-chave CREATE cria um novo objeto, enquanto REPLACE substitui qualquer objeto existente com o mesmo nome.
+- PROCEDURE data_atual: A palavra-chave PROCEDURE indica que estamos criando um procedimento armazenado e data_atual é o nome do procedimento.
+
+2. BEGIN:
+
+- Inicia o bloco do código que contém as instruções que o procedimento vai executar. Todo o código do procedimento deve estar entre BEGIN e END.
+
+3. -- Mostra a data do sistema em um formato completo:
+
+- Este é um comentário no código. O texto após -- não é executado, serve apenas para fornecer informações ao desenvolvedor sobre o que o código faz.
+
+4. DBMS_OUTPUT.PUT_LINE('Hoje é ' || TO_CHAR(SYSDATE, 'DL'));:
+
+- DBMS_OUTPUT.PUT_LINE: Este comando é usado para exibir ou imprimir informações no console de saída do Oracle, uma funcionalidade útil para debug ou simplesmente para mostrar informações ao usuário.
+- 'Hoje é ': Esta é uma string literal que será exibida antes da data.
+- ||: O operador de concatenação de strings no Oracle, utilizado para juntar várias partes de texto.
+- TO_CHAR(SYSDATE, 'DL'): O comando TO_CHAR converte a data do sistema (SYSDATE) para uma string, no formato especificado. O formato 'DL' não é um formato padrão, mas poderia ser personalizado conforme a necessidade (um exemplo típico seria 'DD/MM/YYYY' para uma data no formato dia/mês/ano). Aqui, parece que a intenção era mostrar a data completa do sistema.
+- O resultado final será algo como: Hoje é 09/03/2025, dependendo da data do sistema.
+
+5. END data_atual;:
+
+- Finaliza o bloco do procedimento, indicando que não há mais instruções a serem executadas.
+O nome data_atual após END é opcional e serve apenas para reforçar o nome do procedimento no final, facilitando a leitura e identificação.
+
+### Chamada da Procedure
+
+```sql
+BEGIN
+    data_atual(); -- Os parênteses são opcionais
+END;
+```
+
+## Exemplo 2: Criação de uma Stored Procedure para Reajuste de Salário
+
+```sql
+CREATE PROCEDURE Reajusta_Salario (SAL NUMBER) AS
+BEGIN
+    UPDATE Empregado SET Salario = Salario * SAL;
+    COMMIT;
+END Reajusta_Salario;
+```
+- CREATE PROCEDURE Reajusta_Salario (SAL NUMBER) AS: Cria o procedimento Reajusta_Salario, que recebe um parâmetro SAL do tipo NUMBER, representando o fator de reajuste salarial.
+- BEGIN: Inicia o bloco de instruções do procedimento.
+- UPDATE Empregado SET Salario = Salario * SAL;: Atualiza o salário de todos os empregados na tabela Empregado, multiplicando o salário atual de cada um pelo valor de SAL passado como parâmetro.
+- COMMIT;: Confirma a transação, garantindo que as alterações no banco de dados sejam salvas.
+- END Reajusta_Salario;: Finaliza o procedimento.
+
+### Chamada da Procedure
+
+```sql
+BEGIN
+    Reajusta_Salario(1.2); -- Reajusta o salário em 20%
+END;
+```
+
+### Consulta após o reajuste
+
+```sql
+SELECT Salario FROM Empregado WHERE Coddepart = 1;
+```
+
+## Exemplo 3: Criando uma Rotina para Processar Pedidos
+
+### Criação da Tabela e Alteração
+
+```sql
+CREATE TABLE PEDIDO (
+    Codigo CHAR(20),
+    Nome CHAR(20),
+    Quantidade INT
+);
+
+ALTER TABLE PRODUTO ADD SaldoMinimo INT; -- Adicionando atributo saldo mínimo na tabela Produto
+```
+
+### Criação do Procedimento para Processar Pedidos
+
+```sql
+CREATE PROCEDURE Processa_Pedido AS
+BEGIN
+    INSERT INTO Pedido
+    (SELECT Codigo, Nome, SaldoMinimo FROM Produto WHERE Saldo < SaldoMinimo);
+END Processa_Pedido;
+```
+
+- CREATE PROCEDURE Processa_Pedido AS: Cria o procedimento armazenado Processa_Pedido, que não recebe parâmetros de entrada.
+- BEGIN: Inicia o bloco de instruções do procedimento.
+- INSERT INTO Pedido (SELECT Codigo, Nome, SaldoMinimo FROM Produto WHERE Saldo < SaldoMinimo);: Este comando insere dados na tabela Pedido a partir de um SELECT na tabela Produto. Ele seleciona o Codigo, Nome, e SaldoMinimo de todos os produtos onde o Saldo é menor que o SaldoMinimo.
+- END Processa_Pedido;: Finaliza o procedimento.
+
+### Chamada do Procedimento
+
+```sql
+BEGIN
+    Processa_Pedido;
+END;
+```
+
+### Consulta após a execução
+
+```sql
+SELECT * FROM Pedido;
+```
+
+### Atualização de Dados
+
+```sql
+UPDATE PRODUTO SET SaldoMinimo = 20; -- TESTAR NOVAMENTE A CHAMADA DA PROCEDURE
+```
+
+## Resumo
+
+Os procedimentos armazenados são uma ferramenta poderosa para centralizar a lógica de negócios no banco de dados, proporcionando maior eficiência, segurança e modularidade. Eles são amplamente utilizados para automatizar tarefas repetitivas, garantir consistência de dados e reduzir o tráfego de rede.
+
+
