@@ -116,6 +116,33 @@ BEGIN
 END;
 ```
 
+CREATE TABLE Audit_Salario: Esse comando cria uma nova tabela chamada Audit_Salario no banco de dados. O propósito dessa tabela é armazenar as alterações nos salários dos empregados.
+
+- ID NUMBER(6): A coluna ID é do tipo NUMBER(6), ou seja, pode armazenar números com até 6 dígitos. Essa coluna é usada para registrar o identificador do empregado, que provavelmente seria o número de matrícula do empregado (exemplo: Matricula na tabela Empregado).
+
+- data DATE: A coluna data armazena a data em que a alteração foi realizada. O tipo de dado é DATE, que armazena data e hora.
+
+- new_sal NUMBER(8,2): A coluna new_sal armazena o novo salário do empregado. O tipo de dado NUMBER(8,2) significa que o valor pode ter até 8 dígitos no total, sendo 2 deles após o ponto decimal (por exemplo, 999999.99).
+
+- old_sal NUMBER(8,2): A coluna old_sal armazena o salário anterior do empregado, no mesmo formato do new_sal.
+
+- CREATE OR REPLACE TRIGGER Audit_sal: Este comando cria ou substitui o trigger chamado Audit_sal. Um trigger é um tipo de objeto do banco de dados que executa automaticamente uma ação quando ocorre um evento específico (como uma atualização, inserção ou exclusão).
+
+- AFTER UPDATE OF salario ON Empregado: Define que o trigger será acionado depois de uma atualização na tabela Empregado, especificamente quando a coluna salario for alterada. Ou seja, sempre que o salário de um empregado for modificado, o trigger será executado.
+
+- FOR EACH ROW: Esta cláusula indica que o trigger será executado para cada linha afetada pela atualização. Isso significa que, se a atualização alterar múltiplas linhas, o trigger será executado uma vez para cada linha afetada.
+
+- BEGIN ... END;: O código entre BEGIN e END define o que o trigger irá fazer quando for acionado. No caso deste trigger, ele executa uma ação de inserção na tabela Audit_Salario.
+
+- INSERT INTO Audit_Salario (ID, data, new_sal, old_sal): O trigger insere uma nova linha na tabela Audit_Salario, registrando os dados relacionados à alteração do salário.
+
+- VALUES(:OLD.Matricula, SYSDATE, :NEW.salario, :OLD.salario);: O comando INSERT insere os valores nas colunas da tabela Audit_Salario:
+
+- :OLD.Matricula: Refere-se ao valor antigo da coluna Matricula (matrícula do empregado) na linha antes de ser alterada.
+SYSDATE: Retorna a data e hora atuais do sistema, que é registrada como a data da alteração.
+- :NEW.salario: Refere-se ao novo valor da coluna salario na linha após a atualização.
+- :OLD.salario: Refere-se ao valor antigo da coluna salario antes da atualização.
+
 Para testar o *trigger*, podemos executar o seguinte comando:
 
 ```sql
@@ -131,17 +158,26 @@ SELECT * FROM Audit_Salario;
 ### Criando Triggers para Atualizar o Campo `TotalSal` na Tabela `Departamento`
 
 ```sql
-ALTER TABLE Departamento ADD TotalSal NUMBER;
-UPDATE Departamento SET TotalSal = 0;
+    ALTER TABLE Departamento ADD TotalSal NUMBER;
+    UPDATE Departamento SET TotalSal = 0;
 
-CREATE TRIGGER TotalSalario
-AFTER INSERT ON empregado FOR EACH ROW
-BEGIN
-    UPDATE departamento
-    SET totalsal = totalsal + :new.salario
-    WHERE cod = :new.coddepart;
-END;
+    CREATE TRIGGER TotalSalario
+    AFTER INSERT ON empregado FOR EACH ROW
+    BEGIN
+        UPDATE departamento
+        SET totalsal = totalsal + :new.salario
+        WHERE cod = :new.coddepart;
+    END;
 ```
+
+- Acrescenta a coluna TotalSal na tabela Departamento para armazenar o total dos salários dos empregados de cada departamento.
+- Garante que todos os departamentos começam com um total de salários igual a 0.
+- Esse trigger é acionado depois (AFTER) de uma inserção (INSERT) na tabela Empregado.
+Para cada nova linha adicionada (FOR EACH ROW), ele:
+- Atualiza a tabela Departamento, somando o valor do salário recém-inserido (:NEW.- salario) ao total acumulado (TotalSal).
+- Usa :NEW.coddepart para garantir que a atualização seja feita no departamento correto.
+
+
 
 ### Exemplo de INSTEAD OF TRIGGER para VIEW
 
@@ -161,6 +197,15 @@ BEGIN
     VALUES (:NEW.Matricula, :NEW.Nome, (SELECT Cod FROM Departamento WHERE Nome = :NEW.Departamento));
 END;
 ```
+
+- A view exibe informações dos empregados junto com o nome de seu respectivo departamento.
+- Os dados vêm de uma junção (JOIN) entre as tabelas Empregado e Departamento.
+- A coluna CodDepart da tabela Empregado é usada para ligar com a coluna Cod da tabela Departamento.
+- Esse trigger é do tipo INSTEAD OF INSERT, que substitui a tentativa de inserção direta na view por outra ação.
+- Ele intercepta qualquer comando INSERT na view Empregado_Departamento e, em vez disso, insere os dados diretamente na tabela Empregado.
+- Como a view não possui a coluna CodDepart (somente Departamento), o trigger faz uma subconsulta para buscar o código (Cod) correspondente ao nome do departamento (:NEW.Departamento).
+- Assim, o novo empregado é inserido corretamente na tabela Empregado, mantendo a integridade dos dados.
+
 
 Esse `INSTEAD OF TRIGGER` permite que insiramos dados na `VIEW`, e o banco de dados automaticamente os distribua para as tabelas correspondentes.
 
