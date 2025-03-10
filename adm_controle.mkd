@@ -1,0 +1,69 @@
+# Controle de Dados
+
+## GRANT/REVOKE
+
+Os comandos `GRANT` e `REVOKE` são utilizados no SQL para conceder e revogar permissões de acesso a objetos do banco de dados, garantindo um controle adequado sobre a segurança dos dados.
+
+- Cada objeto do banco de dados tem um dono (*owner*), que é o seu criador.
+- Apenas o criador ou dono pode acessar os objetos inicialmente.
+- O SQL oferece um esquema de permissões através dos comandos `GRANT` e `REVOKE` para permitir ou restringir o acesso a outros usuários.
+
+## GRANT
+
+O comando `GRANT` é utilizado para conceder permissões a usuários específicos ou públicos para realizar determinadas operações no banco de dados.
+
+### Permissão de comandos DDL
+O `GRANT` pode ser usado para conceder permissões sobre comandos de manipulação da estrutura do banco de dados (DDL - *Data Definition Language*).
+
+```sql
+GRANT {comando} TO {usuário};
+```
+
+### Permissão de acesso a objetos
+O `GRANT` também permite definir permissões específicas sobre tabelas, visões e outros objetos do banco de dados.
+
+```sql
+GRANT {comando} ON {object} TO {usuário} [WITH GRANT OPTION];
+```
+
+- **MS SQL Server** – Especifica colunas após `{object}`.
+- **Oracle** – Especifica colunas após `{comando}`.
+
+### Opção `WITH GRANT OPTION`
+Ao adicionar `WITH GRANT OPTION`, o usuário que recebeu a permissão pode conceder a mesma permissão a outros usuários.
+
+### Exemplos de `GRANT`
+```sql
+GRANT ALTER ON empregado TO alan;
+GRANT SELECT, INSERT, UPDATE, DELETE ON empregado TO alan;
+GRANT ALL ON empregado TO alan;
+GRANT SELECT ON departamento TO alan WITH GRANT OPTION;
+```
+
+## REVOKE
+
+O comando `REVOKE` é utilizado para retirar as permissões previamente concedidas a um usuário.
+
+```sql
+REVOKE {comando} ON {object} FROM {usuário};
+```
+
+### Importância do `REVOKE`
+- Permite revogar acessos de usuários quando não são mais necessários.
+- Pode ser usado para restringir privilégios que foram concedidos acidentalmente ou que não são mais adequados.
+- Se um usuário perder uma permissão que recebeu com `WITH GRANT OPTION`, todas as permissões concedidas por ele a outros usuários também serão removidas.
+
+### Exemplos de `REVOKE`
+```sql
+REVOKE DELETE ON empregado FROM alan;
+REVOKE ALL ON empregado FROM alan;
+REVOKE ALL ON empregado FROM PUBLIC;
+```
+
+## Considerações Finais
+
+- O gerenciamento de permissões é essencial para garantir a segurança e integridade dos dados no banco de dados.
+- Deve-se conceder apenas as permissões necessárias para cada usuário, evitando acessos desnecessários.
+- O uso da opção `WITH GRANT OPTION` deve ser feito com cautela, pois permite que os usuários concedam permissões a terceiros.
+
+O controle adequado de permissões é fundamental para a administração segura de bancos de dados em ambientes corporativos e de produção.
