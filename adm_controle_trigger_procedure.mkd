@@ -381,10 +381,10 @@ Os procedimentos armazenados são uma ferramenta poderosa para centralizar a ló
 
 A avaliação será dividida em três partes: apresentação teórica, estudo de caso e exercícios práticos. O total de pontos será 10.
 
-## 1. Apresentação Teórica (30 a 40 minutos) - **Total: 4 pontos**
+## 1. Apresentação Teórica (50 minutos) - **Total: 4 pontos**
 
 - **Completude, Clareza e Domínio dos Conceitos** (2 pontos)
-  - Todos os conceitos do Modelo Conceitual são apresentados de maneira clara e detalhada.
+  - Todos os conceitos são apresentados de maneira clara e detalhada.
   - Exemplos práticos são fornecidos para ilustrar cada conceito.
   - A explicação é lógica e segue uma sequência didática.
   - O grupo demonstra domínio sobre os conceitos, respondendo de forma precisa a eventuais perguntas.
@@ -396,18 +396,18 @@ A avaliação será dividida em três partes: apresentação teórica, estudo de
 - **Clareza na Apresentação Visual** (1 ponto)
   - A apresentação visual (slides, diagramas, gráficos) é bem organizada e facilita o entendimento.
 
-## 2. Estudo de Caso (20 a 30 minutos) - **Total: 3 pontos**
+## 2. Estudo de Caso (30 minutos) - **Total: 3 pontos**
 - **Relevância e Aplicação Prática** (1 ponto)
   - O estudo de caso está diretamente relacionado aos conceitos apresentados na teoria.
   - O estudo de caso demonstra como os conceitos do modelo conceitual são aplicados de maneira clara.
 
 - **Completação do Estudo de Caso** (1 ponto)
-  - O estudo de caso aborda todos os aspectos solicitados, como o uso de todas as operações da álgebra relacional, terminologia e domínio.
+  - O estudo de caso aborda todos os aspectos solicitados.
 
 - **Resolução e Conclusão do Caso** (1 ponto)
   - O estudo de caso é concluído com uma análise clara das soluções obtidas.
 
-## 3. Exercícios Práticos (20 a 30 minutos) - **Total: 2 pontos**
+## 3. Exercícios Práticos (30 minutos) - **Total: 2 pontos**
 - **Desafio e Clareza das Perguntas** (0,5 ponto)
   - Os exercícios são bem formulados e desafiam os colegas a aplicar os conceitos discutidos.
 
