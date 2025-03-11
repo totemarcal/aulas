@@ -406,9 +406,7 @@ Tabela **Aluno**:
 
 Selecionando os alunos com **idade maior que 20**:
 
-$
-\sigma_{\text{idade} > 20}(Aluno)
-$
+$\sigma_{\text{idade} > 20}(Aluno)$
 
 **Resultado**:
 
