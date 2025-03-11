@@ -200,7 +200,7 @@ Seja:
 Então, uma **relação** \( R \) pode ser representada matematicamente como:
 
 \[
-r(R) \subseteq (dom(A1) \times dom(A2) \times ... \times dom(An))
+r(R) \subseteq (dom(A_1) \times dom(A_2) \times \dots \times dom(A_n))
 \]
 
 Onde:
