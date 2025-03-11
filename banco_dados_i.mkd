@@ -295,9 +295,7 @@ Uma **relação** \( r(R) \) é um **conjunto de n-tuplas** que pertencem a uma 
 
 A notação de uma relação seria:
 
-$
-r(R) = \{t1, t2, ..., tm\}
-$
+$r(R) = \{t1, t2, ..., tm\}$
 
 Onde:
 - \( t1, t2, ..., tm \) são as tuplas que fazem parte da relação \( R \).
@@ -393,9 +391,8 @@ As operações da álgebra relacional permitem a manipulação eficiente de dado
 A operação de **seleção** filtra as linhas que atendem a uma condição específica.
 
 #### **Sintaxe**:  
-$
-\sigma_{\text{condição}}(R)
-$
+
+$\sigma_{\text{condição}}(R)$
 
 #### **Exemplo**:
 
