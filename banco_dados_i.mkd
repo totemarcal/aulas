@@ -205,7 +205,7 @@ $r(R) \subseteq (dom(A_1) \times dom(A_2) \times \dots \times dom(A_n))$
 Onde:
 - \( r(R) \) é o conjunto de tuplas que formam a relação \( R \).
 - \( dom(Ai) \) é o domínio do atributo \( Ai \), ou seja, o conjunto de valores possíveis para \( Ai \).
-- \( \times \) denota o **produto cartesiano** dos domínios, ou seja, o conjunto de todas as combinações possíveis dos valores dos domínios de \( A1, A2, ..., An \).
+- \( $\times$ \) denota o **produto cartesiano** dos domínios, ou seja, o conjunto de todas as combinações possíveis dos valores dos domínios de \( A1, A2, ..., An \).
 
 ### **Explicação do Produto Cartesiano**
 
@@ -213,9 +213,7 @@ O **produto cartesiano** dos domínios \( dom(A1), dom(A2), ..., dom(An) \) gera
 
 - Se \( dom(A1) = \{1, 2\} \) e \( dom(A2) = \{x, y\} \), o produto cartesiano \( dom(A1) \times dom(A2) \) seria:
 
-\[
-dom(A1) \times dom(A2) = \{(1, x), (1, y), (2, x), (2, y)\}
-\]
+$ dom(A1) \times dom(A2) = \{(1, x), (1, y), (2, x), (2, y)\} $
 
 A relação \( r(R) \) será um subconjunto deste produto cartesiano. Ou seja, a relação \( R \) pode conter algumas (ou todas) as combinações possíveis, dependendo dos dados inseridos na tabela.
 
@@ -230,15 +228,15 @@ Considerando a relação **Aluno**, com os seguintes atributos e domínios:
 
 O produto cartesiano seria:
 
-\[
+$
 dom(matricula) \times dom(nome) \times dom(idade) = \{(1001, João, 18), (1001, João, 19), (1001, Maria, 18), (1001, Maria, 19), (1002, João, 18), (1002, João, 19), (1002, Maria, 18), (1002, Maria, 19)\}
-\]
+$
 
 Agora, a relação \( r(Aluno) \) poderia ser um subconjunto desse conjunto, por exemplo:
 
-\[
+$
 r(Aluno) = \{(1001, João, 18), (1002, Maria, 19)\}
-\]
+$
 
 Este subconjunto contém apenas algumas das combinações possíveis.
 
@@ -259,9 +257,9 @@ Uma **tupla** é uma **lista ordenada de valores** que representam dados em uma 
 #### **Notação**
 Uma tupla \( t \) é representada como:
 
-\[
+$
 t = <v1, v2, ..., vn>
-\]
+$
 
 Onde:
 - \( v1, v2, ..., vn \) são os valores da tupla, sendo que cada \( vi \) é um valor pertencente ao **domínio** de um atributo \( Ai \) da relação.
@@ -277,9 +275,9 @@ Considerando a relação **Aluno**, com os atributos:
 
 Uma tupla poderia ser:
 
-\[
+$
 t = <1001, "João Silva", 20>
-\]
+$
 
 Onde:
 - **1001** é o valor da matrícula.
@@ -288,18 +286,18 @@ Onde:
 
 Ou, se algum valor estiver ausente (como no caso de um telefone não fornecido), pode ser representado como **nulo**:
 
-\[
+$
 t = <1002, "Maria Souza", nulo>
-\]
+$
 
 #### **Relação**
 Uma **relação** \( r(R) \) é um **conjunto de n-tuplas** que pertencem a uma relação \( R \).
 
 A notação de uma relação seria:
 
-\[
+$
 r(R) = \{t1, t2, ..., tm\}
-\]
+$
 
 Onde:
 - \( t1, t2, ..., tm \) são as tuplas que fazem parte da relação \( R \).
@@ -313,9 +311,9 @@ O **grau** de uma relação é o **número de atributos** presentes na relação
 ### **Exemplo de Grau**
 Considerando a relação **Aluno**:
 
-\[
+$
 Aluno(matricula, nome, idade)
-\]
+$
 
 O grau da relação **Aluno** é 3, porque ela possui 3 atributos.
 
@@ -327,9 +325,9 @@ A **cardinalidade** de uma relação é o **número de tuplas** que ela contém.
 ### **Exemplo de Cardinalidade**
 Se a relação **Aluno** contiver as seguintes tuplas:
 
-\[
+$
 r(Aluno) = \{(1001, "João Silva", 20), (1002, "Maria Souza", 19), (1003, "Carlos Lima", 22)\}
-\]
+$
 
 A cardinalidade da relação **Aluno** é 3, porque existem 3 tuplas na relação.
 
@@ -395,9 +393,9 @@ As operações da álgebra relacional permitem a manipulação eficiente de dado
 A operação de **seleção** filtra as linhas que atendem a uma condição específica.
 
 #### **Sintaxe**:  
-\[
+$
 \sigma_{\text{condição}}(R)
-\]
+$
 
 #### **Exemplo**:
 
@@ -411,9 +409,9 @@ Tabela **Aluno**:
 
 Selecionando os alunos com **idade maior que 20**:
 
-\[
+$
 \sigma_{\text{idade} > 20}(Aluno)
-\]
+$
 
 **Resultado**:
 
@@ -427,9 +425,9 @@ Selecionando os alunos com **idade maior que 20**:
 A operação de **projeção** seleciona apenas **colunas específicas** de uma tabela.
 
 #### **Sintaxe**:  
-\[
+$
 \pi_{\text{atributos}}(R)
-\]
+$
 
 #### **Exemplo**:
 
@@ -443,9 +441,9 @@ Tabela **Aluno**:
 
 Projetando apenas as **colunas nome** e **idade**:
 
-\[
+$
 \pi_{\text{nome, idade}}(Aluno)
-\]
+$
 
 **Resultado**:
 
@@ -461,9 +459,9 @@ Projetando apenas as **colunas nome** e **idade**:
 A operação de **junção** combina os dados de **duas ou mais tabelas** com base em um **atributo comum**.
 
 #### **Sintaxe**:  
-\[
+$
 R \bowtie_{\text{atributo comum}} S
-\]
+$
 
 #### **Exemplo**:
 
@@ -485,9 +483,9 @@ Tabela **Curso**:
 
 Junção das tabelas **Aluno** e **Curso** pela **matricula**:
 
-\[
+$
 Aluno \bowtie_{\text{matricula}} Curso
-\]
+$
 
 **Resultado**:
 
@@ -502,9 +500,9 @@ Aluno \bowtie_{\text{matricula}} Curso
 A operação de **união** combina os resultados de **duas tabelas** semelhantes, ou seja, ambas com a mesma estrutura (mesmos atributos).
 
 #### **Sintaxe**:  
-\[
+$
 R \cup S
-\]
+$
 
 #### **Exemplo**:
 
@@ -524,9 +522,9 @@ Tabela **Aluno2**:
 
 União das tabelas **Aluno1** e **Aluno2**:
 
-\[
+$
 Aluno1 \cup Aluno2
-\]
+$
 
 **Resultado**:
 
@@ -543,9 +541,9 @@ Aluno1 \cup Aluno2
 A operação de **interseção** retorna os registros **comuns** entre duas tabelas semelhantes.
 
 #### **Sintaxe**:  
-\[
+$
 R \cap S
-\]
+$
 
 #### **Exemplo**:
 
@@ -565,9 +563,9 @@ Tabela **Aluno2**:
 
 Interseção das tabelas **Aluno1** e **Aluno2**:
 
-\[
+$
 Aluno1 \cap Aluno2
-\]
+$
 
 **Resultado**:
 
@@ -581,9 +579,9 @@ Aluno1 \cap Aluno2
 A operação de **diferença** retorna os registros que estão **em uma tabela, mas não em outra**.
 
 #### **Sintaxe**:  
-\[
+$
 R - S
-\]
+$
 
 #### **Exemplo**:
 
@@ -603,9 +601,9 @@ Tabela **Aluno2**:
 
 Diferença entre as tabelas **Aluno1** e **Aluno2**:
 
-\[
+$
 Aluno1 - Aluno2
-\]
+$
 
 **Resultado**:
 
@@ -628,7 +626,7 @@ A avaliação será dividida em três partes: apresentação teórica, estudo de
 ## 1. Apresentação Teórica (30 a 40 minutos) - **Total: 4 pontos**
 
 - **Completude, Clareza e Domínio dos Conceitos** (2 pontos)
-  - Todos os conceitos do Modelo Conceitual são apresentados de maneira clara e detalhada.
+  - Todos os conceitos são apresentados de maneira clara e detalhada.
   - Exemplos práticos são fornecidos para ilustrar cada conceito.
   - A explicação é lógica e segue uma sequência didática.
   - O grupo demonstra domínio sobre os conceitos, respondendo de forma precisa a eventuais perguntas.
