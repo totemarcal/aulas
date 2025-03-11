@@ -199,9 +199,8 @@ Seja:
 
 Então, uma **relação** \( R \) pode ser representada matematicamente como:
 
-\[
-r(R) \subseteq (dom(A_1) \times dom(A_2) \times \dots \times dom(A_n))
-\]
+$r(R) \subseteq (dom(A_1) \times dom(A_2) \times \dots \times dom(A_n))$
+
 
 Onde:
 - \( r(R) \) é o conjunto de tuplas que formam a relação \( R \).
