@@ -271,6 +271,138 @@ Dependente (
 
 ![texto](./fig-dependencia.png)
 
+
+## Atributo de Identificação e Conexão
+
+Os atributos de identificação e conexão são fundamentais no modelo de banco de dados, pois garantem a integridade e a consistência dos dados. Eles ajudam a estabelecer relacionamentos entre entidades e a identificar unicamente cada instância de uma entidade.
+
+
+### 1. **Chave Primária (Primary Key)**
+
+#### Definição:
+A **chave primária** é um atributo (ou conjunto de atributos) que identifica **unicamente** cada instância de uma entidade. Ela garante que não haja duplicidade de registros em uma tabela.
+
+#### Características:
+- **Única**: Não pode haver duas instâncias com o mesmo valor para a chave primária.
+- **Não nula**: A chave primária não pode ter valores nulos (`NULL`).
+- **Imutável**: O valor da chave primária não deve mudar ao longo do tempo.
+
+#### Exemplo:
+Na entidade **Funcionário**, o atributo `matricula` pode ser a chave primária, pois cada funcionário tem uma matrícula única.
+
+```plaintext
+Funcionário (
+    matricula,  -- Chave primária
+    nome,
+    endereço
+)
+```
+
+#### Representação no Diagrama ER:
+- A chave primária é sublinhada no diagrama ER.
+- Exemplo: `matricula`.
+
+
+### 2. **Chave Candidata (Candidate Key)**
+
+#### Definição:
+Uma **chave candidata** é um atributo (ou conjunto de atributos) que **poderia ser usado como chave primária**, mas não foi escolhido como tal. Uma entidade pode ter várias chaves candidatas, mas apenas uma será selecionada como chave primária.
+
+#### Características:
+- **Única**: Assim como a chave primária, a chave candidata deve identificar unicamente cada instância.
+- **Não nula**: Não pode ter valores nulos.
+- **Minimalidade**: Deve conter o menor número possível de atributos para garantir a unicidade.
+
+#### Exemplo:
+Na entidade **Funcionário**, além da `matricula`, o atributo `CPF` também pode ser uma chave candidata, pois cada funcionário tem um CPF único.
+
+```plaintext
+Funcionário (
+    matricula,  -- Chave primária
+    CPF,        -- Chave candidata
+    nome,
+    endereço
+)
+```
+
+#### Representação no Diagrama ER:
+- As chaves candidatas não são sublinhadas, mas são consideradas como opções para a chave primária.
+
+
+### 3. **Chave Estrangeira (Foreign Key)**
+
+#### Definição:
+A **chave estrangeira** é um atributo (ou conjunto de atributos) em uma entidade que **referencia a chave primária de outra entidade**. Ela é usada para estabelecer relacionamentos entre entidades.
+
+#### Características:
+- **Referência**: A chave estrangeira deve sempre referenciar uma chave primária válida em outra entidade.
+- **Integridade referencial**: Garante que não haja referências a registros que não existem.
+- **Pode ser nula**: Dependendo do relacionamento, a chave estrangeira pode permitir valores nulos.
+
+#### Exemplo:
+Na entidade **Dependente**, o atributo `matricula_funcionario` é uma chave estrangeira que referencia a chave primária `matricula` da entidade **Funcionário**.
+
+```plaintext
+Funcionário (
+    matricula,  -- Chave primária
+    nome,
+    endereço
+)
+
+Dependente (
+    matricula_funcionario,  -- Chave estrangeira (referencia Funcionário)
+    nome_dependente,        -- Chave parcial
+    data_nascimento
+)
+```
+
+#### Representação no Diagrama ER:
+- A chave estrangeira é representada por uma seta ou linha que conecta as entidades.
+- Exemplo: `matricula_funcionario` em **Dependente** referencia `matricula` em **Funcionário**.
+
+
+### Exemplo Completo
+
+#### Entidade Forte: Funcionário
+```plaintext
+Funcionário (
+    matricula,  -- Chave primária
+    CPF,        -- Chave candidata
+    nome,
+    endereço
+)
+```
+
+#### Entidade Fraca: Dependente
+```plaintext
+Dependente (
+    matricula_funcionario,  -- Chave estrangeira (referencia Funcionário)
+    nome_dependente,        -- Chave parcial
+    data_nascimento
+)
+```
+
+#### Instâncias:
+1. **Funcionário**:
+   - `(123, "111.222.333-44", "João Silva", "Rua A, 123")`
+   - `(456, "555.666.777-88", "Maria Souza", "Rua B, 456")`
+
+2. **Dependente**:
+   - `(123, "Ana Silva", "2005-03-15")`
+   - `(123, "Pedro Silva", "2010-07-22")`
+   - `(456, "Carlos Souza", "2012-11-10")`
+
+
+### Resumo
+
+| **Tipo de Chave**      | **Definição**                                                                 | **Exemplo**                          |
+|-------------------------|-------------------------------------------------------------------------------|--------------------------------------|
+| **Chave Primária**      | Atributo que identifica unicamente uma instância de uma entidade.             | `matricula` em **Funcionário**.      |
+| **Chave Candidata**     | Atributo que poderia ser usado como chave primária, mas não foi escolhido.    | `CPF` em **Funcionário**.            |
+| **Chave Estrangeira**   | Atributo que referencia a chave primária de outra entidade.                   | `matricula_funcionario` em **Dependente**. |
+
+
+
 ### Relacionamento
 Um **relacionamento** é uma associação lógica entre duas ou mais entidades. Os relacionamentos são representados por losangos no diagrama ER.
 
@@ -292,16 +424,6 @@ Um **relacionamento** é uma associação lógica entre duas ou mais entidades. 
 
 - **Entidades Fracas**:  
   São entidades que dependem de outras entidades (fortes ou fracas) para existir. Elas possuem uma chave parcial e precisam estar associadas a uma entidade forte.
-
-### Atributo de Identificação e Conexão
-- **Chave Primária**:  
-  Atributo que identifica unicamente uma instância de uma entidade.
-
-- **Chave Candidata**:  
-  Atributo que pode ser usado como chave primária, mas não foi escolhido como tal.
-
-- **Chave Estrangeira**:  
-  Atributo de uma entidade que está associado à chave primária de outra entidade.
 
 ### Notações para DER (Diagrama Entidade-Relacionamento)
 - **Entidade**: Representada por um retângulo.
