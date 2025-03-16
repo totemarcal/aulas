@@ -1,0 +1,179 @@
+# Modelagem de Dados
+
+## Conteúdo
+- **Introdução**: Conceitos básicos e importância da modelagem de dados.
+- **Fases de Projeto de BD**: Etapas para a criação de um banco de dados.
+- **Ciclo de vida de BD**: Desde a concepção até a manutenção do banco de dados.
+- **Modelo conceitual de BD**: Representação abstrata dos dados.
+- **Modelo Entidade-Relacionamento**: Técnica para modelar dados usando entidades e relacionamentos.
+- **Entidade/Atributo/Relacionamento**: Elementos fundamentais do modelo ER.
+- **Representação**: Como os elementos do modelo ER são representados graficamente.
+- **Extensões**: Aprimoramentos e variações do modelo ER.
+
+## Introdução
+
+### Abstração
+A abstração é uma habilidade mental que permite aos seres humanos visualizarem os problemas do mundo real com vários graus de detalhe, dependendo do contexto do problema. Essa capacidade é essencial para a modelagem de dados, pois permite que os projetistas simplifiquem sistemas complexos, focando nos aspectos mais relevantes para o problema em questão.
+
+**Citação**:  
+“Habilidade mental que permite aos seres humanos visualizarem os problemas do mundo real com vários graus de detalhe, dependendo do contexto do problema.”  
+**J. Rumbaugh**
+
+### Fases de Projeto de um Banco de Dados
+O projeto de um banco de dados envolve três fases principais:
+
+1. **Modelagem Conceitual**:  
+   Nesta fase, o objetivo é capturar formalmente os requisitos de informação do banco de dados. O modelo conceitual é independente de qualquer sistema de gerenciamento de banco de dados (SGBD) e foca na estrutura lógica dos dados.
+
+2. **Projeto Lógico**:  
+   Aqui, o foco é definir as estruturas de dados que implementam os requisitos identificados na modelagem conceitual. O projeto lógico é dependente do SGBD escolhido e envolve a criação de esquemas lógicos, como tabelas e relacionamentos.
+
+3. **Projeto Físico**:  
+   Nesta fase, são definidos os parâmetros físicos de acesso ao banco de dados, como índices, particionamento e otimização de consultas. O objetivo é garantir que o sistema tenha um bom desempenho em relação ao acesso aos dados.
+
+## Ciclo de Vida do Banco de Dados
+O ciclo de vida de um banco de dados envolve várias etapas, desde a análise dos requisitos até a manutenção contínua do sistema:
+
+1. **Análise dos Requisitos**:  
+   Coleta e análise das necessidades dos usuários e do sistema.
+
+2. **Projeto Conceitual e Lógico**:  
+   - **Modelo ER**: Criação do modelo entidade-relacionamento para representar a estrutura lógica dos dados.
+   - **Integração das Visões**: Combinação de diferentes visões dos usuários em um modelo único.
+   - **Transformações do MER em tabelas SQL**: Conversão do modelo ER em tabelas SQL.
+   - **Normalização das tabelas**: Aplicação de técnicas de normalização para evitar redundâncias e inconsistências.
+
+3. **Refinamento de Uso**:  
+   Ajustes no banco de dados com base no feedback dos usuários.
+
+4. **Distribuição dos Dados**:  
+   Decisão sobre como os dados serão distribuídos em diferentes locais, se necessário.
+
+5. **Definição do Projeto Físico**:  
+   Implementação de índices, particionamento e outras otimizações físicas.
+
+6. **Implementação do Banco de Dados**:  
+   Criação do banco de dados e carga inicial dos dados.
+
+7. **Monitoramento e Modificações**:  
+   Acompanhamento do desempenho do banco de dados e realização de ajustes conforme necessário.
+
+## Modelo Conceitual de Dados
+O modelo conceitual de dados é uma representação abstrata e detalhada da estrutura dos dados de uma organização, independente de qualquer sistema de gerenciamento de banco de dados (SGBD). Ele serve como uma ponte entre os requisitos do negócio e a implementação técnica do banco de dados.
+
+**Definições**:  
+- “Um modelo conceitual é um modelo detalhado, que captura a estrutura dos dados organizacional sendo independente de qualquer sistema de gerenciamento de base de dados...”  
+  **McFadden & Hoffer, p. 87**
+
+- “Coleção de ferramentas conceituais para descrição de dados, relacionamento entre os dados, semântica e restrições de dados.”  
+  **Henry F. Korth**
+
+- “Uma coletânea de conceitos que podem ser utilizados para descrever a estrutura de um banco de dados – fornece os meios necessários para alcançar a abstração de dados”  
+  **Elmasri/Navathe**
+
+### Modelos Conceituais comuns para Banco de Dados:
+- **Modelo Entidade-Relacionamento (ER)**:  
+  Foca na estrutura dos dados e metadados, mas não aborda a modelagem funcional.
+
+- **Modelo Orientado a Objeto**:  
+  Modela objetos através do encapsulamento dos metadados (estrutura) e métodos (funções).
+
+## Modelo Entidade-Relacionamento (ER)
+O modelo ER foi proposto por Peter Chen em 1976 e é baseado na percepção do mundo real. Ele qualifica todo item de informação como **entidade**, **atributos** e **relacionamento**, facilitando o entendimento tanto para o projetista do banco de dados quanto para o usuário.
+
+### Objetivos do Modelo ER:
+- **Simplicidade de representação**: Facilita a visualização dos dados e seus relacionamentos.
+- **Ferramenta para os projetistas**: Ajuda na criação de esquemas de banco de dados.
+- **Ferramenta de comunicação**: Facilita a comunicação entre os projetistas e os usuários.
+- **Criar uma visão unificada dos dados**: Integra diferentes visões dos usuários em um modelo único.
+
+### Entidade
+Uma **entidade** é qualquer objeto distinto que precisa ser representado no banco de dados. Pode ser concreta (como um carro ou uma casa) ou abstrata (como uma atividade ou um cargo).
+
+- **Instância de uma Entidade**:  
+  Representa uma ocorrência específica de uma entidade. Por exemplo, um carro específico com uma placa única.
+
+### Atributo
+Um **atributo** é uma informação útil sobre uma entidade ou relacionamento. Os atributos podem ser:
+
+- **Determinante**: Valor único que identifica uma instância da entidade (chave primária).
+- **Composto**: Atributo que pode ser dividido em sub-atributos (por exemplo, endereço pode ser dividido em rua, número, cidade, etc.).
+- **Multivalorado**: Atributo que pode ter mais de um valor para uma entidade (por exemplo, um funcionário pode ter vários telefones).
+
+### Relacionamento
+Um **relacionamento** é uma associação lógica entre duas ou mais entidades. Os relacionamentos são representados por losangos no diagrama ER.
+
+- **Grau do Relacionamento**:  
+  Define quantas entidades participam do relacionamento. Pode ser:
+  - **Unário**: Relacionamento entre instâncias da mesma entidade.
+  - **Binário**: Relacionamento entre duas entidades.
+  - **Ternário**: Relacionamento entre três entidades.
+
+- **Cardinalidade**:  
+  Define quantas instâncias de uma entidade podem se relacionar com instâncias de outra entidade. Pode ser:
+  - **1:1 (Um para Um)**: Cada instância de uma entidade se relaciona com apenas uma instância de outra entidade.
+  - **1:N (Um para Muitos)**: Uma instância de uma entidade pode se relacionar com várias instâncias de outra entidade.
+  - **N:M (Muitos para Muitos)**: Várias instâncias de uma entidade podem se relacionar com várias instâncias de outra entidade.
+
+### Tipos de Entidade
+- **Entidades Fortes**:  
+  São entidades que possuem alto grau de independência e não dependem de outras entidades para existir.
+
+- **Entidades Fracas**:  
+  São entidades que dependem de outras entidades (fortes ou fracas) para existir. Elas possuem uma chave parcial e precisam estar associadas a uma entidade forte.
+
+### Atributo de Identificação e Conexão
+- **Chave Primária**:  
+  Atributo que identifica unicamente uma instância de uma entidade.
+
+- **Chave Candidata**:  
+  Atributo que pode ser usado como chave primária, mas não foi escolhido como tal.
+
+- **Chave Estrangeira**:  
+  Atributo de uma entidade que está associado à chave primária de outra entidade.
+
+### Notações para DER (Diagrama Entidade-Relacionamento)
+- **Entidade**: Representada por um retângulo.
+- **Entidade Fraca**: Representada por um retângulo com borda dupla.
+- **Relacionamento**: Representado por um losango.
+- **Atributos**: Representados por elipses conectadas às entidades ou relacionamentos.
+
+### Modalidade
+A modalidade define se a participação de uma entidade em um relacionamento é obrigatória ou opcional. É representada por pares de números inteiros (min, max), onde:
+- **min = 0**: Participação opcional.
+- **min > 0**: Participação obrigatória.
+
+## Extensões do Modelo ER
+### Generalização/Especialização
+- **Especialização**:  
+  Processo de dividir uma entidade em subclasses. Por exemplo, a entidade "Funcionário" pode ser especializada em "Secretária", "Técnico" e "Engenheiro".
+
+- **Generalização**:  
+  Processo inverso da especialização, onde várias subclasses são agrupadas em uma superclasse. Por exemplo, "Aluno Graduação" e "Aluno Pós-Graduação" podem ser generalizados em "Aluno".
+
+### Agregação
+A agregação é uma abstração onde um relacionamento é tratado como uma entidade. Isso é útil quando um relacionamento precisa ser associado a outra entidade. Por exemplo, um relacionamento entre "Funcionário" e "Projeto" pode ser agregado para representar a alocação de recursos.
+
+## Exercícios
+### Estúdio de Tatuagem
+Um proprietário de estúdio de tatuagem precisa de um sistema para controlar suas atividades. O sistema deve:
+- Cadastrar clientes, tatuadores e tatuagens.
+- Registrar quais tatuagens foram aplicadas em quais clientes e por quais tatuadores.
+- Armazenar informações sobre desenhos trazidos pelos clientes.
+- Manter dados como preço, cor, tamanho e data de aplicação das tatuagens.
+
+### Fazenda de Ovelhas
+Uma fazenda precisa de um sistema para controlar o rebanho de ovelhas. O sistema deve:
+- Registrar informações sobre cada animal, como código de registro, sexo, data de nascimento, raça, cor e data da última vacinação.
+- Acompanhar o peso dos animais, com medições mensais.
+- Registrar consultas e procedimentos veterinários, incluindo data, valor pago e tipo de procedimento.
+
+## Recomendações para criação de um DER
+1. **Conheça o mundo real**: Entenda o domínio do problema antes de começar a modelar.
+2. **Identifique as entidades**: Liste todos os objetos que precisam ser representados no banco de dados.
+3. **Defina os atributos**: Para cada entidade, liste os atributos relevantes.
+4. **Verifique a necessidade de especialização**: Identifique se há subclasses que podem ser criadas a partir de uma entidade.
+5. **Identifique os relacionamentos**: Confronte cada entidade consigo mesma e com as demais para encontrar relacionamentos.
+6. **Defina as cardinalidades**: Determine quantas instâncias de uma entidade podem se relacionar com instâncias de outra entidade.
+7. **Desenhe o DER**: Crie o diagrama entidade-relacionamento com todas as entidades, atributos e relacionamentos.
+8. **Analise as restrições**: Verifique se o DER reflete fielmente o mundo real e faça ajustes conforme necessário.
