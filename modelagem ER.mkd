@@ -22,6 +22,24 @@ A abstração é uma habilidade mental que permite aos seres humanos visualizare
 ### Fases de Projeto de um Banco de Dados
 O projeto de um banco de dados envolve três fases principais:
 
+```mermaid
+graph TD
+    A[Fase do Projeto de Banco de Dados] --> B[Mini-Mundo]
+    B --> B1[Análise e Coleta de Requisitos]
+    B --> B2[Requisitos do BD]
+    A --> C[Independente do SGBD]
+    C --> C1[Independente do SGBD]
+    C1 --> C2[Dependente do SGBD]
+    A --> D[Projeto Conceitual]
+    D --> D1[Esquema Conceitual (Alto Nível)]
+    D --> D2[Cafálogo do BD]
+    A --> E[Projeto Lógico]
+    E --> E1[Mapeamento]
+    E --> E2[Modelo Dados]
+    E --> E3[Projeto Físico]
+    A --> F[Esquema Conceitual]
+    F --> F1[(Modelo do SGBD)]
+
 1. **Modelagem Conceitual**:  
    Nesta fase, o objetivo é capturar formalmente os requisitos de informação do banco de dados. O modelo conceitual é independente de qualquer sistema de gerenciamento de banco de dados (SGBD) e foca na estrutura lógica dos dados.
 
