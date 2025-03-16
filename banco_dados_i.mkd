@@ -228,15 +228,11 @@ Considerando a relação **Aluno**, com os seguintes atributos e domínios:
 
 O produto cartesiano seria:
 
-$
-dom(matricula) \times dom(nome) \times dom(idade) = \{(1001, João, 18), (1001, João, 19), (1001, Maria, 18), (1001, Maria, 19), (1002, João, 18), (1002, João, 19), (1002, Maria, 18), (1002, Maria, 19)\}
-$
+$dom(matricula) \times dom(nome) \times dom(idade) = \{(1001, João, 18), (1001, João, 19), (1001, Maria, 18), (1001, Maria, 19), (1002, João, 18), (1002, João, 19), (1002, Maria, 18), (1002, Maria, 19)\}$
 
 Agora, a relação \( r(Aluno) \) poderia ser um subconjunto desse conjunto, por exemplo:
 
-$
-r(Aluno) = \{(1001, João, 18), (1002, Maria, 19)\}
-$
+$r(Aluno) = \{(1001, João, 18), (1002, Maria, 19)\}$
 
 Este subconjunto contém apenas algumas das combinações possíveis.
 
@@ -257,9 +253,7 @@ Uma **tupla** é uma **lista ordenada de valores** que representam dados em uma 
 #### **Notação**
 Uma tupla \( t \) é representada como:
 
-$
-t = <v1, v2, ..., vn>
-$
+$t = <v1, v2, ..., vn>$
 
 Onde:
 - \( v1, v2, ..., vn \) são os valores da tupla, sendo que cada \( vi \) é um valor pertencente ao **domínio** de um atributo \( Ai \) da relação.
@@ -275,9 +269,7 @@ Considerando a relação **Aluno**, com os atributos:
 
 Uma tupla poderia ser:
 
-$
-t = <1001, "João Silva", 20>
-$
+$t = <1001, "João Silva", 20>$
 
 Onde:
 - **1001** é o valor da matrícula.
@@ -286,9 +278,7 @@ Onde:
 
 Ou, se algum valor estiver ausente (como no caso de um telefone não fornecido), pode ser representado como **nulo**:
 
-$
-t = <1002, "Maria Souza", nulo>
-$
+$t = <1002, "Maria Souza", nulo>$
 
 #### **Relação**
 Uma **relação** \( r(R) \) é um **conjunto de n-tuplas** que pertencem a uma relação \( R \).
@@ -309,9 +299,7 @@ O **grau** de uma relação é o **número de atributos** presentes na relação
 ### **Exemplo de Grau**
 Considerando a relação **Aluno**:
 
-$
-Aluno(matricula, nome, idade)
-$
+$Aluno(matricula, nome, idade)$
 
 O grau da relação **Aluno** é 3, porque ela possui 3 atributos.
 
@@ -323,9 +311,7 @@ A **cardinalidade** de uma relação é o **número de tuplas** que ela contém.
 ### **Exemplo de Cardinalidade**
 Se a relação **Aluno** contiver as seguintes tuplas:
 
-$
-r(Aluno) = \{(1001, "João Silva", 20), (1002, "Maria Souza", 19), (1003, "Carlos Lima", 22)\}
-$
+$r(Aluno) = \{(1001, "João Silva", 20), (1002, "Maria Souza", 19), (1003, "Carlos Lima", 22)\}$
 
 A cardinalidade da relação **Aluno** é 3, porque existem 3 tuplas na relação.
 
@@ -420,9 +406,7 @@ $\sigma_{\text{idade} > 20}(Aluno)$
 A operação de **projeção** seleciona apenas **colunas específicas** de uma tabela.
 
 #### **Sintaxe**:  
-$
-\pi_{\text{atributos}}(R)
-$
+$\pi_{\text{atributos}}(R)$
 
 #### **Exemplo**:
 
@@ -436,9 +420,7 @@ Tabela **Aluno**:
 
 Projetando apenas as **colunas nome** e **idade**:
 
-$
-\pi_{\text{nome, idade}}(Aluno)
-$
+$\pi_{\text{nome, idade}}(Aluno)$
 
 **Resultado**:
 
@@ -454,9 +436,7 @@ $
 A operação de **junção** combina os dados de **duas ou mais tabelas** com base em um **atributo comum**.
 
 #### **Sintaxe**:  
-$
-R \bowtie_{\text{atributo comum}} S
-$
+$R \bowtie_{\text{atributo comum}} S$
 
 #### **Exemplo**:
 
@@ -478,9 +458,7 @@ Tabela **Curso**:
 
 Junção das tabelas **Aluno** e **Curso** pela **matricula**:
 
-$
-Aluno \bowtie_{\text{matricula}} Curso
-$
+$Aluno \bowtie_{\text{matricula}} Curso$
 
 **Resultado**:
 
@@ -495,9 +473,7 @@ $
 A operação de **união** combina os resultados de **duas tabelas** semelhantes, ou seja, ambas com a mesma estrutura (mesmos atributos).
 
 #### **Sintaxe**:  
-$
-R \cup S
-$
+$R \cup S$
 
 #### **Exemplo**:
 
@@ -517,9 +493,7 @@ Tabela **Aluno2**:
 
 União das tabelas **Aluno1** e **Aluno2**:
 
-$
-Aluno1 \cup Aluno2
-$
+$Aluno1 \cup Aluno2$
 
 **Resultado**:
 
@@ -536,9 +510,7 @@ $
 A operação de **interseção** retorna os registros **comuns** entre duas tabelas semelhantes.
 
 #### **Sintaxe**:  
-$
-R \cap S
-$
+$R \cap S$
 
 #### **Exemplo**:
 
@@ -558,9 +530,7 @@ Tabela **Aluno2**:
 
 Interseção das tabelas **Aluno1** e **Aluno2**:
 
-$
-Aluno1 \cap Aluno2
-$
+$Aluno1 \cap Aluno2$
 
 **Resultado**:
 
@@ -574,9 +544,7 @@ $
 A operação de **diferença** retorna os registros que estão **em uma tabela, mas não em outra**.
 
 #### **Sintaxe**:  
-$
-R - S
-$
+$R - S$
 
 #### **Exemplo**:
 
@@ -596,9 +564,7 @@ Tabela **Aluno2**:
 
 Diferença entre as tabelas **Aluno1** e **Aluno2**:
 
-$
-Aluno1 - Aluno2
-$
+$Aluno1 - Aluno2$
 
 **Resultado**:
 
