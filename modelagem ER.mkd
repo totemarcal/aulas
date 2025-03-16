@@ -95,6 +95,8 @@ Uma **entidade** é qualquer objeto distinto que precisa ser representado no ban
 - **Instância de uma Entidade**:  
   Representa uma ocorrência específica de uma entidade. Por exemplo, um carro específico com uma placa única.
 
+![texto](./entidade.drawio.png)
+
 ### Atributo
 Um **atributo** é uma informação útil sobre uma entidade ou relacionamento. Os atributos podem ser:
 
