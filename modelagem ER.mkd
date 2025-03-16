@@ -104,6 +104,18 @@ Um **atributo** é uma informação útil sobre uma entidade ou relacionamento. 
 - **Composto**: Atributo que pode ser dividido em sub-atributos (por exemplo, endereço pode ser dividido em rua, número, cidade, etc.).
 - **Multivalorado**: Atributo que pode ter mais de um valor para uma entidade (por exemplo, um funcionário pode ter vários telefones).
 
+**Domínio de um atributo** - determina o conjunto de valores válidos de um
+atributo
+
+Ex : Idade – numérico (0,120)
+Nome – texto de 30 posições
+
+![texto](./entidade-atrib.drawio.png)
+
+**Representação no Diagrama de Entidade-Relacionamento(DER)**
+
+
+
 ### Relacionamento
 Um **relacionamento** é uma associação lógica entre duas ou mais entidades. Os relacionamentos são representados por losangos no diagrama ER.
 
