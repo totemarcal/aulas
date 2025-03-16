@@ -114,6 +114,7 @@ Nome – texto de 30 posições
 
 **Representação no Diagrama de Entidade-Relacionamento(DER)**
 
+![texto](./exemplo_ER.png)
 
 
 ### Relacionamento
