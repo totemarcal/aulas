@@ -8,114 +8,151 @@
 
 ## Álgebra Relacional
 
-### Componente para Manipulação do Modelo
+### Introdução
 
-- **Conjunto de operadores** que tomam relações como operandos e retornam uma relação como resultado.
-- **Operadores baseados na teoria matemática dos conjuntos:**
-  - União
-  - Interseção
-  - Diferença
-  - Produto Cartesiano
-- **Operadores específicos:**
-  - Seleção/Restrição
-  - Projeção
-  - Divisão
-  - Junção
+A álgebra relacional é um sistema formal de manipulação de dados baseado na teoria dos conjuntos. Ela fornece um conjunto de operações que permitem consultar e modificar dados armazenados em bancos de dados relacionais. Cada operação recebe uma ou mais relações como entrada e produz uma nova relação como saída.
+
+Os operadores da álgebra relacional podem ser classificados em:
+
+- **Operadores fundamentais**: Seleção, projeção, produto cartesiano, união e diferença.
+- **Operadores derivados**: Interseção, junção e divisão.
+
+Esses operadores são fundamentais para a manipulação e recuperação de informações dentro de um banco de dados.
+
+**Exercícios:**
+1. Explique a diferença entre operadores fundamentais e derivados na álgebra relacional.
+2. Cite três operações da álgebra relacional e descreva seu funcionamento.
 
 ## Operações da Álgebra Relacional
 
 ### Seleção (Restrição)
 
-Utilizada para selecionar um subconjunto de tuplas de uma relação que satisfaça uma condição:
+A **seleção** (σ) filtra as tuplas de uma relação com base em uma condição. O resultado contém apenas as tuplas que satisfazem essa condição.
 
+**Notação:**
 ```markdown
-σ <condição da seleção> (R)  
-(sigma)
+σ <condição> (R)
 ```
 
-**Exemplo:** Selecione os empregados que ganham mais de R\$ 3.000,00:
-
+**Exemplos:**
+1. Selecione os empregados que ganham mais de R$ 3.000,00:
 ```markdown
 σ salario > 3000 (Empregado)
 ```
+2. Selecione os clientes que possuem telefone cadastrado:
+```markdown
+σ telefone IS NOT NULL (Cliente)
+```
+
+**Exercícios:**
+1. Selecione todos os empregados do departamento de TI.
+2. Liste os filmes lançados após o ano 2000.
 
 ### Projeção
 
-Seleciona determinados atributos de uma relação:
+A **projeção** (π) retorna apenas determinados atributos de uma relação, removendo colunas indesejadas.
 
+**Notação:**
 ```markdown
-π <lista de atributos> (R)  
-(pi)
+π <lista de atributos> (R)
 ```
 
-**Exemplo:** Selecione o nome e endereço de todos os empregados:
-
+**Exemplos:**
+1. Selecione o nome e endereço de todos os empregados:
 ```markdown
 π nome, endereco (Empregado)
 ```
+2. Liste os títulos e anos de lançamento de todos os filmes disponíveis:
+```markdown
+π titulo, ano (Filme)
+```
+
+**Exercícios:**
+1. Liste apenas os nomes dos clientes da locadora.
+2. Selecione os códigos e salários dos empregados.
 
 ### Operações da Teoria dos Conjuntos
 
 #### União
 
-O resultado é uma relação que contém todas as tuplas de duas relações sem repetições:
+A **união** (∪) combina todas as tuplas de duas relações compatíveis, removendo duplicatas.
 
+**Notação:**
 ```markdown
 R ∪ S
 ```
 
-**Exemplo:** Selecione os empregados do departamento 02 **ou** (união) do departamento 03.
-
+**Exemplos:**
+1. Selecione os empregados dos departamentos 02 ou 03:
 ```markdown
 EmpDep2 ← σ departamento=2 (Empregado)
 EmpDep3 ← σ departamento=3 (Empregado)
 Resultado ← EmpDep2 ∪ EmpDep3
 ```
+2. Liste todos os clientes que já locaram filmes ou fizeram uma reserva:
+```markdown
+ClientesLocacao ← π codCliente (Locacao)
+ClientesReserva ← π codCliente (Reserva)
+Resultado ← ClientesLocacao ∪ ClientesReserva
+```
+
+**Exercícios:**
+1. Liste os filmes que pertencem aos gêneros Comédia ou Ação.
+2. Liste os clientes que realizaram pelo menos uma locação ou reserva.
 
 #### Interseção
 
-O resultado é uma relação que contém apenas as tuplas que pertencem às duas relações:
+A **interseção** (∩) retorna apenas as tuplas que aparecem em ambas as relações.
 
+**Notação:**
 ```markdown
 R ∩ S
 ```
 
-**Exemplo:** Selecione os empregados do departamento 01 que são analistas.
-
+**Exemplos:**
+1. Selecione os empregados do departamento 01 que também são analistas:
 ```markdown
 EmpDep1 ← σ departamento=1 (Empregado)
 EmpAnalista ← σ funcao='Analista' (Empregado)
 Resultado ← EmpDep1 ∩ EmpAnalista
 ```
 
+**Exercícios:**
+1. Liste os clientes que já alugaram filmes e também fizeram reservas.
+2. Selecione os filmes que estão disponíveis para locação e que também foram alugados no último mês.
+
 #### Diferença
 
-O resultado é uma relação que contém as tuplas que aparecem na primeira relação, mas não aparecem na segunda relação:
+A **diferença** (−) retorna as tuplas que pertencem à primeira relação, mas não à segunda.
 
+**Notação:**
 ```markdown
 R - S
 ```
 
-**Exemplo:** Selecione os empregados do departamento 01 que não são analistas.
-
+**Exemplos:**
+1. Selecione os empregados do departamento 01 que não são analistas:
 ```markdown
 EmpDep1 ← σ departamento=1 (Empregado)
 EmpAnalista ← σ funcao='Analista' (Empregado)
 Resultado ← EmpDep1 - EmpAnalista
 ```
 
+**Exercícios:**
+1. Liste os clientes que nunca alugaram um filme.
+2. Selecione os filmes que nunca foram reservados.
+
 ### Produto Cartesiano
 
-O resultado é uma relação que contém todas as tuplas da primeira relação associadas às tuplas da segunda relação:
+O **produto cartesiano** (×) combina todas as tuplas de duas relações, gerando uma relação com todas as combinações possíveis.
 
+**Notação:**
 ```markdown
 R × S
 ```
 
-Se R tem **n** tuplas e S tem **m** tuplas, então R × S terá **n × m** tuplas.
-
-**Exemplo:** Para cada empregado do sexo feminino, gerar uma lista com todos os seus dependentes.
-
+**Exemplos:**
+1. Gerar uma lista combinando empregados do sexo feminino e seus dependentes:
 ```markdown
 EmpregadoMulher ← σ sexo='F' (Empregado)
 EmpregadoM ← π mat, nome (EmpregadoMulher)
@@ -124,66 +161,213 @@ DependenteM ← σ mat=matfunc (DependenteEmpregado)
 Resultado ← π nome, nomedependente (DependenteM)
 ```
 
+**Exercícios:**
+1. Gere uma lista de todas as possíveis combinações entre clientes e filmes.
+2. Liste todas as combinações entre funcionários e departamentos.
+
 ### Junção (Join)
 
-O resultado é a combinação de tuplas relacionadas de duas relações em uma única tupla. Permite processar relacionamentos entre relações:
+A **junção** (⨝) combina tuplas de duas relações que compartilham um atributo em comum.
 
+**Notação:**
 ```markdown
-R |X| <condição> S
+R ⨝ <condição> S
 ```
 
-**Exemplo:** Fazer uma lista com o nome do departamento, nome do empregado e salário dos gerentes.
-
+**Exemplos:**
+1. Gerar uma lista contendo nome do departamento, nome do empregado e salário dos gerentes:
 ```markdown
-GerenteDep ← (Departamento |X| matgerente=mat Empregado)
+GerenteDep ← (Departamento ⨝ matgerente=mat Empregado)
 Resultado ← π nomedepart, nome, salario (GerenteDep)
 ```
 
-## Exercícios de Álgebra Relacional
+**Exercícios:**
+1. Liste os nomes dos clientes e os títulos dos filmes que eles alugaram.
+2. Selecione os nomes dos empregados e os nomes dos departamentos onde trabalham.
 
-Dado um conjunto de relações para uma locadora de vídeo:
 
-```markdown
-Filme (Codigo, Titulo, Estudio, Ano, Diretor, Tematica)
-Temática = {Suspense, Terror, Comédia, Drama, Infantil, Sexo}
-DVD (Numero, CodFilme, Situacao) Situacao = {locado, disponível, reservado}
-Cliente (Codigo, Nome, Telefone)
-Locacao (NumDVD, CodCliente, DataLocacao, DataDevolucao)
-Elenco (CodFilme, NomeArtista, Papel) Papel = {Principal, Coadjuvante}
+
+## Estudo de Caso: Álgebra Relacional com 5 Tabelas
+
+### Introdução
+
+Neste estudo de caso, vamos trabalhar com um sistema de gerenciamento de vendas, onde temos as seguintes tabelas:
+
+1. **Clientes**: Contém informações sobre os clientes.
+2. **Pedidos**: Contém informações sobre os pedidos feitos pelos clientes.
+3. **Produtos**: Contém informações sobre os produtos disponíveis para venda.
+4. **Funcionários**: Contém informações sobre os funcionários que processam os pedidos.
+5. **Pagamentos**: Contém informações sobre os pagamentos realizados pelos clientes.
+
+### Estrutura das Tabelas
+
+#### Tabela `Clientes`
+
+| ClienteID | Nome     | Cidade     |
+|-----------|----------|------------|
+| 1         | João     | Salvador   |
+| 2         | Maria    | Aracaju    |
+| 3         | José     | Salvador   |
+| 4         | Ana      | Recife     |
+
+#### Tabela `Pedidos`
+
+| PedidoID | ClienteID | ProdutoID | FuncionarioID | DataPedido  | Valor |
+|----------|-----------|-----------|---------------|-------------|-------|
+| 101      | 1         | 201       | 301           | 2025-03-01  | 3000  |
+| 102      | 2         | 202       | 302           | 2025-03-02  | 1500  |
+| 103      | 3         | 203       | 301           | 2025-03-03  | 1200  |
+| 104      | 4         | 204       | 303           | 2025-03-04  | 2000  |
+
+#### Tabela `Produtos`
+
+| ProdutoID | Produto        | Categoria     |
+|-----------|----------------|---------------|
+| 201       | Laptop         | Eletrônicos   |
+| 202       | Smartphone     | Eletrônicos   |
+| 203       | Tablet         | Eletrônicos   |
+| 204       | Smartwatch     | Acessórios    |
+
+#### Tabela `Funcionários`
+
+| FuncionarioID | Nome        | Cargo      |
+|---------------|-------------|------------|
+| 301           | Carlos      | Vendedor   |
+| 302           | João        | Vendedor   |
+| 303           | Ana         | Gerente    |
+
+#### Tabela `Pagamentos`
+
+| PagamentoID | PedidoID | DataPagamento | ValorPago |
+|-------------|----------|---------------|-----------|
+| 501         | 101      | 2025-03-01    | 3000      |
+| 502         | 102      | 2025-03-02    | 1500      |
+| 503         | 103      | 2025-03-03    | 1200      |
+
+## Operações da Álgebra Relacional
+
+### 1. Junção (Join)
+
+Vamos realizar uma junção entre as tabelas `Clientes`, `Pedidos`, e `Produtos` para obter uma lista de pedidos feitos pelos clientes, com o nome do cliente e o nome do produto.
+
+**Operação**:
+```sql
+Clientes ⨝ Pedidos ⨝ Produtos
 ```
 
-### Consultas:
+**Resultado**:
 
-1. **Os títulos dos filmes dirigidos por “Scorcese”**:
+| ClienteID | Nome   | Cidade   | PedidoID | ProdutoID | Produto    | Valor | DataPedido  |
+|-----------|--------|----------|----------|-----------|------------|-------|-------------|
+| 1         | João   | Salvador | 101      | 201       | Laptop     | 3000  | 2025-03-01  |
+| 2         | Maria  | Aracaju  | 102      | 202       | Smartphone | 1500  | 2025-03-02  |
+| 3         | José   | Salvador | 103      | 203       | Tablet     | 1200  | 2025-03-03  |
+| 4         | Ana    | Recife   | 104      | 204       | Smartwatch | 2000  | 2025-03-04  |
 
-```markdown
-Resultado ← π Titulo (σ Diretor='Scorcese' (Filme))
+### 2. Produto Cartesiano (Cross Product)
+
+O produto cartesiano entre as tabelas `Clientes` e `Pedidos` gera todas as combinações possíveis entre os registros das duas tabelas.
+
+**Operação**:
+```sql
+Clientes × Pedidos
 ```
 
-2. **Os nomes e telefones de todos os clientes da locadora**:
+**Resultado** (apenas uma parte do resultado):
 
-```markdown
-Resultado ← π Nome, Telefone (Cliente)
+| ClienteID | Nome   | Cidade   | PedidoID | ClienteID | ProdutoID | Valor |
+|-----------|--------|----------|----------|-----------|-----------|-------|
+| 1         | João   | Salvador | 101      | 1         | 201       | 3000  |
+| 1         | João   | Salvador | 101      | 2         | 202       | 1500  |
+| ...       | ...    | ...      | ...      | ...       | ...       | ...   |
+
+### 3. Diferença (Difference)
+
+A operação de **diferença** entre as tabelas `Clientes` e `Pedidos` retorna os clientes que não têm pedidos registrados.
+
+**Operação**:
+```sql
+Clientes - Pedidos
 ```
 
-3. **Os nomes dos artistas que trabalharam como coadjuvante no filme “O Massacre da Serra Elétrica”**:
+**Resultado** (clientes sem pedidos):
 
-```markdown
-CodMassacre ← π Codigo (σ Titulo='O Massacre da Serra Elétrica' (Filme))
-Resultado ← π NomeArtista (σ Papel='Coadjuvante' (Elenco × CodMassacre))
+| ClienteID | Nome  | Cidade   |
+|-----------|-------|----------|
+| 5         | Carla | São Paulo |
+
+### 4. Interseção (Intersection)
+
+A operação de **interseção** entre as tabelas `Clientes` e `Pedidos` retorna os clientes que têm pedidos registrados.
+
+**Operação**:
+```sql
+Clientes ∩ Pedidos
 ```
 
-4. **Os códigos dos filmes que nunca foram locados**:
+**Resultado** (clientes que fizeram pedidos):
 
-```markdown
-CodLocado ← π CodFilme (Locacao)
-Resultado ← π Codigo (Filme) - CodLocado
+| ClienteID | Nome  | Cidade   |
+|-----------|-------|----------|
+| 1         | João  | Salvador |
+| 2         | Maria | Aracaju  |
+| 3         | José  | Salvador |
+| 4         | Ana   | Recife   |
+
+### 5. União (Union)
+
+A operação de **união** entre duas tabelas retorna todos os registros de ambas, sem duplicatas. Para isso, as tabelas precisam ter a mesma estrutura.
+
+**Operação**:
+```sql
+Clientes ∪ Pedidos
 ```
 
-5. **Os títulos dos filmes onde “Angelina Jolie” já atuou como principal**:
+**Resultado** (união de clientes e pedidos):
 
-```markdown
-FilmesAngelina ← π CodFilme (σ NomeArtista='Angelina Jolie' ∧ Papel='Principal' (Elenco))
-Resultado ← π Titulo (FilmesAngelina × Filme)
+| ClienteID | Nome  | Cidade   |
+|-----------|-------|----------|
+| 1         | João  | Salvador |
+| 2         | Maria | Aracaju  |
+| 3         | José  | Salvador |
+| 4         | Ana   | Recife   |
+| 101       | NULL  | NULL     |
+| 102       | NULL  | NULL     |
+
+### 6. Projeção (Projection)
+
+A operação de **projeção** retorna apenas as colunas selecionadas de uma tabela. Por exemplo, para obter apenas os nomes dos clientes e os valores dos pedidos:
+
+**Operação**:
+```sql
+π(Nome, Valor)(Clientes ⨝ Pedidos)
 ```
 
+**Resultado**:
+
+| Nome   | Valor |
+|--------|-------|
+| João   | 3000  |
+| Maria  | 1500  |
+| José   | 1200  |
+| Ana    | 2000  |
+
+### 7. Seleção (Restrição)
+
+A operação de **seleção (restrição)** retorna apenas os registros que atendem a uma condição. Por exemplo, queremos selecionar os pedidos realizados por clientes da cidade "Salvador":
+
+**Operação**:
+```sql
+σ(Cidade = 'Salvador')(Clientes ⨝ Pedidos)
+```
+
+**Resultado**:
+
+| ClienteID | Nome  | Cidade   | PedidoID | ProdutoID | Produto    | Valor | DataPedido  |
+|-----------|-------|----------|----------|-----------|------------|-------|-------------|
+| 1         | João  | Salvador | 101      | 201       | Laptop     | 3000  | 2025-03-01  |
+| 3         | José  | Salvador | 103      | 203       | Tablet     | 1200  | 2025-03-03  |
+
+## Conclusão
+
+Neste estudo de caso, mostramos como realizar diversas operações da Álgebra Relacional em um banco de dados com 5 tabelas. As operações de **junção**, **produto cartesiano**, **diferença**, **interseção**, **união**, **projeção** e **seleção** são essenciais para a manipulação eficiente dos dados e a construção de consultas complexas em sistemas de gerenciamento de banco de dados relacionais.
