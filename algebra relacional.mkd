@@ -1,0 +1,189 @@
+# Modelo Relacional
+
+## Revisão
+
+### Banco de Dados - Álgebra Relacional
+
+> "Conjunto básico de operações do modelo relacional, que possibilitam especificar solicitações básicas de recuperação. O resultado de uma recuperação é uma nova relação, que pode ter sido formada a partir de uma ou mais relações." - **Elsmari & Navathe**
+
+## Álgebra Relacional
+
+### Componente para Manipulação do Modelo
+
+- **Conjunto de operadores** que tomam relações como operandos e retornam uma relação como resultado.
+- **Operadores baseados na teoria matemática dos conjuntos:**
+  - União
+  - Interseção
+  - Diferença
+  - Produto Cartesiano
+- **Operadores específicos:**
+  - Seleção/Restrição
+  - Projeção
+  - Divisão
+  - Junção
+
+## Operações da Álgebra Relacional
+
+### Seleção (Restrição)
+
+Utilizada para selecionar um subconjunto de tuplas de uma relação que satisfaça uma condição:
+
+```markdown
+σ <condição da seleção> (R)  
+(sigma)
+```
+
+**Exemplo:** Selecione os empregados que ganham mais de R\$ 3.000,00:
+
+```markdown
+σ salario > 3000 (Empregado)
+```
+
+### Projeção
+
+Seleciona determinados atributos de uma relação:
+
+```markdown
+π <lista de atributos> (R)  
+(pi)
+```
+
+**Exemplo:** Selecione o nome e endereço de todos os empregados:
+
+```markdown
+π nome, endereco (Empregado)
+```
+
+### Operações da Teoria dos Conjuntos
+
+#### União
+
+O resultado é uma relação que contém todas as tuplas de duas relações sem repetições:
+
+```markdown
+R ∪ S
+```
+
+**Exemplo:** Selecione os empregados do departamento 02 **ou** (união) do departamento 03.
+
+```markdown
+EmpDep2 ← σ departamento=2 (Empregado)
+EmpDep3 ← σ departamento=3 (Empregado)
+Resultado ← EmpDep2 ∪ EmpDep3
+```
+
+#### Interseção
+
+O resultado é uma relação que contém apenas as tuplas que pertencem às duas relações:
+
+```markdown
+R ∩ S
+```
+
+**Exemplo:** Selecione os empregados do departamento 01 que são analistas.
+
+```markdown
+EmpDep1 ← σ departamento=1 (Empregado)
+EmpAnalista ← σ funcao='Analista' (Empregado)
+Resultado ← EmpDep1 ∩ EmpAnalista
+```
+
+#### Diferença
+
+O resultado é uma relação que contém as tuplas que aparecem na primeira relação, mas não aparecem na segunda relação:
+
+```markdown
+R - S
+```
+
+**Exemplo:** Selecione os empregados do departamento 01 que não são analistas.
+
+```markdown
+EmpDep1 ← σ departamento=1 (Empregado)
+EmpAnalista ← σ funcao='Analista' (Empregado)
+Resultado ← EmpDep1 - EmpAnalista
+```
+
+### Produto Cartesiano
+
+O resultado é uma relação que contém todas as tuplas da primeira relação associadas às tuplas da segunda relação:
+
+```markdown
+R × S
+```
+
+Se R tem **n** tuplas e S tem **m** tuplas, então R × S terá **n × m** tuplas.
+
+**Exemplo:** Para cada empregado do sexo feminino, gerar uma lista com todos os seus dependentes.
+
+```markdown
+EmpregadoMulher ← σ sexo='F' (Empregado)
+EmpregadoM ← π mat, nome (EmpregadoMulher)
+DependenteEmpregado ← EmpregadoM × Dependente
+DependenteM ← σ mat=matfunc (DependenteEmpregado)
+Resultado ← π nome, nomedependente (DependenteM)
+```
+
+### Junção (Join)
+
+O resultado é a combinação de tuplas relacionadas de duas relações em uma única tupla. Permite processar relacionamentos entre relações:
+
+```markdown
+R |X| <condição> S
+```
+
+**Exemplo:** Fazer uma lista com o nome do departamento, nome do empregado e salário dos gerentes.
+
+```markdown
+GerenteDep ← (Departamento |X| matgerente=mat Empregado)
+Resultado ← π nomedepart, nome, salario (GerenteDep)
+```
+
+## Exercícios de Álgebra Relacional
+
+Dado um conjunto de relações para uma locadora de vídeo:
+
+```markdown
+Filme (Codigo, Titulo, Estudio, Ano, Diretor, Tematica)
+Temática = {Suspense, Terror, Comédia, Drama, Infantil, Sexo}
+DVD (Numero, CodFilme, Situacao) Situacao = {locado, disponível, reservado}
+Cliente (Codigo, Nome, Telefone)
+Locacao (NumDVD, CodCliente, DataLocacao, DataDevolucao)
+Elenco (CodFilme, NomeArtista, Papel) Papel = {Principal, Coadjuvante}
+```
+
+### Consultas:
+
+1. **Os títulos dos filmes dirigidos por “Scorcese”**:
+
+```markdown
+Resultado ← π Titulo (σ Diretor='Scorcese' (Filme))
+```
+
+2. **Os nomes e telefones de todos os clientes da locadora**:
+
+```markdown
+Resultado ← π Nome, Telefone (Cliente)
+```
+
+3. **Os nomes dos artistas que trabalharam como coadjuvante no filme “O Massacre da Serra Elétrica”**:
+
+```markdown
+CodMassacre ← π Codigo (σ Titulo='O Massacre da Serra Elétrica' (Filme))
+Resultado ← π NomeArtista (σ Papel='Coadjuvante' (Elenco × CodMassacre))
+```
+
+4. **Os códigos dos filmes que nunca foram locados**:
+
+```markdown
+CodLocado ← π CodFilme (Locacao)
+Resultado ← π Codigo (Filme) - CodLocado
+```
+
+5. **Os títulos dos filmes onde “Angelina Jolie” já atuou como principal**:
+
+```markdown
+FilmesAngelina ← π CodFilme (σ NomeArtista='Angelina Jolie' ∧ Papel='Principal' (Elenco))
+Resultado ← π Titulo (FilmesAngelina × Filme)
+```
+
