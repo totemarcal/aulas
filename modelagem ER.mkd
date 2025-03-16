@@ -167,6 +167,112 @@ Instâncias da Entidade Carro:
 1. `(BSA3321, (234, Bahia), Corsa, {azul, branco})`
 2. `(VIT3521, (317, Bahia), Corsa, {vermelho, preto})`
 
+
+Aqui está a descrição e o desenvolvimento do conceito de **Entidades Fortes e Fracas** em Markdown, com formatação e explicações detalhadas:
+
+---
+
+## Entidades Fortes e Fracas
+
+### Entidades Fortes
+- **Definição**:  
+  Entidades fortes são aquelas que possuem um **alto grau de independência** em relação à sua existência e identificação. Elas não dependem de outras entidades para existir no banco de dados.
+
+- **Características**:
+  - Possuem uma **chave primária própria** que as identifica unicamente.
+  - Podem existir sem estar associadas a outras entidades.
+  - São a base para a criação de entidades fracas.
+
+- **Exemplo**:  
+  A entidade **Funcionário** pode ser uma entidade forte, pois cada funcionário tem uma matrícula única que o identifica, e ele pode existir independentemente de outras entidades.
+
+
+### Entidades Fracas
+- **Definição**:  
+  Entidades fracas são aquelas que **dependem de outras entidades** (fortes ou fracas) para existir e serem identificadas. Elas não possuem uma chave primária própria completa e precisam estar associadas a uma entidade forte.
+
+- **Características**:
+  - **Dependência de existência**:  
+    Uma entidade fraca só existe se a entidade forte à qual está associada existir.
+  - **Dependência de identificação**:  
+    A chave primária de uma entidade fraca é composta por uma **chave parcial própria** e pela **chave primária da entidade forte** à qual está associada.
+  - **Relacionamento obrigatório**:  
+    Uma entidade fraca deve estar relacionada a pelo menos uma entidade forte.
+
+- **Propriedades das Entidades Fracas**:
+  1. **Pertencem a uma única entidade**:  
+     Uma entidade fraca está sempre associada a uma única entidade (forte ou fraca).
+  2. **Relacionamento com entidade forte**:  
+     Deve haver pelo menos um relacionamento estabelecido com uma entidade forte.
+  3. **Identificação parcial própria**:  
+     A entidade fraca possui pelo menos um atributo que a identifica parcialmente.
+  4. **Identificação da entidade forte**:  
+     A chave primária da entidade forte é parte da chave primária da entidade fraca.
+
+- **Exemplo**:  
+  A entidade **Dependente** pode ser uma entidade fraca, pois depende da entidade **Funcionário** para existir. A chave primária de **Dependente** pode ser composta pela matrícula do funcionário (chave estrangeira) e pelo nome do dependente (chave parcial).
+
+
+## Representação em Diagrama ER
+
+### Entidade Forte: Funcionário
+```plaintext
+Funcionário (
+    matricula,  -- Chave primária
+    nome,
+    endereço
+)
+```
+
+### Entidade Fraca: Dependente
+```plaintext
+Dependente (
+    matricula_funcionario,  -- Chave estrangeira (parte da chave primária)
+    nome_dependente,        -- Chave parcial
+    data_nascimento
+)
+```
+
+## Exemplo Prático
+
+### Entidade Forte: Funcionário
+```plaintext
+Funcionário (
+    matricula,  -- Chave primária
+    nome,
+    endereço
+)
+```
+
+### Entidade Fraca: Dependente
+```plaintext
+Dependente (
+    matricula_funcionario,  -- Chave estrangeira (referencia Funcionário)
+    nome_dependente,        -- Chave parcial
+    data_nascimento
+)
+```
+
+### Instâncias:
+1. **Funcionário**:
+   - `(123, "João Silva", "Rua A, 123")`
+   - `(456, "Maria Souza", "Rua B, 456")`
+
+2. **Dependente**:
+   - `(123, "Ana Silva", "2005-03-15")`
+   - `(123, "Pedro Silva", "2010-07-22")`
+   - `(456, "Carlos Souza", "2012-11-10")`
+
+---
+
+## Resumo
+
+| **Tipo de Entidade** | **Características**                                                                 |
+|-----------------------|-------------------------------------------------------------------------------------|
+| **Forte**             | - Independente.<br>- Possui chave primária própria.<br>- Pode existir sozinha.      |
+| **Fraca**             | - Dependente de uma entidade forte.<br>- Chave primária composta.<br>- Relacionamento obrigatório com entidade forte. |
+
+
 ### Relacionamento
 Um **relacionamento** é uma associação lógica entre duas ou mais entidades. Os relacionamentos são representados por losangos no diagrama ER.
 
