@@ -168,8 +168,6 @@ Instâncias da Entidade Carro:
 2. `(VIT3521, (317, Bahia), Corsa, {vermelho, preto})`
 
 
-Aqui está a descrição e o desenvolvimento do conceito de **Entidades Fortes e Fracas** em Markdown, com formatação e explicações detalhadas:
-
 ---
 
 ## Entidades Fortes e Fracas
@@ -263,7 +261,6 @@ Dependente (
    - `(123, "Pedro Silva", "2010-07-22")`
    - `(456, "Carlos Souza", "2012-11-10")`
 
----
 
 ## Resumo
 
@@ -272,6 +269,7 @@ Dependente (
 | **Forte**             | - Independente.<br>- Possui chave primária própria.<br>- Pode existir sozinha.      |
 | **Fraca**             | - Dependente de uma entidade forte.<br>- Chave primária composta.<br>- Relacionamento obrigatório com entidade forte. |
 
+![texto](./fig-dependencia.png)
 
 ### Relacionamento
 Um **relacionamento** é uma associação lógica entre duas ou mais entidades. Os relacionamentos são representados por losangos no diagrama ER.
