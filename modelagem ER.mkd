@@ -116,6 +116,56 @@ Nome – texto de 30 posições
 
 ![texto](./exemplo_ER.png)
 
+## Entidade
+
+### Definição
+O nome da entidade é representado por uma lista de atributos entre parênteses:
+
+
+## Atributos
+
+### Tipos de Atributos:
+1. **Identificador**:  
+   - Representado por um atributo **sublinhado**.  
+   - Exemplo: `Placa` (chave primária).
+
+2. **Multivalorados**:  
+   - Representados por **chaves `{}`**.  
+   - Exemplo: `{cor}` (um carro pode ter várias cores).
+
+3. **Compostos**:  
+   - Representados por **parênteses `( )`**.  
+   - Exemplo: `Registro(Numero, Estado)` (um atributo composto por sub-atributos).
+
+---
+
+## Exemplo
+
+### Entidade: Carro
+```plaintext
+Carro = (Placa, Registro(Numero, Estado), Modelo, {cor})
+```
+
+Instâncias da Entidade Carro:
+
+```plaintext
+(BSA3321, (234, Bahia), Corsa, {azul, branco})
+(VIT3521, (317, Bahia), Corsa, {vermelho, preto})
+```
+
+**Entidade: Carro**
+
+- **Atributos**:
+  - `Placa` (Identificador)
+  - `Registro` (Composto):
+    - `Numero`
+    - `Estado`
+  - `Modelo` (Simples)
+  - `{cor}` (Multivalorado)
+
+**Instâncias**:
+1. `(BSA3321, (234, Bahia), Corsa, {azul, branco})`
+2. `(VIT3521, (317, Bahia), Corsa, {vermelho, preto})`
 
 ### Relacionamento
 Um **relacionamento** é uma associação lógica entre duas ou mais entidades. Os relacionamentos são representados por losangos no diagrama ER.
