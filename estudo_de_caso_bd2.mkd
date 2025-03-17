@@ -387,6 +387,13 @@ CREATE TABLE Departamento (
     nome VARCHAR(100) NOT NULL
 );
 ```
+```sql
+INSERT INTO Departamento (cod, nome) VALUES
+(1, 'Vendas'),
+(2, 'TI'),
+(3, 'Recursos Humanos'),
+(4, 'Financeiro');
+```
 
 #### Tabela `Empregado`
 ```sql
@@ -399,6 +406,18 @@ CREATE TABLE Empregado (
     coddepart INT,
     FOREIGN KEY (coddepart) REFERENCES Departamento(cod)
 );
+```
+
+```sql
+INSERT INTO Empregado (matricula, nome, funcao, salario, comissao, coddepart) VALUES
+(101, 'João Silva', 'Analista', 5000.00, 1000.00, 2),
+(102, 'Maria Oliveira', 'Gerente', 8000.00, 2000.00, 1),
+(103, 'Carlos Souza', 'Programador', 4500.00, 800.00, 2),
+(104, 'Ana Costa', 'Analista', 5500.00, 1200.00, 2),
+(105, 'Pedro Rocha', 'Assistente', 2500.00, 500.00, 3),
+(106, 'Fernanda Lima', 'Analista', 6000.00, 1500.00, 4),
+(107, 'Ricardo Santos', 'Programador', 4000.00, 900.00, 2),
+(108, 'Juliana Alves', 'Analista', 5200.00, 1100.00, 1);
 ```
 
 ### Visão `InfoDepart`
