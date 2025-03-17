@@ -317,6 +317,195 @@ FROM clientes c
 WHERE c.id_cliente = 1;
 ```
 
+# Visões em Banco de Dados
+
+## Definição
+Uma **visão** é uma tabela virtual cujo conteúdo é definido por uma consulta SQL. Ela não possui existência física, ou seja, não armazena dados próprios. Em vez disso, a visão é derivada de uma ou mais tabelas ou outras visões. Sua existência se resume à sua definição, que é armazenada como uma consulta `SELECT`. O conteúdo da visão é calculado dinamicamente no momento em que é referenciada.
+
+---
+
+## Características
+1. **Não possui existência física**:
+   - A visão não armazena dados diretamente. Ela apenas armazena a definição da consulta SQL.
+   - Os dados são gerados dinamicamente quando a visão é consultada.
+
+2. **Derivada de tabelas ou outras visões**:
+   - Uma visão pode ser criada a partir de uma ou mais tabelas ou outras visões existentes.
+   - Exemplo: Uma visão pode combinar dados de duas tabelas relacionadas.
+
+3. **Conteúdo calculado no momento**:
+   - Sempre que a visão é consultada, o banco de dados executa a consulta SQL associada e retorna os resultados.
+
+4. **Referenciada em comandos SQL**:
+   - Os usuários podem utilizar a visão referenciando seu nome na cláusula `FROM` de comandos SQL-DML (SELECT, INSERT, UPDATE, DELETE).
+
+---
+
+## Utilização
+As visões são amplamente utilizadas por oferecerem benefícios significativos:
+
+1. **Independência lógica de dados**:
+   - Permite que os usuários acessem dados sem precisar conhecer a estrutura física do banco de dados.
+   - Exemplo: Se a estrutura física de uma tabela mudar, a visão pode ser ajustada para manter a compatibilidade com as aplicações existentes.
+
+2. **Segurança**:
+   - Restringe o acesso a determinados dados, expondo apenas o necessário.
+   - Exemplo: Uma visão pode mostrar apenas os dados de um departamento específico, ocultando informações sensíveis de outros departamentos.
+
+3. **Simplicidade**:
+   - Facilita consultas complexas, encapsulando-as em uma visão.
+   - Exemplo: Em vez de escrever uma consulta complexa repetidamente, o usuário pode simplesmente consultar a visão.
+
+4. **Flexibilidade**:
+   - Permite a reutilização de consultas e a adaptação às necessidades dos usuários.
+   - Exemplo: Diferentes visões podem ser criadas para diferentes tipos de usuários, como gerentes e funcionários.
+
+---
+
+## Sintaxe para Criação de Visões
+A sintaxe básica para criar uma visão é a seguinte:
+
+```sql
+CREATE VIEW <nome da visão> [(atributo1, atributo2, ...)]
+AS SELECT ...
+[WITH CHECK OPTION];
+```
+
+- **WITH CHECK OPTION**: Garante que as modificações (INSERT, UPDATE, DELETE) realizadas na visão não violem os critérios da cláusula `WHERE` do `SELECT`.
+
+---
+
+## Exemplo de Criação de Visão
+
+### Tabelas Base
+Antes de criar uma visão, é necessário criar as tabelas base. Vamos criar as tabelas `Departamento` e `Empregado`:
+
+#### Tabela `Departamento`
+```sql
+CREATE TABLE Departamento (
+    cod INT PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL
+);
+```
+
+#### Tabela `Empregado`
+```sql
+CREATE TABLE Empregado (
+    matricula INT PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    funcao VARCHAR(50),
+    salario DECIMAL(10, 2),
+    comissao DECIMAL(10, 2),
+    coddepart INT,
+    FOREIGN KEY (coddepart) REFERENCES Departamento(cod)
+);
+```
+
+### Visão `InfoDepart`
+Agora, vamos criar uma visão que mostra o nome do departamento, o total de empregados e a soma dos salários por departamento:
+
+```sql
+CREATE VIEW InfoDepart (NomeDepart, TotEmpregados, TotSalarios)
+AS
+SELECT d.nome, COUNT(*), SUM(e.salario)
+FROM Departamento d, Empregado e
+WHERE d.cod = e.coddepart
+GROUP BY d.nome;
+```
+
+---
+
+## Atualizações sobre Visões - Limitações
+As operações de atualização (INSERT, UPDATE, DELETE) em visões têm algumas limitações:
+
+1. **WITH CHECK OPTION**:
+   - Garante que as atualizações não violem as condições impostas na cláusula `WHERE` da visão.
+   - Exemplo: Se a visão filtra empregados com salário maior que R$ 3000, o `WITH CHECK OPTION` impede a inserção de um empregado com salário menor.
+
+2. **INSERT**:
+   - Pode ser executado em visões que manipulem apenas uma tabela.
+   - Todos os atributos `NOT NULL` da tabela base devem estar presentes na visão.
+   - Exemplo: Se a tabela base exige que o campo `salario` seja `NOT NULL`, a visão deve incluir esse campo para permitir inserções.
+
+3. **UPDATE**:
+   - Pode ser executado em visões que manipulem apenas uma tabela.
+   - Em visões que envolvem múltiplas tabelas, o comando `UPDATE` só pode afetar atributos de uma única tabela.
+
+4. **DELETE**:
+   - Pode ser executado em visões que manipulem uma única tabela.
+
+---
+
+## Eliminação de Visões
+Para eliminar uma visão, utiliza-se o comando:
+
+```sql
+DROP VIEW <nome da visão>;
+```
+
+Exemplo:
+```sql
+DROP VIEW InfoDepart;
+```
+
+---
+
+## Exercícios
+
+### Exercício 1
+Crie uma visão contendo matrícula, nome e função dos empregados com a função "Analista".
+
+#### Script da Visão
+```sql
+CREATE VIEW Analista AS
+SELECT matricula, nome, funcao, Salario, Comissao
+FROM Empregado
+WHERE funcao = 'Analista'
+WITH CHECK OPTION;
+```
+
+#### Teste de Atualização
+```sql
+UPDATE Analista 
+SET funcao = 'Programador' 
+WHERE matricula = 117;
+```
+**Resultado**: Erro, pois viola a cláusula `WHERE` da visão devido ao `WITH CHECK OPTION`.
+
+#### Teste de Inserção
+```sql
+INSERT INTO Analista (matricula, nome, funcao) 
+VALUES (222, 'Carlos Antonio', 'Analista');
+```
+**Resultado**: Erro, pois os atributos `Salario` e `Comissao` são obrigatórios (`NOT NULL`).
+
+---
+
+### Exercício 2
+Crie uma visão (`MaioresSalarios`) contendo a matrícula, função, salário e comissão dos empregados que ganham mais de R$ 3000, utilizando a opção `WITH CHECK OPTION`.
+
+#### Script da Visão
+```sql
+CREATE VIEW MaioresSalarios AS
+SELECT matricula, funcao, salario, comissao
+FROM Empregado
+WHERE salario > 3000
+WITH CHECK OPTION;
+```
+
+#### Teste de Inserção
+```sql
+INSERT INTO MaioresSalarios (matricula, funcao, salario, comissao)
+VALUES (999, 'Analista', 3500, 400);
+```
+**Resultado**: O comando será executado com sucesso, pois os valores inseridos atendem à condição `salario > 3000` definida na visão. O `WITH CHECK OPTION` garante que a inserção não viole a cláusula `WHERE`.
+
+---
+
+## Considerações Finais
+As visões são ferramentas poderosas para simplificar consultas, garantir segurança e proporcionar flexibilidade no acesso aos dados. No entanto, é importante estar ciente das limitações ao realizar operações de atualização, inserção e exclusão em visões. A criação das tabelas base (`Departamento` e `Empregado`) é essencial para que os exemplos funcionem corretamente. Com o uso adequado, as visões podem melhorar significativamente a eficiência e a segurança do banco de dados.
+
+--- 
 
 ### Trigger
 
