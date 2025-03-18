@@ -555,3 +555,60 @@ A cardinalidade é um conceito essencial na modelagem de banco de dados, pois de
 ![texto](./fig-notacoes.png)
 
 
+## Outro Exemplo
+
+![texto](./fig-rel-outro-exempl.png)
+
+## Posto de Combuitível
+
+![texto](./fig-rel-posto.png)
+
+## Exercícios
+
+1. Definir o relacionamento entre as entidades Cliente, Agência e Conta Corrente, apontando a cardinalidade dos relacionamentos. Neste problema o Cliente pode possuir várias Contas-correntes. Uma Conta-corrente pertence a uma única Agência. Uma conta corrente pode pertencer a mais de um cliente. Uma agência pode possuir várias contas-correntes.
+
+2. Todo consumidor possui apenas um registro de dados cadastrais.
+
+Consumidor(CPF, Nome) FK=CPF se refere a CPF de Dados Cadastrais
+Dados Cadastrais(CPF, Endereço) FK=CPF se refere a CPF de Consumidor
+
+3. Um homem pode ser casado com uma única mulher. Uma mulher pode ser casa com um único homem. O casamento possui uma data de casamento.
+
+Homem(CPF, Nome)
+Mulher(CPF, Nome)
+Casado(CPFHomem, CPFMulher, DataCasamento)
+
+4. Todo vendedor emite vários pedidos de compra. Um pedido de compra pode ser emitido através da Internet sem o envolvimento do vendedor. A emissão de um pedido possui data.
+
+Vendedor(Nome, Telefone)
+Pedido(Número, Item, Quantidade)
+Emissão(NumeroPedido, NomeVendedor, Data)
+FK=NomeVendedor se refere a Nome de Vendedor
+
+
+5. Todo funcionário participa de pelo menos um projeto. Cada projeto tem a participação de um ou vários funcionários. Cada participação possui horas trabalhadas.
+
+Funcionario(Matricula, Nome, Função)
+Projeto(Codigo, Nome)
+Participa(MatFunc, CodProjeto, HorasTrabalhadas)
+
+
+## Auto-Relacionamento (Relacionamento Recursivo)
+
+O auto-relacionamento (ou relacionamento recursivo) ocorre quando uma entidade está relacionada consigo mesma. Esse tipo de relacionamento é útil para modelar situações em que uma instância de uma entidade precisa se associar a outras instâncias da mesma entidade. Vamos explorar esse conceito com um exemplo prático.
+
+Definição
+Auto-relacionamento: Um relacionamento onde uma entidade está associada a si mesma.
+
+Também chamado de: Relacionamento recursivo.
+
+Uso comum: Modelar hierarquias, relações de parentesco, estruturas organizacionais, etc.
+
+
+![texto](./fig-rel-auto.png)
+
+### Outro Exemplo
+
+![texto](./fig-rel-auto-outro.png)
+
+
