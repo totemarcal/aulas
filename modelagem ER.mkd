@@ -436,7 +436,7 @@ Os relacionamentos podem ser classificados de acordo com a cardinalidade, ou sej
 
 ---
 
-## Representação Gráfica
+### Representação Gráfica
 Em um diagrama entidade-relacionamento (DER), os relacionamentos são representados da seguinte forma:
 - **Entidades**: São representadas por retângulos.
 - **Atributos**: São representados por elipses.
@@ -444,6 +444,19 @@ Em um diagrama entidade-relacionamento (DER), os relacionamentos são representa
 
 ![texto](./fig-entidade-rel.png)
 
+## Grau do relacionamento
+
+O grau de um relacionamento refere-se ao número de entidades que participam de uma associação lógica. Em outras palavras, ele define quantas entidades estão envolvidas em um relacionamento. Dependendo do número de entidades, os relacionamentos podem ser classificados como:
+
+Relacionamento Binário (Grau 2): Envolve duas entidades.
+
+Relacionamento Ternário (Grau 3): Envolve três entidades.
+
+Relacionamento N-ário (Grau N): Envolve N entidades.
+
+![texto](./fig-grau-rel.png)
+
+![texto](./fig-grau-terc-rel.png)
 
 ---
 
