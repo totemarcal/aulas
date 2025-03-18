@@ -401,9 +401,84 @@ Dependente (
 | **Chave Candidata**     | Atributo que poderia ser usado como chave primária, mas não foi escolhido.    | `CPF` em **Funcionário**.            |
 | **Chave Estrangeira**   | Atributo que referencia a chave primária de outra entidade.                   | `matricula_funcionario` em **Dependente**. |
 
-
-
 ### Relacionamento
+
+# Relacionamentos entre Entidades
+
+No contexto de modelagem de banco de dados, as **entidades** representam objetos ou conceitos do mundo real que possuem atributos e são armazenados em tabelas. No entanto, as entidades não existem isoladamente. Elas estão interconectadas por meio de **relacionamentos**, que são associações lógicas entre duas ou mais entidades. Esses relacionamentos são essenciais para representar corretamente o ambiente observado e garantir a integridade dos dados.
+
+---
+
+## O que é um Relacionamento?
+Um **relacionamento** é uma associação lógica entre entidades. Ele descreve como as entidades interagem entre si e como os dados de uma entidade estão conectados aos dados de outra. Por exemplo:
+- Um **departamento** pode ter vários **empregados**.
+- Um **empregado** pode trabalhar em apenas um **departamento**.
+- Um **produto** pode ser vendido em várias **vendas**.
+
+Os relacionamentos são representados graficamente em diagramas entidade-relacionamento (DER) por meio de **losangos**, que conectam as entidades envolvidas.
+
+---
+
+## Tipos de Relacionamentos
+Os relacionamentos podem ser classificados de acordo com a cardinalidade, ou seja, quantas instâncias de uma entidade estão associadas a instâncias de outra entidade. Os principais tipos são:
+
+### 1. Relacionamento **1:1** (Um para Um)
+- Uma instância de uma entidade está associada a **no máximo uma** instância de outra entidade.
+- Exemplo: Um **empregado** tem apenas um **crachá**, e um **crachá** pertence a apenas um **empregado**.
+
+### 2. Relacionamento **1:N** (Um para Muitos)
+- Uma instância de uma entidade está associada a **várias** instâncias de outra entidade.
+- Exemplo: Um **departamento** pode ter vários **empregados**, mas um **empregado** pertence a apenas um **departamento**.
+
+### 3. Relacionamento **N:N** (Muitos para Muitos)
+- Várias instâncias de uma entidade estão associadas a várias instâncias de outra entidade.
+- Exemplo: Um **projeto** pode ter vários **empregados**, e um **empregado** pode trabalhar em vários **projetos**.
+
+---
+
+## Representação Gráfica
+Em um diagrama entidade-relacionamento (DER), os relacionamentos são representados da seguinte forma:
+- **Entidades**: São representadas por retângulos.
+- **Atributos**: São representados por elipses.
+- **Relacionamentos**: São representados por losangos.
+
+Exemplo de DER:
+```
+   Departamento (Entidade)
+          |
+          | (possui)
+          ◊ (Relacionamento)
+          |
+   Empregado (Entidade)
+```
+
+---
+
+## Exemplo Prático
+
+### Cenário
+Vamos modelar um sistema onde:
+- Um **departamento** pode ter vários **empregados**.
+- Um **empregado** pode trabalhar em apenas um **departamento**.
+- Um **empregado** pode participar de vários **projetos**.
+- Um **projeto** pode ter vários **empregados**.
+
+### Entidades e Atributos
+1. **Departamento**:
+   - Atributos: `cod` (código), `nome`.
+
+2. **Empregado**:
+   - Atributos: `matricula`, `nome`, `funcao`, `salario`, `coddepart` (chave estrangeira para Departamento).
+
+3. **Projeto**:
+   - Atributos: `cod`, `nome`, `orcamento`.
+
+4. **Participa** (Relacionamento entre Empregado e Projeto):
+   - Atributos: `matricula` (chave estrangeira para Empregado), `cod_projeto` (chave estrangeira para Projeto).
+
+---
+
+
 Um **relacionamento** é uma associação lógica entre duas ou mais entidades. Os relacionamentos são representados por losangos no diagrama ER.
 
 - **Grau do Relacionamento**:  
