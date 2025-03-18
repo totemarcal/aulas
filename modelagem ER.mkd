@@ -460,70 +460,87 @@ Relacionamento N-ário (Grau N): Envolve N entidades.
 
 ---
 
+# Cardinalidade em Relacionamentos
 
-Um **relacionamento** é uma associação lógica entre duas ou mais entidades. Os relacionamentos são representados por losangos no diagrama ER.
+A **cardinalidade** em modelagem de banco de dados define o número de instâncias de uma entidade que podem ser associadas a instâncias de outra entidade por meio de um relacionamento. Ela é fundamental para representar as regras de negócio e garantir a integridade dos dados. A cardinalidade é geralmente expressa em termos de:
 
-- **Grau do Relacionamento**:  
-  Define quantas entidades participam do relacionamento. Pode ser:
-  - **Unário**: Relacionamento entre instâncias da mesma entidade.
-  - **Binário**: Relacionamento entre duas entidades.
-  - **Ternário**: Relacionamento entre três entidades.
+1. **Mínimo**: O número mínimo de instâncias que podem participar de um relacionamento.
+2. **Máximo**: O número máximo de instâncias que podem participar de um relacionamento.
 
-- **Cardinalidade**:  
-  Define quantas instâncias de uma entidade podem se relacionar com instâncias de outra entidade. Pode ser:
-  - **1:1 (Um para Um)**: Cada instância de uma entidade se relaciona com apenas uma instância de outra entidade.
-  - **1:N (Um para Muitos)**: Uma instância de uma entidade pode se relacionar com várias instâncias de outra entidade.
-  - **N:M (Muitos para Muitos)**: Várias instâncias de uma entidade podem se relacionar com várias instâncias de outra entidade.
+A cardinalidade é representada em diagramas entidade-relacionamento (DER) por meio de notações como `(0,1)`, `(1,1)`, `(0,N)` ou `(1,N)`.
 
-### Tipos de Entidade
-- **Entidades Fortes**:  
-  São entidades que possuem alto grau de independência e não dependem de outras entidades para existir.
+---
 
-- **Entidades Fracas**:  
-  São entidades que dependem de outras entidades (fortes ou fracas) para existir. Elas possuem uma chave parcial e precisam estar associadas a uma entidade forte.
+## Tipos de Cardinalidade
 
-### Notações para DER (Diagrama Entidade-Relacionamento)
-- **Entidade**: Representada por um retângulo.
-- **Entidade Fraca**: Representada por um retângulo com borda dupla.
-- **Relacionamento**: Representado por um losango.
-- **Atributos**: Representados por elipses conectadas às entidades ou relacionamentos.
+### 1. Cardinalidade **1:1** (Um para Um)
+- **Descrição**: Cada instância de uma entidade está associada a **no máximo uma** instância de outra entidade, e vice-versa.
+- **Notação**: `(1,1)` para ambos os lados do relacionamento.
+- **Exemplo**:
+  - Um **empregado** tem apenas um **crachá**.
+  - Um **crachá** pertence a apenas um **empregado**.
 
-### Modalidade
-A modalidade define se a participação de uma entidade em um relacionamento é obrigatória ou opcional. É representada por pares de números inteiros (min, max), onde:
-- **min = 0**: Participação opcional.
-- **min > 0**: Participação obrigatória.
+#### Representação no DER:
 
-## Extensões do Modelo ER
-### Generalização/Especialização
-- **Especialização**:  
-  Processo de dividir uma entidade em subclasses. Por exemplo, a entidade "Funcionário" pode ser especializada em "Secretária", "Técnico" e "Engenheiro".
+![texto](./fig-rel-1x1.png)
 
-- **Generalização**:  
-  Processo inverso da especialização, onde várias subclasses são agrupadas em uma superclasse. Por exemplo, "Aluno Graduação" e "Aluno Pós-Graduação" podem ser generalizados em "Aluno".
+---
 
-### Agregação
-A agregação é uma abstração onde um relacionamento é tratado como uma entidade. Isso é útil quando um relacionamento precisa ser associado a outra entidade. Por exemplo, um relacionamento entre "Funcionário" e "Projeto" pode ser agregado para representar a alocação de recursos.
+### 2. Cardinalidade **1:N** (Um para Muitos)
+- **Descrição**: Uma instância de uma entidade pode estar associada a **várias** instâncias de outra entidade, mas cada instância da segunda entidade está associada a **apenas uma** instância da primeira.
+- **Notação**: `(1,1)` de um lado e `(0,N)` ou `(1,N)` do outro.
+- **Exemplo**:
+  - Um **departamento** pode ter vários **empregados**.
+  - Um **empregado** pertence a apenas um **departamento**.
 
-## Exercícios
-### Estúdio de Tatuagem
-Um proprietário de estúdio de tatuagem precisa de um sistema para controlar suas atividades. O sistema deve:
-- Cadastrar clientes, tatuadores e tatuagens.
-- Registrar quais tatuagens foram aplicadas em quais clientes e por quais tatuadores.
-- Armazenar informações sobre desenhos trazidos pelos clientes.
-- Manter dados como preço, cor, tamanho e data de aplicação das tatuagens.
+#### Representação no DER:
 
-### Fazenda de Ovelhas
-Uma fazenda precisa de um sistema para controlar o rebanho de ovelhas. O sistema deve:
-- Registrar informações sobre cada animal, como código de registro, sexo, data de nascimento, raça, cor e data da última vacinação.
-- Acompanhar o peso dos animais, com medições mensais.
-- Registrar consultas e procedimentos veterinários, incluindo data, valor pago e tipo de procedimento.
+![texto](./fig-rel-1xN.png)
 
-## Recomendações para criação de um DER
-1. **Conheça o mundo real**: Entenda o domínio do problema antes de começar a modelar.
-2. **Identifique as entidades**: Liste todos os objetos que precisam ser representados no banco de dados.
-3. **Defina os atributos**: Para cada entidade, liste os atributos relevantes.
-4. **Verifique a necessidade de especialização**: Identifique se há subclasses que podem ser criadas a partir de uma entidade.
-5. **Identifique os relacionamentos**: Confronte cada entidade consigo mesma e com as demais para encontrar relacionamentos.
-6. **Defina as cardinalidades**: Determine quantas instâncias de uma entidade podem se relacionar com instâncias de outra entidade.
-7. **Desenhe o DER**: Crie o diagrama entidade-relacionamento com todas as entidades, atributos e relacionamentos.
-8. **Analise as restrições**: Verifique se o DER reflete fielmente o mundo real e faça ajustes conforme necessário.
+---
+
+### 3. Cardinalidade **N:N** (Muitos para Muitos)
+- **Descrição**: Várias instâncias de uma entidade podem estar associadas a várias instâncias de outra entidade.
+- **Notação**: `(0,N)` ou `(1,N)` em ambos os lados do relacionamento.
+- **Exemplo**:
+  - Um **empregado** pode participar de vários **projetos**.
+  - Um **projeto** pode ter vários **empregados**.
+
+#### Representação no DER:
+
+![texto](./fig-rel-NxN.png)
+
+---
+
+## Cardinalidade Mínima e Máxima
+
+A cardinalidade pode ser expressa em termos de **mínimo** e **máximo**:
+
+1. **Cardinalidade Mínima**:
+   - Indica se a participação de uma entidade no relacionamento é **obrigatória** (1) ou **opcional** (0).
+   - Exemplo: Um **empregado** deve pertencer a um **departamento** (mínimo = 1).
+
+2. **Cardinalidade Máxima**:
+   - Indica o número máximo de instâncias que podem participar do relacionamento.
+   - Exemplo: Um **empregado** pode pertencer a apenas um **departamento** (máximo = 1).
+
+### Exemplo de Notação:
+- `(0,1)`: Opcional, no máximo uma instância.
+- `(1,1)`: Obrigatório, exatamente uma instância.
+- `(0,N)`: Opcional, muitas instâncias.
+- `(1,N)`: Obrigatório, muitas instâncias.
+
+---
+
+## Exemplo Prático
+
+### Cenário:
+- Um **empregado** pode trabalhar em apenas um **departamento** (cardinalidade 1:1 ou 1:N).
+- Um **empregado** pode participar de vários **projetos**, e um **projeto** pode ter vários **empregados** (cardinalidade N:N).
+
+
+
+---
+
+## Conclusão
+A cardinalidade é um conceito essencial na modelagem de banco de dados, pois define como as entidades se relacionam entre si. Ela ajuda a garantir que as regras de negócio sejam respeitadas e que os dados sejam consistentes. Ao compreender e aplicar corretamente a cardinalidade, é possível criar modelos de banco de dados eficientes e alinhados às necessidades do sistema.
