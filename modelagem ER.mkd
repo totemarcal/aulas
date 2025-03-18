@@ -705,7 +705,7 @@ A **agregação** é uma abstração que permite tratar um relacionamento como u
 
 ![texto](./fig-agrega.png)
 
-![texto](./fig-agrega2.png)
+![texto](./fig-agreg2.png)
 
 ---
 
