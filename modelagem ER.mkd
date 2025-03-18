@@ -510,6 +510,10 @@ A cardinalidade é representada em diagramas entidade-relacionamento (DER) por m
 
 ![texto](./fig-rel-NxN.png)
 
+#### Exemplo
+
+![texto](./fig-rel-exemp.png)
+
 ---
 
 ## Cardinalidade Mínima e Máxima
@@ -542,5 +546,12 @@ A cardinalidade pode ser expressa em termos de **mínimo** e **máximo**:
 
 ---
 
-## Conclusão
+### Conclusão
 A cardinalidade é um conceito essencial na modelagem de banco de dados, pois define como as entidades se relacionam entre si. Ela ajuda a garantir que as regras de negócio sejam respeitadas e que os dados sejam consistentes. Ao compreender e aplicar corretamente a cardinalidade, é possível criar modelos de banco de dados eficientes e alinhados às necessidades do sistema.
+
+
+## Notações para DER
+
+![texto](./fig-notacoes.png)
+
+
