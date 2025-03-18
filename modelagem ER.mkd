@@ -612,3 +612,103 @@ Uso comum: Modelar hierarquias, relações de parentesco, estruturas organizacio
 ![texto](./fig-rel-auto-outro.png)
 
 
+## Recomendações para criação de um DER
+
+✓ Antes de começar a modelar, conheça o “mundo real”.
+✓ Identifique quais são as ENTIDADES.
+✓ Para cada Entidade represente seus ATRIBUTOS.
+✓ Verifique a necessidade de ESPECIALIZAÇÃO.
+✓ Confronte cada Entidade consigo mesma e com as demais na procura de possíveis RELACIONAMENTOS.
+✓ Verifique a existência de ATRIBUTOS DE RELACIONAMENTO.
+✓ Identifique as cardinalidades dos relacionamentos
+✓ Para relacionamentos múltiplos estude a necessidade de AGREGAÇÕES.
+✓ Desenhe o DER, com todas as Entidades, Atributos e Relacionamentos.
+✓ Analise cuidadosamente todas as restrições que você impôs.
+✓ Até que você e os seus usuários estejam convencidos de que o DER reflete fielmente o “mundo real”, volte ao item 1.
+
+## Exercício Estúdio de Tatuagem
+
+Um proprietário de Estúdio de Tatuagem precisa de um sistema para controlar suas atividades.
+✓ O sistema deve oferecer a funcionalidade de cadastrar todos os clientes. Apenas clientes cadastrados são atendidos no Estúdio.
+✓ Todas as tatuagens aplicadas nos clientes são catalogadas e estão associadas aos clientes que as utilizou. Assim, é possível pesquisar que clientes utilizou cada uma das tatuagens.
+✓ Caso o cliente traga o desenho, esse precisa também ser cadastrado no catálogo do Estúdio.
+✓ Todos os tatuadores também precisam ser cadastrados e sempre fica registrado que tatuador aplicou a tatuagem ao cliente, devendo ser registrada em que data foi aplicada.
+▪ As tatuagens possuem um preço, além de informações sobre se é colorida ou não, qual o tamanho.
+▪ Dos tatuadores precisa cadastrar nome, data de nascimento, RG, CPF e telefone.
+▪ Dos clientes precisam ser guardados dados como nome, endereço, data de nascimento, profissão, CPF e telefone.
+
+
+## Exercício da Fazendo
+
+Uma fazenda precisa de um sistema para controlar o rebanho de ovelhas. Para cada animal é necessário guardar informações sobre seu código de registro, sexo, data de nascimento, raça, cor
+e data da última vacinação.
+O sistema precisa também acompanhar o peso do animal, e isso é aferido a cada mês e deve ficar registrado no sistema.
+Os animais também passam por consultas e procedimentos de veterinários. Os veterinários são registrados e deve ser armazenado no sistema informação do Registro CRMV, Nome, data de nascimento e especialidade de cada veterinário.
+As consultas e procedimentos que são feitos precisam ficar registrados, com dados da data, valor pago. No caso de procedimento, também deve ser registrado o tipo de procedimento realizado.
+
+# Extensões ao Modelo Entidade-Relacionamento (E-R)
+
+O modelo Entidade-Relacionamento (E-R) tradicional é uma ferramenta poderosa para modelagem conceitual de bancos de dados. No entanto, ele não consegue refletir todos os fatos do mundo real de forma completa. Para tornar a modelagem mais fiel à realidade e aumentar sua expressividade semântica, foram introduzidas extensões ao modelo E-R. Essas extensões incluem:
+
+1. **Generalização/Especialização**.
+2. **Agregação**.
+
+Vamos explorar cada uma dessas extensões em detalhes.
+
+---
+
+## 1. Generalização/Especialização
+
+A **generalização/especialização** é uma técnica que permite organizar entidades em hierarquias, onde uma entidade mais geral (superclasse) pode ser dividida em entidades mais específicas (subclasses). Essa abordagem é útil para representar situações em que um conjunto de entidades compartilha características comuns, mas também possui atributos ou comportamentos específicos.
+
+### Conceitos Básicos
+
+#### Especialização
+- **Definição**: Processo de subdividir uma entidade (superclasse) em subclasses mais específicas.
+- **Objetivo**: Capturar características específicas de subconjuntos de instâncias da entidade.
+- **Exemplo**:
+  - A entidade **Funcionário** pode ser especializada em **Gerente** e **Analista**.
+  - **Funcionário** é a superclasse, enquanto **Gerente** e **Analista** são subclasses.
+
+#### Generalização
+- **Definição**: Processo inverso da especialização, onde várias subclasses são agrupadas em uma superclasse.
+- **Objetivo**: Capturar características comuns a todas as subclasses.
+- **Exemplo**:
+  - As entidades **Cachorro**, **Gato** e **Pássaro** podem ser generalizadas em **Animal**.
+  - **Animal** é a superclasse, enquanto **Cachorro**, **Gato** e **Pássaro** são subclasses.
+
+### Características
+- **Herança**: As subclasses herdam os atributos e relacionamentos da superclasse.
+- **Atributos Específicos**: Cada subclass pode ter atributos adicionais que não se aplicam à superclasse.
+- **Relacionamentos**: As subclasses podem participar de relacionamentos específicos.
+
+### Representação no DER
+
+![texto](./fig-espc.png)
+
+![texto](./fig-espc-2.png)
+
+
+---
+
+## 2. Agregação
+
+A **agregação** é uma abstração que permite tratar um relacionamento como uma entidade de nível mais alto. Isso é útil quando um relacionamento precisa participar de outro relacionamento ou quando desejamos associar atributos a um relacionamento.
+
+### Conceitos Básicos
+
+#### Definição
+- **Agregação**: Trata um relacionamento como uma entidade, permitindo que ele participe de outros relacionamentos.
+- **Objetivo**: Modelar situações complexas onde relacionamentos precisam ser associados a outras entidades ou relacionamentos.
+
+### Representação no DER
+
+![texto](./fig-agrega.png)
+
+![texto](./fig-agrega2.png)
+
+---
+
+## Conclusão
+
+As extensões ao modelo E-R, como **generalização/especialização** e **agregação**, tornam a modelagem conceitual mais rica e expressiva, permitindo representar situações complexas do mundo real de forma mais fiel. Essas técnicas são essenciais para modelar hierarquias de classes, relacionamentos complexos e atributos associados a relacionamentos. Ao dominar essas extensões, é possível criar modelos de banco de dados mais robustos e alinhados às necessidades do sistema.
