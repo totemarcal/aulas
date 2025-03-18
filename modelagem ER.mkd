@@ -442,39 +442,8 @@ Em um diagrama entidade-relacionamento (DER), os relacionamentos são representa
 - **Atributos**: São representados por elipses.
 - **Relacionamentos**: São representados por losangos.
 
-Exemplo de DER:
-```
-   Departamento (Entidade)
-          |
-          | (possui)
-          ◊ (Relacionamento)
-          |
-   Empregado (Entidade)
-```
+![texto](./fig-entidade-rel.png)
 
----
-
-## Exemplo Prático
-
-### Cenário
-Vamos modelar um sistema onde:
-- Um **departamento** pode ter vários **empregados**.
-- Um **empregado** pode trabalhar em apenas um **departamento**.
-- Um **empregado** pode participar de vários **projetos**.
-- Um **projeto** pode ter vários **empregados**.
-
-### Entidades e Atributos
-1. **Departamento**:
-   - Atributos: `cod` (código), `nome`.
-
-2. **Empregado**:
-   - Atributos: `matricula`, `nome`, `funcao`, `salario`, `coddepart` (chave estrangeira para Departamento).
-
-3. **Projeto**:
-   - Atributos: `cod`, `nome`, `orcamento`.
-
-4. **Participa** (Relacionamento entre Empregado e Projeto):
-   - Atributos: `matricula` (chave estrangeira para Empregado), `cod_projeto` (chave estrangeira para Projeto).
 
 ---
 
