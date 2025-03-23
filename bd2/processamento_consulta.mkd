@@ -715,4 +715,3 @@ Muitos SGBDs oferecem ferramentas para visualizar e analisar o plano de execu√ß√
 
 ![texto](./imagens/proc8.png)
 
-
