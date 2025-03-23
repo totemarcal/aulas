@@ -104,13 +104,13 @@ A otimização de consultas é uma parte essencial do processamento de consultas
 
 ## Etapas de Processamento
 
-![texto](./bd2\imagens\proc1.png)
-![texto](./bd2/imagens/proc2.png)
-![texto](./bd2/imagens/proc3.png)
-![texto](./bd2/imagens/proc4.png)
-![texto](./bd2/imagens/proc5.png)
-![texto](./bd2/imagens/proc6.png)
-![texto](./bd2/imagens/proc7.png)
-![texto](./bd2/imagens/proc8.png)
+![texto](./imagens/proc1.png)
+![texto](./imagens/proc2.png)
+![texto](./imagens/proc3.png)
+![texto](./imagens/proc4.png)
+![texto](./imagens/proc5.png)
+![texto](./imagens/proc6.png)
+![texto](./imagens/proc7.png)
+![texto](./imagens/proc8.png)
 
 
