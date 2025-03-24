@@ -550,6 +550,34 @@ END atualiza_status_pedido;
 
 ```
 
+### Mysql
+
+```sql
+
+DELIMITER $$
+
+CREATE TRIGGER atualiza_status_pedido
+BEFORE  UPDATE ON pedidos
+FOR EACH ROW
+BEGIN
+    IF NEW.total > 500 THEN
+        SET NEW.status = 'Em Processamento';
+    ELSE
+        SET NEW.status = 'Aguardando';
+    END IF;
+END $$
+
+DELIMITER ;
+```
+
+#### Principais mudanças:
+
+- Mudança de AFTER UPDATE para BEFORE UPDATE: No MySQL, AFTER UPDATE não pode modificar a mesma tabela que acionou a trigger. BEFORE UPDATE permite modificar a linha antes que o UPDATE finalize.
+
+- Uso correto de NEW: Em MySQL, usamos SET NEW.campo = valor para alterar os valores antes de serem escritos no banco. Em Oracle, usamos :NEW.campo, mas no MySQL, os dois pontos (:) não são necessários.
+
+- Removemos UPDATE pedidos SET ... WHERE id_pedido = :NEW.id_pedido; Em Oracle, você precisaria de um UPDATE, mas no MySQL, podemos modificar NEW.status diretamente.
+
 2. Trigger: Impede a exclusão de um cliente se ele tiver pedidos
 Esta trigger impedirá a exclusão de um cliente da tabela clientes se ele tiver feito um ou mais pedidos. Ela verifica se o cliente possui registros na tabela pedidos antes de permitir a exclusão
 
@@ -587,6 +615,35 @@ BEGIN
     COMMIT;
 END reajustar_preco_produto;
 
+```
+
+#### MySql
+
+```sql
+DELIMITER $$
+
+CREATE PROCEDURE reajustar_preco_produto (
+    IN p_id_produto INT,
+    IN p_percentual DECIMAL(10,2)
+)
+BEGIN
+    UPDATE produtos
+    SET preco = preco + (preco * p_percentual / 100)
+    WHERE id_produto = p_id_produto;
+    
+    COMMIT;
+END $$
+
+DELIMITER ;
+```
+
+- Uso de DELIMITER: O MySQL usa ; como delimitador padrão. Para evitar conflitos dentro do CREATE PROCEDURE, trocamos temporariamente o delimitador para $$ ou outro símbolo.
+- IN antes dos parâmetros: No MySQL, os parâmetros precisam de um prefixo (IN, OUT ou INOUT).
+- Remoção de AS: O MySQL não usa AS antes de BEGIN em PROCEDURE.
+- Correção da definição do tipo DECIMAL: Defini um tamanho (DECIMAL(10,2)) para evitar problemas.
+
+```sql
+CALL reajustar_preco_produto(1, 10);
 ```
 
 4. Procedure: Registra um novo pedido
