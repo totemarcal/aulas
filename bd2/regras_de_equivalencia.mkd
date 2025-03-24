@@ -37,9 +37,9 @@ A regra da **Cascata de Seleções** pode ser expressa da seguinte forma:
 $\[ \sigma_{c1 \land c2 \land \dots \land cn}(R) \equiv \sigma_{c1}(\sigma_{c2}(\dots(\sigma_{cn}(R))) \]$
 
 Onde:
-- \(\sigma\) é o operador de seleção.
-- \(c1, c2, \dots, cn\) são condições de seleção.
-- \(R\) é uma relação (tabela).
+- $\(\sigma\)$ é o operador de seleção.
+- $\(c1, c2, \dots, cn\)$ são condições de seleção.
+- $\(R\)$ é uma relação (tabela).
 
 #### Explicação:
 - Uma seleção com múltiplas condições (`c1 AND c2 AND ... AND cn`) pode ser reescrita como uma sequência de seleções, onde cada seleção aplica uma das condições individualmente.
@@ -122,12 +122,12 @@ A regra da **Comutatividade de Seleções** pode ser expressa da seguinte forma:
 $\[ \sigma_{c1}(\sigma_{c2}(R)) \equiv \sigma_{c2}(\sigma_{c1}(R)) \]$
 
 Onde:
-- \(\sigma\) é o operador de seleção.
-- \(c1\) e \(c2\) são condições de seleção.
-- \(R\) é uma relação (tabela).
+- $\(\sigma\)$ é o operador de seleção.
+- $\(c1\)$ e $\(c2\)$ são condições de seleção.
+- $\(R\)$ é uma relação (tabela).
 
 #### Explicação:
-- A ordem em que as seleções são aplicadas não importa, desde que as condições \(c1\) e \(c2\) sejam independentes.
+- A ordem em que as seleções são aplicadas não importa, desde que as condições $\(c1\)$ e \$(c2\)$ sejam independentes.
 - Isso permite que o SGBD reordene as seleções para melhorar a eficiência da consulta.
 
 ---
@@ -199,9 +199,9 @@ A regra da **Cascata de Projeções** pode ser expressa da seguinte forma:
 $\[ pi_{\text{listaAtributos1}}(R) \equiv \pi_{\text{listaAtributos1}}(\pi_{\text{listaAtributos2}}(\dots(\pi_{\text{listaAtributosN}}(R)))) \]$
 
 Onde:
-- \(\pi\) é o operador de projeção.
-- \(\text{listaAtributos1}, \text{listaAtributos2}, \dots, \text{listaAtributosN}\) são listas de atributos (colunas) a serem projetadas.
-- \(R\) é uma relação (tabela).
+- $\(\pi\)$ é o operador de projeção.
+- $\(\text{listaAtributos1}$, $\text{listaAtributos2}$, $\dots$, $\text{listaAtributosN}\)$ são listas de atributos (colunas) a serem projetadas.
+- $\(R\)$ é uma relação (tabela).
 
 #### Explicação:
 - Uma projeção que seleciona um conjunto de colunas pode ser reescrita como uma sequência de projeções, onde cada projeção seleciona um subconjunto das colunas.
@@ -270,7 +270,7 @@ A regra da **Cascata de Projeções** é uma ferramenta poderosa na otimização
 
 ### Comutatividade de Seleções e Projeções
 
-A regra de equivalência algébrica conhecida como **Comutatividade de Seleções e Projeções** é uma regra importante usada na otimização de consultas em bancos de dados. Essa regra permite que a ordem das operações de seleção (\(\sigma\)) e projeção (\(\pi\)) seja trocada, desde que certas condições sejam atendidas. Vamos detalhar essa regra e sua importância:
+A regra de equivalência algébrica conhecida como **Comutatividade de Seleções e Projeções** é uma regra importante usada na otimização de consultas em bancos de dados. Essa regra permite que a ordem das operações de seleção $(\(\sigma\))$ e projeção $(\(\pi\))$ seja trocada, desde que certas condições sejam atendidas. Vamos detalhar essa regra e sua importância:
 
 ---
 
@@ -285,11 +285,11 @@ $\[ \pi_{a1, a2, \dots, an}(\sigma_{c}(R)) \equiv \sigma_{c}(\pi_{a1, a2, \dots,
 $\[ \pi_{a1, a2, \dots, an}(\sigma_{c}(R)) \equiv \sigma_{c}(\pi_{a1, a2, \dots, an, ap, \dots, at}(R)) \]$
 
 Onde:
-- \(\pi\) é o operador de projeção.
-- \(\sigma\) é o operador de seleção.
-- \(a1, a2, \dots, an\) são atributos (colunas) a serem projetados.
-- \(ap, \dots, at\) são atributos adicionais necessários para avaliar a condição \(c\).
-- \(R\) é uma relação (tabela).
+- $\(\pi\)$ é o operador de projeção.
+- $\(\sigma\)$ é o operador de seleção.
+- $\(a1, a2, \dots, an\)$ são atributos (colunas) a serem projetados.
+- $\(ap, \dots, at\)$ são atributos adicionais necessários para avaliar a condição $\(c\)$.
+- $\(R\)$ é uma relação (tabela).
 
 #### Explicação:
 - A ordem das operações de seleção e projeção pode ser trocada, desde que a projeção inclua todos os atributos necessários para avaliar a condição de seleção.
@@ -369,9 +369,9 @@ Ou, no caso de junções:
 $\[ R \bowtie S \equiv S \bowtie R \] $
 
 Onde:
-- \(\times\) é o operador de produto cartesiano.
-- \(\bowtie\) é o operador de junção.
-- \(R\) e \(S\) são relações (tabelas).
+- $\(\times\)$ é o operador de produto cartesiano.
+- $\(\bowtie\)$ é o operador de junção.
+- $\(R\)$ e $\(S\)$ são relações (tabelas).
 
 #### Explicação:
 - A ordem das relações em operações produtórias (produto cartesiano ou junções) pode ser trocada sem afetar o resultado final, desde que a ordem dos atributos e tuplas no resultado não seja relevante.
@@ -442,10 +442,10 @@ $\[ \sigma_{c}(R \times S) \equiv (\sigma_{c}(R)) \times S \]$
 $\[ \sigma_{c}(R \times S) \equiv (\sigma_{c1}(R)) \times (\sigma_{c2}(S)) \]$
 
 Onde:
-- \(\sigma\) é o operador de seleção.
-- \(\times\) é o operador de produto cartesiano.
-- \(R\) e \(S\) são relações (tabelas).
-- \(c\) é uma condição de seleção que pode ser dividida em \(c1\) (aplicável a \(R\)) e \(c2\) (aplicável a \(S\)).
+- $\(\sigma\)$ é o operador de seleção.
+- $\(\times\)$ é o operador de produto cartesiano.
+- $\(R\)$ e $\(S\)$ são relações (tabelas).
+- $\(c\)$ é uma condição de seleção que pode ser dividida em $\(c1\)$ (aplicável a $\(R\))$ e $\(c2\)$ (aplicável a $\(S\)$).
 
 #### Explicação:
 - A seleção pode ser aplicada antes da operação produtória, desde que a condição de seleção seja aplicável às tabelas individuais.
@@ -616,9 +616,9 @@ $\[ R \cup S \equiv S \cup R \] $
 $\[ R \cap S \equiv S \cap R \] $
 
 Onde:
-- \(\cup\) é o operador de união.
-- \(\cap\) é o operador de interseção.
-- \(R\) e \(S\) são relações (tabelas).
+- $\(\cup\)$ é o operador de união.
+- $\(\cap\)$ é o operador de interseção.
+- $\(R\)$ e $\(S\)$ são relações (tabelas).
 
 #### Explicação:
 - A ordem das relações em operações de conjunto (união e interseção) pode ser trocada sem afetar o resultado final.
@@ -690,9 +690,9 @@ Ou, no caso de operações de conjunto:
 $\[ (R \cup S) \cup T \equiv R \cup (S \cup T) \]$
 
 Onde:
-- \(\bowtie\) é o operador de junção (ou produto cartesiano, dependendo do contexto).
-- \(\cup\) é o operador de união.
-- \(R\), \(S\) e \(T\) são relações (tabelas).
+- $\(\bowtie\)$ é o operador de junção (ou produto cartesiano, dependendo do contexto).
+- $\(\cup\)$ é o operador de união.
+- $\(R\)$, $\(S\)$ e $\(T\)$ são relações (tabelas).
 
 #### Explicação:
 - A ordem em que as operações produtórias ou de conjunto são agrupadas pode ser alterada sem afetar o resultado final.
@@ -764,9 +764,9 @@ Ou, no caso de operações de conjunto:
 $\[ (R \cup S) \cup T \equiv R \cup (S \cup T) \]$
 
 Onde:
-- \(\bowtie\) é o operador de junção (ou produto cartesiano, dependendo do contexto).
-- \(\cup\) é o operador de união.
-- \(R\), \(S\) e \(T\) são relações (tabelas).
+- $\(\bowtie\)$ é o operador de junção (ou produto cartesiano, dependendo do contexto).
+- $\(\cup\)$ é o operador de união.
+- $\(R\)$, $\(S\)$ e $\(T\)$ são relações (tabelas).
 
 #### Explicação:
 - A ordem em que as operações produtórias ou de conjunto são agrupadas pode ser alterada sem afetar o resultado final.
@@ -839,12 +839,12 @@ $\[ \sigma_{c}(R \cap S) \equiv \sigma_{c}(R) \cap \sigma_{c}(S) \]$
 $\[ \sigma_{c}(R - S) \equiv \sigma_{c}(R) - \sigma_{c}(S) \]$
 
 Onde:
-- \(\sigma\) é o operador de seleção.
-- \(\cup\) é o operador de união.
-- \(\cap\) é o operador de interseção.
-- \(-\) é o operador de diferença.
-- \(R\) e \(S\) são relações (tabelas).
-- \(c\) é uma condição de seleção.
+- $\(\sigma\)$ é o operador de seleção.
+- $\(\cup\)$ é o operador de união.
+- $\(\cap\)$ é o operador de interseção.
+- $\(-\)$ é o operador de diferença.
+- $\(R\)$ e $\(S\)$ são relações (tabelas).
+- $\(c\)$ é uma condição de seleção.
 
 #### Explicação:
 - A seleção pode ser aplicada antes da operação de conjunto, desde que a condição de seleção seja aplicável às tabelas individuais.
@@ -924,10 +924,10 @@ A regra da **Comutatividade de Projeção e União** pode ser expressa da seguin
 $\[ \pi_{\text{listaAtributos}}(R \cup S) \equiv (\pi_{\text{listaAtributos}}(R)) \cup (\pi_{\text{listaAtributos}}(S)) \]$
 
 Onde:
-- \(\pi\) é o operador de projeção.
-- \(\cup\) é o operador de união.
-- \(R\) e \(S\) são relações (tabelas).
-- \(\text{listaAtributos}\) é a lista de atributos (colunas) a serem projetados.
+- $\(\pi\)$ é o operador de projeção.
+- $\(\cup\)$ é o operador de união.
+- $\(R\) e \(S\)$ são relações (tabelas).
+- $\(\text{listaAtributos}\)$ é a lista de atributos (colunas) a serem projetados.
 
 #### Explicação:
 - A projeção pode ser aplicada antes da operação de união, desde que as colunas necessárias para a união sejam mantidas.
@@ -1010,11 +1010,11 @@ $\[ \sigma_{c}(R \times S) \equiv R \times \sigma_{c}(S) \]$
 $\[ \sigma_{c}(R \times S) \equiv R \bowtie_{\theta} S \]$
 
 Onde:
-- \(\sigma\) é o operador de seleção.
-- \(\times\) é o operador de produto cartesiano.
-- \(\bowtie_{\theta}\) é o operador de junção com uma condição \(\theta\).
-- \(R\) e \(S\) são relações (tabelas).
-- \(c\) é uma condição de seleção.
+- $\(\sigma\)$ é o operador de seleção.
+- $\(\times\)$ é o operador de produto cartesiano.
+- $\(\bowtie_{\theta}\)$ é o operador de junção com uma condição $\(\theta\)$.
+- $\(R\)$ e $\(S\)$ são relações (tabelas).
+- $\(c\)$ é uma condição de seleção.
 
 #### Explicação:
 - A seleção pode ser aplicada antes da operação produtória, desde que a condição de seleção seja aplicável às tabelas individuais.
