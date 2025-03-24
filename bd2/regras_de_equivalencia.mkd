@@ -119,9 +119,7 @@ A regra de equivalência algébrica conhecida como **Comutatividade de Seleçõe
 
 A regra da **Comutatividade de Seleções** pode ser expressa da seguinte forma:
 
-\[
-\sigma_{c1}(\sigma_{c2}(R)) \equiv \sigma_{c2}(\sigma_{c1}(R))
-\]
+$\[ \sigma_{c1}(\sigma_{c2}(R)) \equiv \sigma_{c2}(\sigma_{c1}(R)) \]$
 
 Onde:
 - \(\sigma\) é o operador de seleção.
@@ -198,9 +196,7 @@ A regra de equivalência algébrica conhecida como **Cascata de Projeções** é
 
 A regra da **Cascata de Projeções** pode ser expressa da seguinte forma:
 
-\[
-\pi_{\text{listaAtributos1}}(R) \equiv \pi_{\text{listaAtributos1}}(\pi_{\text{listaAtributos2}}(\dots(\pi_{\text{listaAtributosN}}(R))))
-\]
+$ \[ pi_{\text{listaAtributos1}}(R) \equiv \pi_{\text{listaAtributos1}}(\pi_{\text{listaAtributos2}}(\dots(\pi_{\text{listaAtributosN}}(R)))) \]$
 
 Onde:
 - \(\pi\) é o operador de projeção.
@@ -283,14 +279,10 @@ A regra de equivalência algébrica conhecida como **Comutatividade de Seleçõe
 A regra da **Comutatividade de Seleções e Projeções** pode ser expressa de duas formas:
 
 #### a) **Forma Simples**:
-\[
-\pi_{a1, a2, \dots, an}(\sigma_{c}(R)) \equiv \sigma_{c}(\pi_{a1, a2, \dots, an}(R))
-\]
+$\[ \pi_{a1, a2, \dots, an}(\sigma_{c}(R)) \equiv \sigma_{c}(\pi_{a1, a2, \dots, an}(R)) \]$
 
 #### b) **Forma Estendida**:
-\[
-\pi_{a1, a2, \dots, an}(\sigma_{c}(R)) \equiv \sigma_{c}(\pi_{a1, a2, \dots, an, ap, \dots, at}(R))
-\]
+$ \[ \pi_{a1, a2, \dots, an}(\sigma_{c}(R)) \equiv \sigma_{c}(\pi_{a1, a2, \dots, an, ap, \dots, at}(R)) \]$
 
 Onde:
 - \(\pi\) é o operador de projeção.
@@ -370,15 +362,11 @@ A regra de equivalência algébrica conhecida como **Comutatividade de Operaçõ
 
 A regra da **Comutatividade de Operações Produtórias** pode ser expressa da seguinte forma:
 
-\[
-R \times S \equiv S \times R
-\]
+$ \[ R \times S \equiv S \times R \]$
 
 Ou, no caso de junções:
 
-\[
-R \bowtie S \equiv S \bowtie R
-\]
+$ \[ R \bowtie S \equiv S \bowtie R \] $
 
 Onde:
 - \(\times\) é o operador de produto cartesiano.
@@ -448,14 +436,10 @@ A regra de equivalência algébrica conhecida como **Comutatividade de Seleçõe
 A regra da **Comutatividade de Seleções e Operações Produtórias** pode ser expressa de duas formas:
 
 #### a) **Forma Simples**:
-\[
-\sigma_{c}(R \times S) \equiv (\sigma_{c}(R)) \times S
-\]
+$ \[ \sigma_{c}(R \times S) \equiv (\sigma_{c}(R)) \times S \]$
 
 #### b) **Forma Estendida**:
-\[
-\sigma_{c}(R \times S) \equiv (\sigma_{c1}(R)) \times (\sigma_{c2}(S))
-\]
+$ \[ \sigma_{c}(R \times S) \equiv (\sigma_{c1}(R)) \times (\sigma_{c2}(S)) \]$
 
 Onde:
 - \(\sigma\) é o operador de seleção.
@@ -537,19 +521,13 @@ A regra de equivalência algébrica conhecida como **Comutatividade de Projeçõ
 A regra da **Comutatividade de Projeções e Operações Produtórias** pode ser expressa de três formas:
 
 #### a) **Forma Simples**:
-\[
-\pi_{\text{listaAtributos1}}(R \times S) \equiv (\pi_{\text{listaAtributos2}}(R)) \times S
-\]
+$ \[ \pi_{\text{listaAtributos1}}(R \times S) \equiv (\pi_{\text{listaAtributos2} (R)) \times S \]$
 
 #### b) **Forma Estendida**:
-\[
-\pi_{\text{listaAtributos1}}(R \times S) \equiv (\pi_{\text{listaAtributos2}}(R)) \times (\pi_{\text{listaAtributos3}}(S))
-\]
+$ \[ \pi_{\text{listaAtributos1}}(R \times S) \equiv (\pi_{\text{listaAtributos2}}(R)) \times (\pi_{\text{listaAtributos3}}(S)) \]$
 
 #### c) **Forma Completa**:
-\[
-\pi_{\text{listaAtributos1}}(R \times S) \equiv \pi_{\text{listaAtributos1}}((\pi_{\text{listaAtributos2}}(R)) \times (\pi_{\text{listaAtributos3}}(S)))
-\]
+$ \[ \pi_{\text{listaAtributos1}}(R \times S) \equiv \pi_{\text{listaAtributos1}}((\pi_{\text{listaAtributos2}}(R)) \times (\pi_{\text{listaAtributos3}}(S))) \]$
 
 Onde:
 - \(\pi\) é o operador de projeção.
@@ -631,14 +609,10 @@ A regra de equivalência algébrica conhecida como **Comutatividade de Operaçõ
 A regra da **Comutatividade de Operações de Conjunto** pode ser expressa da seguinte forma:
 
 #### a) **Comutatividade da União**:
-\[
-R \cup S \equiv S \cup R
-\]
+$ \[ R \cup S \equiv S \cup R \] $
 
 #### b) **Comutatividade da Interseção**:
-\[
-R \cap S \equiv S \cap R
-\]
+$ \[ R \cap S \equiv S \cap R \] $
 
 Onde:
 - \(\cup\) é o operador de união.
@@ -708,15 +682,11 @@ A regra de equivalência algébrica conhecida como **Associatividade de Operaç�
 
 A regra da **Associatividade de Operações Produtórias e de Conjunto** pode ser expressa da seguinte forma:
 
-\[
-(R \bowtie S) \bowtie T \equiv R \bowtie (S \bowtie T)
-\]
+$ \[ (R \bowtie S) \bowtie T \equiv R \bowtie (S \bowtie T) \] $
 
 Ou, no caso de operações de conjunto:
 
-\[
-(R \cup S) \cup T \equiv R \cup (S \cup T)
-\]
+$ \[ (R \cup S) \cup T \equiv R \cup (S \cup T) \]$
 
 Onde:
 - \(\bowtie\) é o operador de junção (ou produto cartesiano, dependendo do contexto).
@@ -786,15 +756,11 @@ A regra de equivalência algébrica conhecida como **Associatividade de Operaç�
 
 A regra da **Associatividade de Operações Produtórias e de Conjunto** pode ser expressa da seguinte forma:
 
-\[
-(R \bowtie S) \bowtie T \equiv R \bowtie (S \bowtie T)
-\]
+$ \[ (R \bowtie S) \bowtie T \equiv R \bowtie (S \bowtie T) \]$
 
 Ou, no caso de operações de conjunto:
 
-\[
-(R \cup S) \cup T \equiv R \cup (S \cup T)
-\]
+$ \[ (R \cup S) \cup T \equiv R \cup (S \cup T) \]$
 
 Onde:
 - \(\bowtie\) é o operador de junção (ou produto cartesiano, dependendo do contexto).
@@ -865,17 +831,11 @@ A regra de equivalência algébrica conhecida como **Comutatividade de Seleção
 
 A regra da **Comutatividade de Seleção e Operações de Conjunto** pode ser expressa da seguinte forma:
 
-\[
-\sigma_{c}(R \cup S) \equiv \sigma_{c}(R) \cup \sigma_{c}(S)
-\]
+$ \[ \sigma_{c}(R \cup S) \equiv \sigma_{c}(R) \cup \sigma_{c}(S) \]$ 
 
-\[
-\sigma_{c}(R \cap S) \equiv \sigma_{c}(R) \cap \sigma_{c}(S)
-\]
+$ \[ \sigma_{c}(R \cap S) \equiv \sigma_{c}(R) \cap \sigma_{c}(S) \]$
 
-\[
-\sigma_{c}(R - S) \equiv \sigma_{c}(R) - \sigma_{c}(S)
-\]
+$ \[ \sigma_{c}(R - S) \equiv \sigma_{c}(R) - \sigma_{c}(S) \]$
 
 Onde:
 - \(\sigma\) é o operador de seleção.
@@ -960,9 +920,7 @@ A regra de equivalência algébrica conhecida como **Comutatividade de Projeçã
 
 A regra da **Comutatividade de Projeção e União** pode ser expressa da seguinte forma:
 
-\[
-\pi_{\text{listaAtributos}}(R \cup S) \equiv (\pi_{\text{listaAtributos}}(R)) \cup (\pi_{\text{listaAtributos}}(S))
-\]
+$ \[ \pi_{\text{listaAtributos}}(R \cup S) \equiv (\pi_{\text{listaAtributos}}(R)) \cup (\pi_{\text{listaAtributos}}(S)) \]$
 
 Onde:
 - \(\pi\) é o operador de projeção.
@@ -1045,14 +1003,10 @@ A regra de equivalência algébrica conhecida como **Fusão de Seleções e Oper
 A regra da **Fusão de Seleções e Operações Produtórias** pode ser expressa de duas formas:
 
 #### a) **Forma Simples**:
-\[
-\sigma_{c}(R \times S) \equiv R \times \sigma_{c}(S)
-\]
+$ \[ \sigma_{c}(R \times S) \equiv R \times \sigma_{c}(S) \]$
 
 #### b) **Forma Estendida**:
-\[
-\sigma_{c}(R \times S) \equiv R \bowtie_{\theta} S
-\]
+$ \[ \sigma_{c}(R \times S) \equiv R \bowtie_{\theta} S \]$
 
 Onde:
 - \(\sigma\) é o operador de seleção.
