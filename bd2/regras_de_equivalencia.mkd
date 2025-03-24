@@ -523,6 +523,8 @@ A regra da **Comutatividade de Projeções e Operações Produtórias** pode ser
 #### a) **Forma Simples**:
 $\[ \pi_{\text{listaAtributos1}}(R \times S) \equiv (\pi_{\text{listaAtributos2} (R)) \times (S) \]$
 
+$\[ \pi_{\text{listaAtributos1}}(R \times S) \equiv (\pi_{\text{listaAtributos2}}(R)) \times (\pi_{\text{listaAtributos3}}(S)) \]$
+
 #### b) **Forma Estendida**:
 $\[ \pi_{\text{listaAtributos1}}(R \times S) \equiv (\pi_{\text{listaAtributos2}}(R)) \times (\pi_{\text{listaAtributos3}}(S)) \]$
 
