@@ -279,7 +279,7 @@ A regra de equivalência algébrica conhecida como **Comutatividade de Seleçõe
 A regra da **Comutatividade de Seleções e Projeções** pode ser expressa de duas formas:
 
 #### a) **Forma Simples**:
-$\[ \pi_{a1, a2, \dots, an}(\sigma_{c}(R)) \equiv \sigma_{c}(\pi_{a1, a2, \dots, an}(R)) \]$
+$ \[ \pi_{a1, a2, \dots, an}(\sigma_{c}(R)) \equiv \sigma_{c}(\pi_{a1, a2, \dots, an}(R)) \]$
 
 #### b) **Forma Estendida**:
 $ \[ \pi_{a1, a2, \dots, an}(\sigma_{c}(R)) \equiv \sigma_{c}(\pi_{a1, a2, \dots, an, ap, \dots, at}(R)) \]$
