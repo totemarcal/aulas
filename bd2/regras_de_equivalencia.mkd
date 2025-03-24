@@ -34,9 +34,9 @@ A regra de equivalência algébrica conhecida como **Cascata de Seleções** é 
 
 A regra da **Cascata de Seleções** pode ser expressa da seguinte forma:
 
-\[
+$\[
 \sigma_{c1 \land c2 \land \dots \land cn}(R) \equiv \sigma_{c1}(\sigma_{c2}(\dots(\sigma_{cn}(R)))
-\]
+\]$
 
 Onde:
 - \(\sigma\) é o operador de seleção.
