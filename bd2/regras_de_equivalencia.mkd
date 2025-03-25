@@ -532,7 +532,7 @@ $\[ \pi_{\text{listaAtributos1}}(R \times S) \equiv \pi_{\text{listaAtributos1}}
 
 Onde:
 - $\(\pi\)$ é o operador de projeção.
-- $|\(\times\)$ é o operador de produto cartesiano.
+- $\(\times\)$ é o operador de produto cartesiano.
 - $\(R\)$ e $\(S\)$ são relações (tabelas).
 - $\(\text{listaAtributos1}\)$, $\(\text{listaAtributos2}\)$, e $\(\text{listaAtributos3}\)$ são listas de atributos (colunas) a serem projetadas.
 
