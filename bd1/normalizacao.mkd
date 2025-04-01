@@ -1,643 +1,620 @@
-## Sistemas de Banco de Dados
+# **Normalização de Dados: Conceitos e Aprofundamento**
 
-### Dado, Informação e Conhecimento
+## **1. Introdução à Normalização**
+A normalização é um processo fundamental no projeto de bancos de dados relacionais, visando organizar os dados de forma eficiente, reduzir redundâncias e garantir a integridade dos dados. Foi proposta por **Edgar F. Codd** em 1970 como parte de sua teoria sobre o modelo relacional.
 
-- **Dado**: é o componente básico de um arquivo, é um elemento com um significado no mundo real, que compõe um sistema de arquivos. Como exemplo, podemos citar nome, sobrenome, cidade, bairro e outros.
-- **Informação**: após a interpretação dos dados, é possível associar um significado aos dados ou processá-los. Normalmente, a informação vem de convenções utilizadas por pessoas por meio de associações aos dados.
-- **Conhecimento**: todo discernimento, obtido por meio de critérios, e apreciação aos dados e informações.
-
-#### Exemplo
-
-O registro é composto por seis itens de dados (campos): código, CPF, nome, rua, bairro, cidade. Dentro do Banco de Dados, as fichas de todos os clientes que estão inseridas formarão o arquivo cliente.
-
-Tomando como exemplo uma pesquisa eleitoral: cada entrevistado fornece opiniões conforme as suas preferências entre os candidatos, mas essa opinião individual não significa muita coisa no contexto da eleição. A opinião de um entrevistado único é um dado. Porém, depois de ser integrada às opiniões dos demais respondentes, torna-se algo com significado, uma informação.
-
-Agora, tomando como exemplo um número de telefone: `(11) 58899.3587` é um número, mas não carrega significado por si só; é um dado. Já na frase **"O número do telefone da Viviane é (11) 58899.3587"**, temos uma informação!
+A Normalização substitui, gradativamente, um conjunto de Relações (Entidades e Relacionamentos) por um outro mais consistente, evitando anomalias de atualização (inclusão, alteração e exclusão).
+A decomposição deve ser sem perdas, significando que precisa ser reversível, sem que nenhuma informação seja perdida.
 
 ---
 
-### Definição de Banco de Dados
-
-- **Chu (1983)**: "Um Banco de Dados é um conjunto de arquivos relacionados entre si".
-- **C. J. Date (1985)**: "Um Banco de Dados é uma coleção de dados operacionais armazenados, sendo usados pelos sistemas de aplicação de uma determinada organização".
-- **Elmasri e Navathe (2005)**: "Um Banco de Dados é uma coleção de dados relacionais".
-- **Torey et al. (2007, p.2)**: "Um Banco de Dados é um objeto mais complexo, é uma coleção de dados armazenados e inter-relacionados, que atende às necessidades de vários usuários dentro de uma ou mais organizações, ou seja, coleções inter-relacionadas de muitos tipos diferentes de tabelas".
-
----
-
-### Sistema de Gerenciamento de Banco de Dados
-
-Segundo **DATE (2004)**, um **Sistema Gerenciador de Banco de Dados (SGBD)** é um software genérico para manipular Banco de Dados. Ele permite a definição, construção e manejo de um Banco de Dados para diversas aplicações. Um SGBD possui:
-
-- **Visão lógica**: projeto do BD.
-- **Linguagem de definição de dados (DDL)**: usada para definir o esquema conceitual do Banco de Dados.
-- **Linguagem de manipulação de dados (DML)**: empregada para especificar as recuperações e atualizações do Banco de Dados.
-- **Utilitários importantes**: auxiliam na administração e manutenção do BD.
-
-Os SGBDs também facilitam a conversão e a reorganização do Banco de Dados. Dessa forma, podemos dizer que os SGBDs são programas de computador que ajudam na:
-
-- **Definição e construção do Banco de Dados**: processo de criar uma estrutura inicial com tabelas e preenchê-las com dados.
-- **Manipulação dos dados do Banco de Dados**: operações de consultas, alteração e exclusão realizadas nos dados.
-
-
-### Funções básicas dos SGBD estão listadas abaixo:
-
-- Métodos de acesso
-- Restrições de Integridade
-- Segurança de dados
-- Controle de Concorrência
-- Indepêndicia de dados
+## **2. Objetivos da Normalização**
+A normalização busca:
+- **Eliminar redundâncias**: Evitar a repetição desnecessária de dados.
+- **Minimizar valores nulos**: Reduzir a ocorrência de campos sem informação.
+- **Facilitar a manutenção**: Evitar anomalias em operações de inserção, atualização e exclusão.
+- **Garantir consistência**: Evitar dados inconsistentes devido a atualizações parciais.
+- **Evitar perda de espaço**: Evitar que a mesma informação esteja armazenada em lugares diferentes.
+- **Evitar duplicidade de atualização**: Evitar que seja nescessário atualizar a mesma informações em lugares diferentes. 
+- **Evita a redundância**: Elaborar esquemas onde seja evitada a redundância de informações e conseqüentemente a inconsistência na atualização dos dados
 
 ---
 
-### Níveis de Abstração
-
-Uma das funções essenciais ao **DBA** é utilizar **abstração de dados**. Com a utilização da abstração de dados, é possível esconder certos “detalhes” sobre como os dados estão armazenados e como é realizada a manutenção, para facilitar o entendimento do usuário (**JUKIC, VRBSKY S e NESTOROV, 2013**).
-
-- **Nível físico**: Descreve como os dados estão armazenados. Este é o nível mais baixo de abstração.
-- **Nível lógico**: Esse nível de abstração está acima do físico e descreve quais dados estão armazenados no BD e quais são suas relações. Descreve o Banco de Dados inteiro em termos de um pequeno número de estruturas relativamente simples.
-- **Nível de visões (View)**: Esse nível pode ser visto pelo usuário de diversas formas, pois quem opera são os sistemas aplicativos. Esse nível existe para facilitar sua interação com o sistema, ou seja, o sistema pode fornecer muitas visões para o mesmo Banco de Dados.
+## **3. Semântica dos Atributos**
+A semântica refere-se ao **significado** e ao **relacionamento lógico** entre os atributos. Um esquema bem normalizado deve:
+- **Agrupar atributos logicamente relacionados** (ex.: dados de um cliente em uma tabela `Cliente`, dados de um produto em `Produto`).
+- **Evitar misturar atributos de entidades diferentes** em uma única tabela (ex.: não colocar `Nome_Cliente` e `Preço_Produto` na mesma tabela sem uma relação clara).
 
 ---
 
-### Projeto de Banco de Dados
+## **4. Problemas Causados pela Falta de Normalização**
+### **4.1. Redundância de Dados**
+- Ocorre quando a mesma informação é armazenada múltiplas vezes.
+- **Exemplo**: Em uma tabela `Pedidos` que repete o endereço do cliente em cada pedido, qualquer mudança exige atualização em vários registros.
 
-1. **Definição do sistema**: nesta etapa é determinado o escopo do sistema, o que deverá ser armazenado e quais serão as operações realizadas, assim como seus usuários.
-2. **Projeto do Banco de Dados**: criação do projeto conceitual, lógico e físico.
-3. **Implementação do Banco de Dados**: criação real do Banco de Dados conforme os esquemas definidos na etapa anterior.
-4. **Carga ou conversão de dados**: o Banco de Dados é preenchido com dados já existentes ou preenchido manualmente.
-5. **Conversão de aplicação**: programas que antes acessavam o banco são informados sobre as modificações do novo banco (etapa auxiliar).
-6. **Teste e validação**: verifica-se se tudo está funcionando de acordo com o planejamento.
-7. **Operação**: disponibilização do sistema para uso.
-8. **Monitoramento e manutenção**: observação do funcionamento do sistema para possíveis ajustes.
+### **4.2. Anomalias de Atualização**
+- **Inserção**: Dificuldade em adicionar dados sem informações complementares (ex.: cadastrar um cliente sem um pedido).
+- **Exclusão**: Perda acidental de dados (ex.: apagar um pedido e perder informações do cliente).
+- **Modificação**: Necessidade de atualizar múltiplos registros para uma única alteração (ex.: mudar o preço de um produto em vários pedidos).
 
-### Tipos de Banco de Dados
-
-| **Tipo de SGBD**             | **Estrutura de Dados**                                      | **Características**                                                                 | **Exemplos**                        | **Linguagem de Consulta**          | **Exemplos de Linguagens de Consulta**   | **Quem Utiliza**                       |
-|------------------------------|-------------------------------------------------------------|--------------------------------------------------------------------------------------|-------------------------------------|------------------------------------|-----------------------------------------|----------------------------------------|
-| **SGBD Relacional (RDBMS)**  | Tabelas com linhas e colunas, onde os dados são organizados em relações | - Usa SQL (Structured Query Language) para consultas. <br> - Suporta normalização. <br> - Relacionamentos entre tabelas usando chaves primárias e estrangeiras. | Oracle, MySQL, Microsoft SQL Server, PostgreSQL | SQL (Structured Query Language)    | **Exemplo**: `SELECT * FROM clientes WHERE idade > 30;` | Empresas de todos os tamanhos e setores (finanças, saúde, comércio, etc.), que precisam de consistência e relacionamentos complexos entre dados. |
-| **SGBD Não Relacional (NoSQL)** | Dados não estruturados ou semi-estruturados (ex.: documentos, chave-valor) | - Suporta grandes volumes de dados distribuídos. <br> - Flexível quanto ao formato dos dados. <br> - Escalabilidade horizontal. | MongoDB, Cassandra, Redis          | Depende do SGBD (ex.: MongoDB Query Language, CQL) | **MongoDB Query**: `db.clientes.find({idade: {$gt: 30}});` <br> **Cassandra Query Language (CQL)**: `SELECT * FROM clientes WHERE idade > 30;` | Empresas que lidam com Big Data, redes sociais, IoT, e-commerce e startups tecnológicas que exigem flexibilidade, escalabilidade e alto desempenho. |
-| **SGBD Orientado a Objetos** | Objetos (semelhante a objetos em linguagens de programação) | - Armazena dados como objetos. <br> - Suporta herança, polimorfismo e encapsulamento. <br> - Ideal para aplicações orientadas a objetos. | ObjectDB, db4o                     | OQL (Object Query Language)       | **Exemplo**: `SELECT FROM Cliente WHERE idade > 30;` | Desenvolvedores de software que utilizam programação orientada a objetos e precisam de um banco de dados que se integre facilmente a esse paradigma. |
-| **SGBD Hierárquico**         | Estrutura de árvore (cada registro tem um único pai)        | - Dados são organizados em um modelo de árvore. <br> - Relacionamentos são fixos, com hierarquias predefinidas. | IBM IMS                            | Linguagem de consulta própria (ex.: IMS Database Language) | **Exemplo**: `SELECT * FROM (EMPLOYEE) WHERE SUPERVISOR = 'John';` | Grandes corporações com sistemas legados que ainda utilizam estruturas hierárquicas para processamento de dados, como bancos e empresas de telecomunicações. |
-| **SGBD de Rede**             | Rede de registros interligados, permitindo múltiplos pais   | - Semelhante ao modelo hierárquico, mas com múltiplos pais. <br> - Mais flexível que o hierárquico, porém mais complexo. | IDMS                               | Linguagem de consulta própria (ex.: Network Query Language) | **Exemplo**: `FIND EMPLOYEE WHERE EMPLOYEE_ID = '123';` | Empresas com sistemas legados, principalmente em setores como finanças, onde a estrutura de dados precisa de relacionamentos complexos e flexibilidade. |
+### **4.3. Valores Nulos Excessivos**
+- Campos sem dados podem ocupar espaço e dificultar consultas.
 
 ---
 
-## Modelo Conceitual
+## **5. Formas Normais (Níveis de Normalização)**
+A normalização é aplicada em etapas, conhecidas como **formas normais**:
 
-O Modelo Relacional de Dados, definido por E. F. Codd em 1970 enquanto trabalhava na IBM, revolucionou a forma como os bancos de dados eram estruturados e manipulados. Sua proposta baseia-se na organização dos dados em tabelas (ou relações), utilizando chaves primárias e estrangeiras para estabelecer conexões entre os dados de forma estruturada e eficiente.
-
-### 1. **Simplicidade** dos conceitos de base
-
-- O modelo relacional utiliza um formato tabular simples, onde os dados são organizados em linhas e colunas, facilitando a compreensão e a manipulação.
-- Cada tabela representa uma entidade, e cada linha (tupla) representa um registro único dessa entidade.
-
-
-### 2. Rigor dos **conceitos** (tanto estruturas como operadores)
-
-- Diferente de modelos anteriores, que eram mais flexíveis e menos estruturados, o modelo relacional define regras rigorosas para a manipulação de dados.
-- Conceitos como normalização ajudam a evitar redundância e anomalias nos dados.
-
-### 3. Aspecto de Estrutura  
-
-O banco de dados relacional é representado por um conjunto de **relações (tabelas)**, onde:  
-- Cada **relação** corresponde a uma **tabela**.  
-- As **linhas (tuplas)** representam registros individuais da tabela.  
-- As **colunas (atributos)** representam os diferentes campos ou propriedades armazenadas.  
-- Uma **chave primária** é usada para identificar unicamente cada tupla.  
-- **Chaves estrangeiras** estabelecem relações entre tabelas.  
-
-### 4. Aspecto de Integridade  
-As relações devem satisfazer certas **restrições de integridade** para garantir a consistência dos dados. Entre as principais restrições, destacam-se:  
-- **Integridade de entidade**: Cada tabela deve possuir uma **chave primária** única para evitar registros duplicados.  
-- **Integridade referencial**: As **chaves estrangeiras** devem referenciar valores válidos em outras tabelas, garantindo a coerência dos relacionamentos.  
-- **Integridade de domínio**: Os valores inseridos em uma coluna devem obedecer ao **tipo de dado** definido (exemplo: números em colunas numéricas).  
-
-O **Modelo Relacional de Dados** serviu de base para o desenvolvimento dos **bancos de dados relacionais (RDBMS)**, como **MySQL, PostgreSQL, Oracle e SQL Server**, e influenciou a criação da linguagem **SQL (Structured Query Language)**, amplamente utilizada para consultas e manipulação de dados.
-
-
-## Terminologia Formal do Modelo Relacional de Dados
-
-No **Modelo Relacional de Dados**, os elementos básicos possuem nomes específicos:
-
-- **Tupla**: Uma linha da tabela (representa um registro).  
-- **Atributo**: O título de uma coluna da tabela (representa uma propriedade dos dados).  
-- **Relação**: A tabela em si (conjunto de tuplas e atributos).  
-Onde:
- **R** é o nome da relação (ou tabela).
- **A1, A2, ..., An** são os atributos (colunas da tabela).
- Cada **atributo A** representa um papel desempenhado por algum **domínio D** dentro do esquema da relação R.
-
-- **Domínio**: O tipo de dado que descreve os possíveis valores que podem aparecer em uma coluna.
-Onde:
-**Ai** representa um atributo específico.
-**D(Ai)** ou **dom(Ai)** representa o domínio de valores atômicos (indivisíveis) permitidos para esse atributo.
-
-**Papel do Domínio em uma Relação**
-1. **Garante a validade dos dados**:  
-   - Um atributo **"idade"** deve conter apenas números inteiros positivos.  
-   - Um atributo **"email"** deve seguir o formato de endereços de e-mail.  
-
-2. **Previne erros e inconsistências**:  
-   - O domínio impede que valores inválidos sejam inseridos no banco de dados.  
-
-3. **Facilita a manipulação de dados**:  
-   - Ao definir um domínio corretamente, operadores e funções podem ser aplicados sem necessidade de validação adicional.  
-
-**Exemplo Prático**
-Vamos considerar uma relação **Aluno** com os seguintes atributos:
-
-Os domínios dos atributos são:
-
-| **Atributo** | **Domínio (D(Ai))**                          | **Exemplo de Valor**     |
-|-------------|----------------------------------|---------------------|
-| **matricula** | Números inteiros positivos     | 1001, 1002, 1003    |
-| **nome**      | Cadeia de caracteres (máx. 50) | "João Silva"        |
-| **idade**     | Números inteiros (0-120)       | 20, 35, 45          |
-| **telefone**  | Formato de telefone válido     | (11) 98765-4321     |
-
-## **Atributos Devem Ser Diferentes**
-Segundo a **teoria dos conjuntos**, os atributos de uma relação devem ser **diferentes entre si**. Ou seja, uma relação **não pode conter dois atributos com o mesmo nome**.
-
-**Por que os atributos devem ser únicos?**
-- Evita **ambiguidade** na manipulação dos dados.
-- Garante **univocidade** na representação da relação.
-- Facilita **operações de junção e projeção**.
-
-### Exemplo Prático:
-
-**Tabela: Customers (Clientes)**
-
-| **CustomerID** | **Name**       | **Email**             | **City**          |
-|--------------|---------------|----------------------|----------------|
-| 1            | João Silva    | joao@email.com      | São Paulo     |
-| 2            | Maria Souza   | maria@email.com     | Rio de Janeiro |
-| 3            | Carlos Lima   | carlos@email.com    | Salvador      |
-| 4            | Ana Pereira   | ana@email.com       | Belo Horizonte |
-| 5            | Pedro Santos  | pedro@email.com     | Curitiba      |
-
-- **Atributos**: CustomerID, Name, Email, City.  
-- **Relação**: A tabela inteira "Customers".  
-- **Tupla**: Cada linha da tabela. Exemplo: `(2, Maria Souza, maria@email.com, Rio de Janeiro)`.  
-- **Domínio**:  
-  - O atributo **CustomerID** tem um domínio de **valores inteiros positivos e únicos**.  
-  - O atributo **Name** tem um domínio de **cadeias de caracteres (texto) com nomes de clientes**.  
-  - O atributo **Email** tem um domínio de **endereços de e-mail válidos**.  
-  - O atributo **City** tem um domínio de **cidades existentes**.
-
-# Formulação Matemática de uma Relação no Modelo Relacional
-
-Seja uma **relação** \( R \) composta pelos atributos \( A1, A2, ..., An \), e os **domínios** \( dom(A1), dom(A2), ..., dom(An) \) dos respectivos atributos. A **relação** \( R \) é um **subconjunto** do produto cartesiano dos domínios que definem os atributos da relação.
-
-A formulação matemática é a seguinte:
-
-### **Definição Formal**
-
-Seja:
-- \( A1, A2, ..., An \) os atributos de uma relação \( R \).
-- \( dom(A1), dom(A2), ..., dom(An) \) os domínios dos respectivos atributos.
-
-Então, uma **relação** \( R \) pode ser representada matematicamente como:
-
-$r(R) \subseteq (dom(A_1) \times dom(A_2) \times \dots \times dom(A_n))$
-
-
-Onde:
-- \( r(R) \) é o conjunto de tuplas que formam a relação \( R \).
-- \( dom(Ai) \) é o domínio do atributo \( Ai \), ou seja, o conjunto de valores possíveis para \( Ai \).
-- \( $\times$ \) denota o **produto cartesiano** dos domínios, ou seja, o conjunto de todas as combinações possíveis dos valores dos domínios de \( A1, A2, ..., An \).
-
-### **Explicação do Produto Cartesiano**
-
-O **produto cartesiano** dos domínios \( dom(A1), dom(A2), ..., dom(An) \) gera um conjunto de tuplas, onde cada tupla contém uma combinação dos valores possíveis de cada domínio. Por exemplo:
-
-- Se \( dom(A1) = \{1, 2\} \) e \( dom(A2) = \{x, y\} \), o produto cartesiano \( dom(A1) \times dom(A2) \) seria:
-
-$ dom(A1) \times dom(A2) = \{(1, x), (1, y), (2, x), (2, y)\} $
-
-A relação \( r(R) \) será um subconjunto deste produto cartesiano. Ou seja, a relação \( R \) pode conter algumas (ou todas) as combinações possíveis, dependendo dos dados inseridos na tabela.
-
-### **Exemplo Prático**
-
-Considerando a relação **Aluno**, com os seguintes atributos e domínios:
-
-- \( Aluno(matricula, nome, idade) \)
-- \( dom(matricula) = \{1001, 1002\} \)
-- \( dom(nome) = \{João, Maria\} \)
-- \( dom(idade) = \{18, 19\} \)
-
-O produto cartesiano seria:
-
-$dom(matricula) \times dom(nome) \times dom(idade) = \{(1001, João, 18), (1001, João, 19), (1001, Maria, 18), (1001, Maria, 19), (1002, João, 18), (1002, João, 19), (1002, Maria, 18), (1002, Maria, 19)\}$
-
-Agora, a relação \( r(Aluno) \) poderia ser um subconjunto desse conjunto, por exemplo:
-
-$r(Aluno) = \{(1001, João, 18), (1002, Maria, 19)\}$
-
-Este subconjunto contém apenas algumas das combinações possíveis.
+| **Forma Normal** | **Descrição** | **Exemplo de Problema Resolvido** |
+|-----------------|--------------|----------------------------------|
+| **1FN** (Primeira Forma Normal) | Todos os atributos devem ser atômicos (indivisíveis). | Evitar múltiplos valores em um campo (ex.: "Telefone1, Telefone2"). |
+| **2FN** (Segunda Forma Normal) | Deve estar na 1FN e todos os atributos não-chave devem depender **totalmente** da chave primária. | Remover dependências parciais (ex.: em `Pedido_Item`, `Preço_Produto` deve depender do `ID_Produto`, não do `ID_Pedido`). |
+| **3FN** (Terceira Forma Normal) | Deve estar na 2FN e nenhum atributo não-chave pode depender de outro não-chave (eliminar dependências transitivas). | Separar `Cliente` e `Cidade` se `Cidade` depender do `CEP` e não diretamente do `ID_Cliente`. |
+| **BCNF** (Boyce-Codd) | Versão reforçada da 3FN, onde toda dependência funcional deve ter uma **superchave** como determinante. | Garantir que nenhum atributo não-chave determine parte da chave. |
+| **4FN** e **5FN** | Lidam com dependências multivaloradas e junções. | Casos mais complexos, como relações muitos-para-muitos com atributos adicionais. |
 
 ---
 
-### **Conclusão**
-- Uma **relação** no modelo relacional é um subconjunto do produto cartesiano dos domínios de seus atributos.
-- A fórmula \( r(R) \subseteq (dom(A1) \times dom(A2) \times ... \times dom(An)) \) descreve matematicamente essa estrutura.
-- O **produto cartesiano** gera todas as combinações possíveis de valores, e a relação seleciona quais dessas combinações são armazenadas.
-
-Esse entendimento é fundamental para modelar dados em **bancos de dados relacionais** e compreender como as **relações** são formadas e manipuladas.
-
-# Conceitos de Tupla, Grau e Cardinalidade no Modelo Relacional
-
-### **Tupla**
-Uma **tupla** é uma **lista ordenada de valores** que representam dados em uma relação. Cada valor na tupla corresponde a um **atributo** da relação e pertence ao domínio desse atributo ou pode ser um valor especial **nulo**.
-
-#### **Notação**
-Uma tupla \( t \) é representada como:
-
-$t = <v1, v2, ..., vn>$
-
-Onde:
-- \( v1, v2, ..., vn \) são os valores da tupla, sendo que cada \( vi \) é um valor pertencente ao **domínio** de um atributo \( Ai \) da relação.
-- \( n \) é o número de atributos da relação (o **grau** da relação).
-- Cada \( vi \) pode ser um valor atômico ou um valor especial **nulo** (representando a ausência de valor).
-
-#### **Exemplo de Tupla**
-Considerando a relação **Aluno**, com os atributos:
-
-- **matricula**
-- **nome**
-- **idade**
-
-Uma tupla poderia ser:
-
-$t = <1001, "João Silva", 20>$
-
-Onde:
-- **1001** é o valor da matrícula.
-- **"João Silva"** é o valor do nome.
-- **20** é o valor da idade.
-
-Ou, se algum valor estiver ausente (como no caso de um telefone não fornecido), pode ser representado como **nulo**:
-
-$t = <1002, "Maria Souza", nulo>$
-
-#### **Relação**
-Uma **relação** \( r(R) \) é um **conjunto de n-tuplas** que pertencem a uma relação \( R \).
-
-A notação de uma relação seria:
-
-$r(R) = \{t1, t2, ..., tm\}$
-
-Onde:
-- \( t1, t2, ..., tm \) são as tuplas que fazem parte da relação \( R \).
-- \( m \) é a **cardinalidade** da relação, ou seja, o número de tuplas.
+## **6. Vantagens da Normalização**
+✔ **Economia de armazenamento** (menos dados repetidos).  
+✔ **Consultas mais eficientes** (estrutura organizada).  
+✔ **Facilidade de manutenção** (alterações consistentes).  
+✔ **Integridade dos dados** (evita inconsistências).  
 
 ---
 
-## **Grau de uma Relação**
-O **grau** de uma relação é o **número de atributos** presentes na relação. Em outras palavras, o grau de uma relação \( R \) é o número de **colunas** da tabela que a representa.
+## **7. Desvantagens e Quando Desnormalizar**
+Em alguns casos, a normalização excessiva pode:
+- Aumentar a complexidade de consultas (muitos `JOINs`).  
+- Reduzir desempenho em sistemas com muitas operações de leitura.  
 
-### **Exemplo de Grau**
-Considerando a relação **Aluno**:
+**Soluções**:
+- **Desnormalização controlada**: Duplicar alguns dados para otimizar consultas.  
+- **Uso de views e índices**: Melhorar performance sem comprometer a estrutura.  
 
-$Aluno(matricula, nome, idade)$
+--- 
 
-O grau da relação **Aluno** é 3, porque ela possui 3 atributos.
+# **Primeira Forma Normal (1FN)**
 
----
-
-## **Cardinalidade de uma Relação**
-A **cardinalidade** de uma relação é o **número de tuplas** que ela contém. A cardinalidade indica a **quantidade de registros** na tabela que representa a relação.
-
-### **Exemplo de Cardinalidade**
-Se a relação **Aluno** contiver as seguintes tuplas:
-
-$r(Aluno) = \{(1001, "João Silva", 20), (1002, "Maria Souza", 19), (1003, "Carlos Lima", 22)\}$
-
-A cardinalidade da relação **Aluno** é 3, porque existem 3 tuplas na relação.
+## **1. Definição Formal da 1FN**
+Uma relação está na **Primeira Forma Normal (1FN)** se e somente se:
+- Todos os atributos contêm **valores atômicos** (indivisíveis).
+- Não existem **grupos repetitivos** (listas, conjuntos ou múltiplos valores em um único campo).
 
 ---
 
-## **Resumo dos Conceitos**
-- **Tupla**: Lista ordenada de valores representando um registro na relação, onde cada valor corresponde a um atributo e pode ser um valor atômico ou nulo.
-- **Grau**: Número de atributos de uma relação.
-- **Cardinalidade**: Número de tuplas de uma relação.
-
-Esses conceitos são fundamentais para a **modelagem de dados** no **Modelo Relacional de Dados**, ajudando a descrever as **estruturas** e **quantidade de dados** presentes em um banco de dados relacional.
-
----
-
-### **Relacionamento com outra Tabela**
-
-Agora, vamos adicionar uma tabela relacionada, a **Orders (Pedidos)**:
-
-**Tabela: Orders (Pedidos)**
-
-| **OrderID** | **CustomerID** | **OrderDate** | **TotalAmount** |
-|------------|--------------|------------|--------------|
-| 101        | 1            | 2024-02-10 | 150.00      |
-| 102        | 3            | 2024-02-12 | 200.00      |
-| 103        | 2            | 2024-02-15 | 99.90       |
-| 104        | 1            | 2024-02-18 | 75.50       |
-
-- **Chave Primária (PK)**:  
-  - **OrderID** na tabela **Orders**.  
-  - **CustomerID** na tabela **Customers**.  
-
-- **Chave Estrangeira (FK)**:  
-  - **CustomerID** na tabela **Orders**, referenciando **CustomerID** na tabela **Customers**.  
-
-### **Explicação do Relacionamento**
-- O **CustomerID** na tabela **Orders** indica qual cliente fez cada pedido.  
-- Exemplo: O pedido **101** foi feito pelo **CustomerID 1**, que é **João Silva**.  
-- Esse relacionamento garante **integridade referencial**, pois um pedido não pode existir sem um cliente associado.
+## **2. Procedimento para Normalização na 1FN**
+### **Passo a Passo**
+1. **Identificar grupos repetitivos** (atributos multivalorados).  
+   - Ex.: `Telefones` em `Empregado(Matrícula, Nome, Telefones*)`.  
+2. **Transformar em atributos distintos** (se possível).  
+   - Ex.: Criar `Telefone1`, `Telefone2`, etc. (solução limitada).  
+3. **Se não for viável**, criar uma **nova tabela** com:  
+   - A **chave primária da tabela original** (`Matrícula`).  
+   - O **atributo multivalorado** (`Número`).  
+4. **Definir a chave primária da nova tabela**:  
+   - Concatenar a chave da tabela original + o atributo multivalorado.  
+   - Ex.: `Telefone_Empregado(Matrícula, Número)` → Chave primária = `(Matrícula, Número)`.  
 
 ---
 
-Essa estrutura mostra a aplicação da **terminologia do Modelo Relacional**, incluindo **relações, tuplas, atributos, domínios, chaves primária e estrangeira**.  
+## **3. Exemplo Prático**
+### **Antes da 1FN (Violação)**
+| **Matrícula** | **Nome**      | **Telefones**            |
+|---------------|--------------|--------------------------|
+| 101           | João Silva   | (11) 9999-1111, (11) 8888-2222 |
+| 102           | Maria Souza  | (11) 7777-3333                  |
 
-### 5. Aspecto de Manipulação  
-- O modelo relacional introduziu a Álgebra Relacional e o Cálculo Relacional, permitindo operações como seleção, projeção, junção e união de dados.
-- Essas operações possibilitam a recuperação e manipulação eficiente dos dados de forma declarativa.
+**Problema**: O campo `Telefones` armazena múltiplos valores (não atômico).
 
-Os dados armazenados nas relações podem ser manipulados através de **operadores da álgebra relacional**, que permitem a recuperação e modificação eficiente dos dados. Os principais operadores incluem:  
-- **Seleção (σ)**: Filtra linhas que atendem a uma condição específica.  
-- **Projeção (π)**: Seleciona colunas específicas de uma tabela.  
-- **Junção (⨝)**: Combina dados de duas ou mais tabelas com base em um atributo comum.  
-- **União (∪)**: Combina os resultados de duas tabelas semelhantes.  
-- **Interseção (∩)**: Retorna os registros comuns entre duas tabelas.  
-- **Diferença (-)**: Retorna os registros que estão em uma tabela, mas não em outra.  
+### **Depois da 1FN (Solução Correta)**
+**Tabela `Empregado`**  
+| **Matrícula** | **Nome**      |
+|---------------|--------------|
+| 101           | João Silva   |
+| 102           | Maria Souza  |
 
-# Operações da Álgebra Relacional
+**Tabela `Telefone_Empregado`**  
+| **Matrícula** | **Número**       |
+|---------------|------------------|
+| 101           | (11) 9999-1111   |
+| 101           | (11) 8888-2222   |
+| 102           | (11) 7777-3333   |
 
-As operações da álgebra relacional permitem a manipulação eficiente de dados em um banco de dados relacional. A seguir, estão as principais operações com exemplos:
+**Chave primária de `Telefone_Empregado`**: `(Matrícula, Número)`.
 
 ---
 
-### 1. **Seleção (σ)**
-A operação de **seleção** filtra as linhas que atendem a uma condição específica.
+## **4. Outros Exemplos de Atributos Multivalorados**
+### **4.1. Endereços de E-mail**
+- **Antes**: `Cliente(ID, Nome, Emails*)` → `Emails = "joao@exemplo.com; joao2@exemplo.com"`.  
+- **Depois**:  
+  - `Cliente(ID, Nome)`  
+  - `Email_Cliente(ID, Email)`  
 
-#### **Sintaxe**:  
+### **4.2. Habilidades de Funcionários**
+- **Antes**: `Funcionário(ID, Nome, Habilidades*)` → `Habilidades = "Java, SQL, Python"`.  
+- **Depois**:  
+  - `Funcionário(ID, Nome)`  
+  - `Habilidade_Funcionário(ID, Habilidade)`  
 
-$\sigma_{\text{condição}}(R)$
+### **4.3. Itens de Pedido**
+- **Antes**: `Pedido(Num_Pedido, Cliente, Itens*)` → `Itens = "Notebook, Mouse, Teclado"`.  
+- **Depois**:  
+  - `Pedido(Num_Pedido, Cliente)`  
+  - `Item_Pedido(Num_Pedido, Item)`  
 
-#### **Exemplo**:
+---
 
-Tabela **Aluno**:
+## **5. Casos Especiais e Considerações**
+### **5.1. Quando Não Decompor?**
+- Se o atributo multivalorado for raramente consultado ou não causar redundância (ex.: `Tags` em um blog).  
+- Alternativa: Armazenar como **JSON** ou **array** (em bancos NoSQL).  
 
-| matricula | nome   | idade | cidade   |
-|-----------|--------|-------|----------|
-| 1001      | João   | 20    | Salvador |
-| 1002      | Maria  | 19    | Recife   |
-| 1003      | Carlos | 22    | Salvador |
+### **5.2. Problemas Comuns**
+- **Chave primária composta muito grande**: Pode impactar desempenho.  
+- **Consulta mais complexa**: Necessidade de `JOIN` para recuperar dados completos.  
 
-Selecionando os alunos com **idade maior que 20**:
+---
 
-$\sigma_{\text{idade} > 20}(Aluno)$
+## **6. Exercício Proposto**
+Normalize a seguinte tabela para 1FN:  
+`Aluno(RA, Nome, Cursos*)`  
+Onde `Cursos` armazena múltiplos cursos matriculados (ex.: "Engenharia, Medicina, Direito").  
+
+**Solução Esperada**:  
+- `Aluno(RA, Nome)`  
+- `Matricula_Aluno(RA, Curso)`  
+
+---
+
+## **7. Conclusão**
+A **1FN** é a base da normalização, garantindo que os dados sejam **atômicos** e **livres de repetições**. A decomposição correta evita:  
+❌ Redundâncias.  
+❌ Dificuldades em consultas.  
+❌ Anomalias de atualização.  
+
+Aplicar a 1FN é o **primeiro passo** para um esquema de banco de dados eficiente e consistente.
+
+# **Dependência Funcional (DF) - Análise Detalhada**
+
+## **1. Conceito Fundamental**
+Uma **dependência funcional (DF)** é uma restrição que estabelece uma relação de determinação entre atributos em uma tabela. Formalmente:
+- **Notação**: `X → Y` (leia-se: "X determina Y" ou "Y é funcionalmente dependente de X").
+- **Definição**: Para quaisquer duas tuplas, se os valores de **X** são iguais, então os valores de **Y** também devem ser iguais.
+
+---
+
+## **2. Exemplo Prático**
+Considere a tabela de funcionários:
+
+| **CPF**  | **Nome**   | **Função**          | **Salário_Base** |
+|----------|------------|---------------------|------------------|
+| 1235     | Carlos     | Programador I       | R$ 1.500,00      |
+| 1412     | Marta      | DBA Senior          | R$ 4.000,00      |
+| 1311     | José       | DBA Senior          | R$ 4.000,00      |
+| 2152     | Eduardo    | Programador I       | R$ 1.500,00      |
+
+### **DFs Identificadas**:
+1. `CPF → Nome` (Cada CPF determina um único nome).  
+2. `CPF → Função` (Cada CPF está associado a uma única função).  
+3. `Função → Salário_Base` (Cada função tem um salário fixo).  
+
+---
+
+## **3. Análise do Exercício Proposto**
+Dada a relação **R(A, B, C, D, E)** com as tuplas:
+
+| **A** | **B** | **C** | **D** | **E** |
+|-------|-------|-------|-------|-------|
+| a1    | b1    | c1    | d1    | e4    |
+| a1    | b2    | c2    | d2    | e4    |
+| a2    | b1    | c3    | d3    | e2    |
+| a2    | b1    | c4    | d3    | e2    |
+| a3    | b2    | c5    | d1    | e1    |
+
+### **Verificação das Proposições**:
+1. **DF: A → D**  
+   - **Falso**: Para `A = a1`, há `D = d1` e `D = d2`.  
+     - Violação: Um valor de `A` não determina um único `D`.  
+
+2. **DF: AB → D**  
+   - **Verdadeiro**:  
+     - `(a1, b1)` → `d1`  
+     - `(a1, b2)` → `d2`  
+     - `(a2, b1)` → `d3`  
+     - `(a3, b2)` → `d1`  
+   - Cada combinação de `(A, B)` determina um único `D`.  
+
+3. **DF: D → C**  
+   - **Falso**: Para `D = d3`, há `C = c3` e `C = c4`.  
+
+4. **DF: E → D**  
+   - **Falso**: Para `E = e4`, há `D = d1` e `D = d2`.  
+
+5. **DF: A → E**  
+   - **Verdadeiro**:  
+     - `a1` → `e4`  
+     - `a2` → `e2`  
+     - `a3` → `e1`  
+   - Cada valor de `A` determina um único `E`.  
+
+---
+
+## **4. Resumo das Respostas**
+| **Proposição**   | **Verdadeiro/Falso** | **Justificativa**                                                                 |
+|------------------|----------------------|----------------------------------------------------------------------------------|
+| 1) A → D         | Falso                | `a1` está associado a `d1` e `d2`.                                               |
+| 2) AB → D        | Verdadeiro           | Cada par `(A, B)` determina um único `D`.                                        |
+| 3) D → C         | Falso                | `d3` está associado a `c3` e `c4`.                                               |
+| 4) E → D         | Falso                | `e4` está associado a `d1` e `d2`.                                               |
+| 5) A → E         | Verdadeiro           | Cada valor de `A` determina um único `E` (ex.: `a1` → `e4`, `a2` → `e2`).       |
+
+---
+
+## **5. Aplicação em Normalização**
+- As **DFs** são a base para definir as **formas normais** (1FN, 2FN, 3FN, BCNF).  
+  - Exemplo: A DF `Função → Salário_Base` no exemplo inicial levou à decomposição em **3FN**.  
+
+### **Regras para Identificar DFs**:
+1. **Unicidade**: Se `X → Y`, então para cada `X`, existe **no máximo um `Y`**.  
+2. **Consistência temporal**: A DF deve valer **em qualquer estado** da tabela.  
+3. **Atributos compostos**: `X` e `Y` podem ser conjuntos de atributos (ex.: `(A, B) → D`).  
+
+---
+
+## **6. Exercício Adicional**
+Dada a tabela **Pedidos**:
+
+| **Pedido_ID** | **Cliente_ID** | **Nome_Cliente** | **Produto_ID** | **Quantidade** |  
+|--------------|---------------|------------------|---------------|----------------|  
+| 1            | 101           | João             | P01           | 2              |  
+| 2            | 101           | João             | P02           | 1              |  
+| 3            | 102           | Maria            | P03           | 3              |  
+
+**Identifique as DFs válidas**:  
+1. `Pedido_ID → Cliente_ID`  
+2. `Cliente_ID → Nome_Cliente`  
+3. `Produto_ID → Quantidade`  
+
+**Respostas**:  
+1. **Verdadeiro** (Cada pedido tem um único `Cliente_ID`).  
+2. **Verdadeiro** (Cada cliente tem um único nome).  
+3. **Falso** (A quantidade depende do pedido, não do produto).  
+
+---
+
+## **7. Conclusão**
+- **DFs** são essenciais para projetar esquemas de bancos de dados **sem redundâncias** e **consistentes**.  
+- A análise correta das DFs permite aplicar **formas normais** e evitar anomalias.  
+- **Dica**: Sempre verifique se um atributo determina **unicamente** outro para validar uma DF.
+
+---
+
+# **Segunda Forma Normal (2FN)**
+
+## **1. Definição Formal da 2FN**
+Uma relação está na **Segunda Forma Normal (2FN)** se e somente se:
+1. Estiver na **1FN** (todos os atributos são atômicos).
+2. **Todos os atributos não-chave** forem **totalmente dependentes** da **chave primária inteira** (não apenas de parte dela).
+
+---
+
+## **2. Conceitos-Chave**
+### **2.1. Dependência Parcial vs. Total**
+- **Dependência Total**: Um atributo não-chave **depende de toda a chave primária** (composta).  
+  - Ex.: Em `Remessa(#Cod_prod, #Cod_forn, Quant)`, `Quant` depende **dos dois campos juntos**.  
+- **Dependência Parcial**: Um atributo não-chave **depende apenas de parte da chave primária**.  
+  - Ex.: Em `Remessa(#Cod_prod, #Cod_forn, Cidade)`, `Cidade` depende **apenas de `#Cod_forn`**.  
+
+### **2.2. Procedimento para Normalização na 2FN**
+1. **Identificar atributos parcialmente dependentes**.  
+2. **Removê-los** da tabela original.  
+3. **Criar uma nova tabela** com:  
+   - A **parte da chave primária** da qual eles dependem.  
+   - Os **atributos removidos**.  
+4. **Manter na tabela original** apenas os atributos **totalmente dependentes**.  
+
+---
+
+## **3. Exemplo Prático**
+### **Antes da 2FN (Violação)**
+**Tabela `Remessa`**:  
+| **#Cod_prod** | **#Cod_forn** | **Quant** | **Cidade** | **Status_F** |
+|--------------|--------------|----------|------------|-------------|
+| P01          | F01          | 100      | São Paulo  | Ativo       |
+| P02          | F01          | 50       | São Paulo  | Ativo       |
+| P03          | F02          | 200      | Rio de Janeiro | Inativo   |
+
+**Problema**:  
+- `Cidade` e `Status_F` dependem **apenas de `#Cod_forn`** (não de `#Cod_prod`).  
+- `Quant` depende **de ambos** (`#Cod_prod` e `#Cod_forn`).  
+
+### **Depois da 2FN (Solução Correta)**
+**Tabela `Remessa` (mantém apenas dependências totais)**:  
+| **#Cod_prod** | **#Cod_forn** | **Quant** |
+|--------------|--------------|----------|
+| P01          | F01          | 100      |
+| P02          | F01          | 50       |
+| P03          | F02          | 200      |
+
+**Tabela `Fornecedor` (nova tabela para dependências parciais)**:  
+| **#Cod_forn** | **Cidade**      | **Status_F** |
+|--------------|----------------|-------------|
+| F01          | São Paulo      | Ativo       |
+| F02          | Rio de Janeiro | Inativo     |
+
+**Chaves**:  
+- `Remessa`: Chave primária composta `(#Cod_prod, #Cod_forn)`.  
+- `Fornecedor`: Chave primária `#Cod_forn`.  
+
+---
+
+## **4. Outros Exemplos de Aplicação da 2FN**
+### **4.1. Matrícula de Alunos em Cursos**
+**Antes (violação)**:  
+`Matricula(#Aluno_ID, #Curso_ID, Nota, Nome_Aluno, Departamento_Curso)`  
+
+**Problema**:  
+- `Nome_Aluno` depende apenas de `#Aluno_ID`.  
+- `Departamento_Curso` depende apenas de `#Curso_ID`.  
+
+**Depois (2FN)**:  
+- `Matricula(#Aluno_ID, #Curso_ID, Nota)`  
+- `Aluno(#Aluno_ID, Nome_Aluno)`  
+- `Curso(#Curso_ID, Departamento_Curso)`  
+
+### **4.2. Pedidos de Vendas**
+**Antes (violação)**:  
+`Pedido(#Pedido_ID, #Produto_ID, Quantidade, Nome_Cliente, Endereço_Cliente)`  
+
+**Depois (2FN)**:  
+- `Pedido_Item(#Pedido_ID, #Produto_ID, Quantidade)`  
+- `Pedido(#Pedido_ID, Nome_Cliente, Endereço_Cliente)` *(Observação: Na prática, isso ainda violaria a 3FN!)*  
+
+---
+
+## **5. Casos Especiais**
+### **5.1. Quando a 2FN Não se Aplica?**
+- Se a chave primária for **simples** (não composta), a tabela **automaticamente está na 2FN**.  
+  - Ex.: `Cliente(ID, Nome, CPF)` já está na 2FN, pois não há dependências parciais.  
+
+### **5.2. Erros Comuns**
+- **Não identificar corretamente as dependências**: Levar a decomposições incorretas.  
+- **Criar tabelas redundantes**: Separar atributos que **já estão totalmente dependentes**.  
+
+---
+
+## **6. Exercício Proposto**
+Normalize para 2FN a tabela:  
+`Projeto(#Func_ID, #Proj_ID, Horas_Trabalhadas, Nome_Func, Cargo_Func)`  
+
+**Solução Esperada**:  
+- `Alocacao_Projeto(#Func_ID, #Proj_ID, Horas_Trabalhadas)`  
+- `Funcionario(#Func_ID, Nome_Func, Cargo_Func)`  
+
+---
+
+## **7. Conclusão**
+A **2FN** elimina **dependências parciais**, garantindo que:  
+✅ Atributos não-chave dependam **totalmente** da chave primária.  
+✅ Redundâncias sejam minimizadas.  
+✅ Anomalias de atualização sejam evitadas.  
+
+É o **segundo passo** para um esquema de banco de dados **eficiente e consistente**, preparando o terreno para a **3FN**.
+
+
+---
+
+# **Terceira Forma Normal (3FN)**
+
+## **1. Definição Formal da 3FN**
+Uma relação está na **Terceira Forma Normal (3FN)** se e somente se:
+1. Estiver na **2FN** (sem dependências parciais).
+2. **Não existirem dependências transitivas** entre atributos não-chave (nenhum atributo não-chave determina outro atributo não-chave).
+
+### **Regra Prática:**
+- Todo atributo não-chave deve depender **apenas da chave primária** (não de outros atributos não-chave).
+
+---
+
+## **2. Dependência Transitiva (Problema Resolvido pela 3FN)**
+Ocorre quando:
+- Um atributo não-chave **A** determina outro atributo não-chave **B**.
+- Formalmente: Se **X → Y** e **Y → Z**, então **X → Z** é uma dependência transitiva.
+
+**Exemplo Clássico**:
+- Na tabela `Empregado(#Mat, Nome, Função, Salário_base)`, se `Função → Salário_base`, então `#Mat → Salário_base` é transitiva.
+
+---
+
+## **3. Procedimento para Normalização na 3FN**
+1. **Identificar dependências transitivas**:
+   - Ex.: `Função → Salário_base` em `Empregado`.
+2. **Remover os atributos dependentes**:
+   - Extrair `Salário_base` da tabela original.
+3. **Criar uma nova tabela** com:
+   - O **atributo determinante** (`Função`) como chave primária.
+   - O **atributo dependente** (`Salário_base`).
+4. **Manter na tabela original** apenas a **chave estrangeira** (`Função`).
+
+---
+
+## **4. Exemplo Prático**
+### **Antes da 3FN (Violação)**
+**Tabela `Empregado`**:
+| **#Mat** | **Nome**  | **Endereço** | **Função**   | **Salário_base** | **Depto** |
+|----------|----------|-------------|-------------|------------------|----------|
+| 101      | João     | Rua A       | Gerente     | 10.000           | Vendas   |
+| 102      | Maria    | Rua B       | Analista    | 7.000            | TI       |
+
+**Problema**:
+- `Salário_base` depende de `Função` (não diretamente da chave `#Mat`).
+
+### **Depois da 3FN (Solução Correta)**
+**Tabela `Empregado`**:
+| **#Mat** | **Nome**  | **Endereço** | **Função** | **Depto** |
+|----------|----------|-------------|-----------|----------|
+| 101      | João     | Rua A       | Gerente   | Vendas   |
+| 102      | Maria    | Rua B       | Analista  | TI       |
+
+**Tabela `Função_Salário`**:
+| **Função**  | **Salário_base** |
+|------------|------------------|
+| Gerente    | 10.000           |
+| Analista   | 7.000            |
+
+**Chaves**:
+- `Empregado`: Chave primária `#Mat`, com `Função` como chave estrangeira.
+- `Função_Salário`: Chave primária `Função`.
+
+---
+
+## **5. Vantagens da 3FN**
+| **Benefício**               | **Explicação**                                                                 |
+|-----------------------------|-------------------------------------------------------------------------------|
+| **Elimina redundâncias**    | `Salário_base` é armazenado uma única vez por função, não por empregado.     |
+| **Previne anomalias**       | Atualizar o salário de uma função requer mudança em apenas um registro.      |
+| **Melhora consistência**    | Não há risco de salários diferentes para a mesma função.                     |
+| **Facilita consultas**      | Estrutura mais organizada para buscas (ex.: listar todas as funções e salários). |
+
+---
+
+## **6. Comparação entre 2FN e 3FN**
+| **Critério**         | **2FN**                                  | **3FN**                                  |
+|----------------------|------------------------------------------|------------------------------------------|
+| **Foco**            | Elimina dependências **parciais**.       | Elimina dependências **transitivas**.    |
+| **Atributos Alvo**  | Atributos não-chave que dependem de **parte da chave primária**. | Atributos não-chave que dependem de **outros não-chave**. |
+| **Exemplo**        | Separar `Cidade` de `Pedido` (depende apenas do `Cliente_ID`). | Separar `Salário_base` de `Empregado` (depende de `Função`). |
+
+---
+
+## **7. Casos Especiais**
+### **7.1. Quando a 3FN Não é Suficiente?**
+- Se houver **dependências multivaloradas** ou **junções complexas**, a **Forma Normal de Boyce-Codd (BCNF)** pode ser necessária.
+- Exemplo: Se `Função` determinasse `Depto` (violação da BCNF).
+
+### **7.2. Desnormalização Controlada**
+- Em sistemas OLAP (análise de dados), a 3FN pode ser relaxada para melhorar desempenho em consultas complexas.
+
+---
+
+## **8. Exercício Proposto**
+Normalize para 3FN a tabela:  
+`Livro(ISBN, Título, Autor_ID, Nome_Autor, Nacionalidade_Autor, Editora_ID, País_Editora)`  
+
+**Solução Esperada**:
+- `Livro(ISBN, Título, Autor_ID, Editora_ID)`
+- `Autor(Autor_ID, Nome_Autor, Nacionalidade_Autor)`
+- `Editora(Editora_ID, País_Editora)`
+
+---
+
+## **9. Conclusão**
+A **3FN** é essencial para:
+✔ **Eliminar redundâncias ocultas** (dependências transitivas).  
+✔ **Garantir atualizações eficientes**.  
+✔ **Estruturar dados de forma lógica e consistente**.  
+
+É o **último passo** para a maioria dos projetos de bancos de dados tradicionais, antecedendo apenas a BCNF em casos específicos.
+
+---
+
+# **Forma Normal de Boyce-Codd (FNBC) - Teoria e Aplicação**
+
+## **1. Definição Formal da FNBC**
+Uma relação está na **Forma Normal de Boyce-Codd (FNBC)** se e somente se:
+- Estiver na **3FN** (sem dependências transitivas).
+- **Todo determinante (lado esquerdo de uma DF) for uma chave candidata** (superchave).
+
+### **Regra Prática**:
+- Se existir uma DF `X → Y` onde **X não é chave candidata**, a relação **não está na FNBC**.
+
+---
+
+## **2. Comparação entre 3FN e FNBC**
+| **Critério**         | **3FN**                                  | **FNBC**                                  |
+|----------------------|------------------------------------------|------------------------------------------|
+| **Foco**            | Elimina dependências **transitivas**.    | Exige que **todo determinante seja chave candidata**. |
+| **Restrição**       | Permite DFs onde o determinante **não é chave**, desde que o dependente seja **atributo primo** (parte de alguma chave). | **Não permite** DFs com determinantes não-chave, independentemente do tipo de atributo dependente. |
+| **Exemplo**        | `Função → Salário_base` (aceito na 3FN se `Função` não for chave). | `Função → Salário_base` (viola FNBC se `Função` não for chave candidata). |
+
+---
+
+## **3. Exemplo Prático: Turma (Estudante, Assunto, Professor)**
+### **Contexto**:
+- Cada estudante em um **Assunto** tem um único **Professor**.
+- Cada **Professor** ministra apenas um **Assunto** (mas um Assunto pode ter vários professores).
+
+### **Dependências Funcionais (DFs)**:
+1. `(Estudante, Assunto) → Professor`  
+   - **Chave candidata 1**: `(Estudante, Assunto)`.  
+2. `Professor → Assunto`  
+   - **Problema**: `Professor` **não é chave candidata** (viola FNBC).  
+
+### **Chaves Candidatas**:
+- `(Estudante, Assunto)` (pois determina `Professor`).  
+- `(Estudante, Professor)` (pois `Professor → Assunto`).  
+
+### **Decomposição para FNBC**:
+1. **Tabela `EP(Estudante, Professor)`**:  
+   - Chave primária: `(Estudante, Professor)`.  
+2. **Tabela `PA(Professor, Assunto)`**:  
+   - Chave primária: `Professor` (pois `Professor → Assunto`).  
 
 **Resultado**:
-
-| matricula | nome   | idade | cidade   |
-|-----------|--------|-------|----------|
-| 1003      | Carlos | 22    | Salvador |
-
----
-
-### 2. **Projeção (π)**
-A operação de **projeção** seleciona apenas **colunas específicas** de uma tabela.
-
-#### **Sintaxe**:  
-$\pi_{\text{atributos}}(R)$
-
-#### **Exemplo**:
-
-Tabela **Aluno**:
-
-| matricula | nome   | idade | cidade   |
-|-----------|--------|-------|----------|
-| 1001      | João   | 20    | Salvador |
-| 1002      | Maria  | 19    | Recife   |
-| 1003      | Carlos | 22    | Salvador |
-
-Projetando apenas as **colunas nome** e **idade**:
-
-$\pi_{\text{nome, idade}}(Aluno)$
-
-**Resultado**:
-
-| nome   | idade |
-|--------|-------|
-| João   | 20    |
-| Maria  | 19    |
-| Carlos | 22    |
+- Ambas as tabelas estão na FNBC, pois:  
+  - Em `PA`, `Professor` é chave.  
+  - Em `EP`, `(Estudante, Professor)` é chave.  
 
 ---
 
-### 3. **Junção (⨝)**
-A operação de **junção** combina os dados de **duas ou mais tabelas** com base em um **atributo comum**.
+## **4. Axiomas de Armstrong (Regras de Inferência para DFs)**
+São regras formais para **derivar novas DFs** a partir de um conjunto inicial.  
 
-#### **Sintaxe**:  
-$R \bowtie_{\text{atributo comum}} S$
-
-#### **Exemplo**:
-
-Tabela **Aluno**:
-
-| matricula | nome   | cidade   |
-|-----------|--------|----------|
-| 1001      | João   | Salvador |
-| 1002      | Maria  | Recife   |
-| 1003      | Carlos | Salvador |
-
-Tabela **Curso**:
-
-| matricula | curso       |
-|-----------|-------------|
-| 1001      | Matemática  |
-| 1002      | Física      |
-| 1004      | Química     |
-
-Junção das tabelas **Aluno** e **Curso** pela **matricula**:
-
-$Aluno \bowtie_{\text{matricula}} Curso$
-
-**Resultado**:
-
-| matricula | nome   | cidade   | curso      |
-|-----------|--------|----------|------------|
-| 1001      | João   | Salvador | Matemática |
-| 1002      | Maria  | Recife   | Física     |
+| **Axioma**         | **Descrição**                                                                 | **Exemplo**                                  |
+|--------------------|------------------------------------------------------------------------------|--------------------------------------------|
+| **Reflexividade**  | Se \( B \subseteq A \), então \( A \rightarrow B \).                         | `(A, B) → B`.                              |
+| **Aumento**       | Se \( A \rightarrow B \), então \( AC \rightarrow BC \).                     | Se `CPF → Nome`, então `(CPF, Idade) → (Nome, Idade)`. |
+| **Transitividade** | Se \( A \rightarrow B \) e \( B \rightarrow C \), então \( A \rightarrow C \). | Se `CPF → Depto` e `Depto → Gerente`, então `CPF → Gerente`. |
+| **Decomposição**  | Se \( A \rightarrow BC \), então \( A \rightarrow B \) e \( A \rightarrow C \). | Se `CPF → (Nome, Idade)`, então `CPF → Nome` e `CPF → Idade`. |
+| **União**         | Se \( A \rightarrow B \) e \( A \rightarrow C \), então \( A \rightarrow BC \). | Se `CPF → Nome` e `CPF → Idade`, então `CPF → (Nome, Idade)`. |
+| **Composição**    | Se \( A \rightarrow B \) e \( C \rightarrow D \), então \( AC \rightarrow BD \). | Se `CPF → Nome` e `Cargo → Salário`, então `(CPF, Cargo) → (Nome, Salário)`. |
 
 ---
 
-### 4. **União (∪)**
-A operação de **união** combina os resultados de **duas tabelas** semelhantes, ou seja, ambas com a mesma estrutura (mesmos atributos).
+## **5. Quando Aplicar a FNBC?**
+### **Casos Típicos**:
+1. **Chaves candidatas sobrepostas**: Quando múltiplas chaves compartilham atributos (ex.: `(Estudante, Assunto)` e `(Estudante, Professor)`).  
+2. **Determinantes não-chave**: Se uma DF como `X → Y` existe, mas `X` não é chave.  
 
-#### **Sintaxe**:  
-$R \cup S$
-
-#### **Exemplo**:
-
-Tabela **Aluno1**:
-
-| matricula | nome   | idade |
-|-----------|--------|-------|
-| 1001      | João   | 20    |
-| 1002      | Maria  | 19    |
-
-Tabela **Aluno2**:
-
-| matricula | nome   | idade |
-|-----------|--------|-------|
-| 1003      | Carlos | 22    |
-| 1004      | Ana    | 21    |
-
-União das tabelas **Aluno1** e **Aluno2**:
-
-$Aluno1 \cup Aluno2$
-
-**Resultado**:
-
-| matricula | nome   | idade |
-|-----------|--------|-------|
-| 1001      | João   | 20    |
-| 1002      | Maria  | 19    |
-| 1003      | Carlos | 22    |
-| 1004      | Ana    | 21    |
+### **Limitações**:
+- **Pode aumentar a complexidade**: Muitas tabelas podem dificultar consultas com `JOINs`.  
+- **Nem sempre necessária**: A 3FN é suficiente para a maioria dos casos práticos.  
 
 ---
 
-### 5. **Interseção (∩)**
-A operação de **interseção** retorna os registros **comuns** entre duas tabelas semelhantes.
+## **6. Exercício Proposto**
+Dada a relação `Projeto(Func_ID, Proj_ID, Horas, Nome_Func, Cargo)`, com as DFs:  
+1. `Func_ID → (Nome_Func, Cargo)`  
+2. `(Func_ID, Proj_ID) → Horas`  
 
-#### **Sintaxe**:  
-$R \cap S$
+**Pergunta**: A relação está na FNBC? Se não, normalize.  
 
-#### **Exemplo**:
-
-Tabela **Aluno1**:
-
-| matricula | nome   | idade |
-|-----------|--------|-------|
-| 1001      | João   | 20    |
-| 1002      | Maria  | 19    |
-
-Tabela **Aluno2**:
-
-| matricula | nome   | idade |
-|-----------|--------|-------|
-| 1002      | Maria  | 19    |
-| 1003      | Carlos | 22    |
-
-Interseção das tabelas **Aluno1** e **Aluno2**:
-
-$Aluno1 \cap Aluno2$
-
-**Resultado**:
-
-| matricula | nome  | idade |
-|-----------|-------|-------|
-| 1002      | Maria | 19    |
+**Resposta**:  
+- **Violação**: `Func_ID → Cargo` (onde `Func_ID` não é chave candidata).  
+- **Decomposição**:  
+  - `Funcionario(Func_ID, Nome_Func, Cargo)`  
+  - `Alocacao(Func_ID, Proj_ID, Horas)`  
 
 ---
 
-### 6. **Diferença (-)**
-A operação de **diferença** retorna os registros que estão **em uma tabela, mas não em outra**.
+## **7. Conclusão**
+A **FNBC** é a forma normal mais rigorosa para:  
+✔ **Eliminar todas as redundâncias** baseadas em DFs.  
+✔ **Garantir que determinantes sejam chaves**.  
+✔ **Evitar anomalias em atualizações**.  
 
-#### **Sintaxe**:  
-$R - S$
+Porém, sua aplicação deve ser **ponderada**, equilibrando normalização e desempenho. Os **Axiomas de Armstrong** são ferramentas essenciais para analisar DFs e projetar esquemas eficientes.
 
-#### **Exemplo**:
 
-Tabela **Aluno1**:
-
-| matricula | nome   | idade |
-|-----------|--------|-------|
-| 1001      | João   | 20    |
-| 1002      | Maria  | 19    |
-
-Tabela **Aluno2**:
-
-| matricula | nome   | idade |
-|-----------|--------|-------|
-| 1002      | Maria  | 19    |
-| 1003      | Carlos | 22    |
-
-Diferença entre as tabelas **Aluno1** e **Aluno2**:
-
-$Aluno1 - Aluno2$
-
-**Resultado**:
-
-| matricula | nome  | idade |
-|-----------|-------|-------|
-| 1001      | João  | 20    |
-
----
-
-### **Conclusão**
-As operações da álgebra relacional fornecem uma maneira poderosa e declarativa de manipular dados armazenados em um banco de dados relacional. Elas permitem a **seleção**, **projeção**, **junção**, **união**, **interseção**, e **diferença** dos dados, tornando possível consultar e modificar informações de forma eficiente.
-
-Esses operadores são fundamentais para a construção de consultas complexas em **SQL** e em sistemas de gerenciamento de banco de dados relacionais (SGBDR).
-
-## Apresentação:
-# Critérios para Avaliação da Apresentação
-
-A avaliação será dividida em três partes: apresentação teórica, estudo de caso e exercícios práticos. O total de pontos será 10.
-
-## 1. Apresentação Teórica (30 a 40 minutos) - **Total: 4 pontos**
-
-- **Completude, Clareza e Domínio dos Conceitos** (2 pontos)
-  - Todos os conceitos são apresentados de maneira clara e detalhada.
-  - Exemplos práticos são fornecidos para ilustrar cada conceito.
-  - A explicação é lógica e segue uma sequência didática.
-  - O grupo demonstra domínio sobre os conceitos, respondendo de forma precisa a eventuais perguntas.
-
-- **Qualidade dos Exemplos** (1 ponto)
-  - Os exemplos usados são relevantes e bem escolhidos.
-  - Cada conceito é claramente ilustrado com exemplos práticos.
-
-- **Clareza na Apresentação Visual** (1 ponto)
-  - A apresentação visual (slides, diagramas, gráficos) é bem organizada e facilita o entendimento.
-
-## 2. Estudo de Caso (20 a 30 minutos) - **Total: 3 pontos**
-- **Relevância e Aplicação Prática** (1 ponto)
-  - O estudo de caso está diretamente relacionado aos conceitos apresentados na teoria.
-  - O estudo de caso demonstra como os conceitos do modelo conceitual são aplicados de maneira clara.
-
-- **Completação do Estudo de Caso** (1 ponto)
-  - O estudo de caso aborda todos os aspectos solicitados, como o uso de todas as operações da álgebra relacional, terminologia e domínio.
-
-- **Resolução e Conclusão do Caso** (1 ponto)
-  - O estudo de caso é concluído com uma análise clara das soluções obtidas.
-
-## 3. Exercícios Práticos (20 a 30 minutos) - **Total: 2 pontos**
-- **Desafio e Clareza das Perguntas** (0,5 ponto)
-  - Os exercícios são bem formulados e desafiam os colegas a aplicar os conceitos discutidos.
-
-- **Participação e Engajamento da Audiência** (0,5 ponto)
-  - Durante a resolução dos exercícios, os colegas são incentivados a participar ativamente e a esclarecer dúvidas.
-
-- **Solução dos Exercícios** (1 ponto)
-  - As soluções dos exercícios são apresentadas de forma clara, com explicações passo a passo.
-
-## 4. Apresentação Geral - **Total: 1 ponto**
-- **Organização e Distribuição de Tarefas na Squad** (0,5 ponto)
-  - A apresentação foi bem organizada, com todos os membros da equipe participando de maneira equilibrada.
-
-- **Tempo de Apresentação** (0,5 ponto)
-  - O tempo total foi bem gerido, respeitando os tempos estipulados para cada seção.
-
----
-
-**Total de Pontos: 10 pontos**
-
-A avaliação será realizada com base nos critérios acima, e a nota final será a soma dos pontos obtidos em cada parte da apresentação.
-
-A avaliação será individual e o trabalho vale 10 pts, que será a nota da AV2.
-
----
-
-### Referências
-
-- [Fascículo Introdução Banco de Dados](https://educapes.capes.gov.br/bitstream/capes/564494/2/FASCICULO_Introducao_Banco_Dados_30_08.pdf)
-- [Univesp - Introdução a Banco de Dados](https://apps.univesp.br/novotec/introducao-a-banco-de-dados/)
