@@ -260,6 +260,12 @@ A análise da cardinalidade dos relacionamentos é fundamental para determinar a
 
 ![texto](./img/map9.png)
 
+![texto](./img/map10.png)
+
+![texto](./img/map11.png)
+
+![texto](./img/map12.png)
+
 **Aplicação ideal**:
 - Relacionamentos 1:1 (um-para-um)
 - Relacionamentos 1:N (um-para-muitos) quando a entidade no lado "1" tem poucos atributos
@@ -294,13 +300,6 @@ A análise da cardinalidade dos relacionamentos é fundamental para determinar a
 - Analisar o volume de dados esperado na tabela de relacionamento
 - Definir índices adequados para as chaves estrangeiras
 - Considerar constraints de integridade referencial
-
-![texto](./img/map10.png)
-
-
-![texto](./img/map11.png)
-
-![texto](./img/map12.png)
 
 
 ## 3. Uso de Chaves Estrangeiras em Tabelas Existentes
