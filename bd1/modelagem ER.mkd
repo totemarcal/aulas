@@ -1,714 +1,620 @@
-# Modelagem de Dados
+# **Normalização de Dados: Conceitos e Aprofundamento**
 
-## Conteúdo
-- **Introdução**: Conceitos básicos e importância da modelagem de dados.
-- **Fases de Projeto de BD**: Etapas para a criação de um banco de dados.
-- **Ciclo de vida de BD**: Desde a concepção até a manutenção do banco de dados.
-- **Modelo conceitual de BD**: Representação abstrata dos dados.
-- **Modelo Entidade-Relacionamento**: Técnica para modelar dados usando entidades e relacionamentos.
-- **Entidade/Atributo/Relacionamento**: Elementos fundamentais do modelo ER.
-- **Representação**: Como os elementos do modelo ER são representados graficamente.
-- **Extensões**: Aprimoramentos e variações do modelo ER.
+## **1. Introdução à Normalização**
+A normalização é um processo fundamental no projeto de bancos de dados relacionais, visando organizar os dados de forma eficiente, reduzir redundâncias e garantir a integridade dos dados. Foi proposta por **Edgar F. Codd** em 1970 como parte de sua teoria sobre o modelo relacional.
 
-## Introdução
-
-### Abstração
-A abstração é uma habilidade mental que permite aos seres humanos visualizarem os problemas do mundo real com vários graus de detalhe, dependendo do contexto do problema. Essa capacidade é essencial para a modelagem de dados, pois permite que os projetistas simplifiquem sistemas complexos, focando nos aspectos mais relevantes para o problema em questão.
-
-**Citação**:  
-“Habilidade mental que permite aos seres humanos visualizarem os problemas do mundo real com vários graus de detalhe, dependendo do contexto do problema.”  
-**J. Rumbaugh**
-
-### Fases de Projeto de um Banco de Dados
-O projeto de um banco de dados envolve três fases principais:
-
-![texto](./img/fasesbd.drawio.png)
-
-1. **Modelagem Conceitual**:  
-   Nesta fase, o objetivo é capturar formalmente os requisitos de informação do banco de dados. O modelo conceitual é independente de qualquer sistema de gerenciamento de banco de dados (SGBD) e foca na estrutura lógica dos dados.
-
-2. **Projeto Lógico**:  
-   Aqui, o foco é definir as estruturas de dados que implementam os requisitos identificados na modelagem conceitual. O projeto lógico é dependente do SGBD escolhido e envolve a criação de esquemas lógicos, como tabelas e relacionamentos.
-
-3. **Projeto Físico**:  
-   Nesta fase, são definidos os parâmetros físicos de acesso ao banco de dados, como índices, particionamento e otimização de consultas. O objetivo é garantir que o sistema tenha um bom desempenho em relação ao acesso aos dados.
-
-## Ciclo de Vida do Banco de Dados
-O ciclo de vida de um banco de dados envolve várias etapas, desde a análise dos requisitos até a manutenção contínua do sistema:
-
-1. **Análise dos Requisitos**:  
-   Coleta e análise das necessidades dos usuários e do sistema.
-
-2. **Projeto Conceitual e Lógico**:  
-   - **Modelo ER**: Criação do modelo entidade-relacionamento para representar a estrutura lógica dos dados.
-   - **Integração das Visões**: Combinação de diferentes visões dos usuários em um modelo único.
-   - **Transformações do MER em tabelas SQL**: Conversão do modelo ER em tabelas SQL.
-   - **Normalização das tabelas**: Aplicação de técnicas de normalização para evitar redundâncias e inconsistências.
-
-3. **Refinamento de Uso**:  
-   Ajustes no banco de dados com base no feedback dos usuários.
-
-4. **Distribuição dos Dados**:  
-   Decisão sobre como os dados serão distribuídos em diferentes locais, se necessário.
-
-5. **Definição do Projeto Físico**:  
-   Implementação de índices, particionamento e outras otimizações físicas.
-
-6. **Implementação do Banco de Dados**:  
-   Criação do banco de dados e carga inicial dos dados.
-
-7. **Monitoramento e Modificações**:  
-   Acompanhamento do desempenho do banco de dados e realização de ajustes conforme necessário.
-
-## Modelo Conceitual de Dados
-O modelo conceitual de dados é uma representação abstrata e detalhada da estrutura dos dados de uma organização, independente de qualquer sistema de gerenciamento de banco de dados (SGBD). Ele serve como uma ponte entre os requisitos do negócio e a implementação técnica do banco de dados.
-
-**Definições**:  
-- “Um modelo conceitual é um modelo detalhado, que captura a estrutura dos dados organizacional sendo independente de qualquer sistema de gerenciamento de base de dados...”  
-  **McFadden & Hoffer, p. 87**
-
-- “Coleção de ferramentas conceituais para descrição de dados, relacionamento entre os dados, semântica e restrições de dados.”  
-  **Henry F. Korth**
-
-- “Uma coletânea de conceitos que podem ser utilizados para descrever a estrutura de um banco de dados – fornece os meios necessários para alcançar a abstração de dados”  
-  **Elmasri/Navathe**
-
-### Modelos Conceituais comuns para Banco de Dados:
-- **Modelo Entidade-Relacionamento (ER)**:  
-  Foca na estrutura dos dados e metadados, mas não aborda a modelagem funcional.
-
-- **Modelo Orientado a Objeto**:  
-  Modela objetos através do encapsulamento dos metadados (estrutura) e métodos (funções).
-
-## Modelo Entidade-Relacionamento (ER)
-O modelo ER foi proposto por Peter Chen em 1976 e é baseado na percepção do mundo real. Ele qualifica todo item de informação como **entidade**, **atributos** e **relacionamento**, facilitando o entendimento tanto para o projetista do banco de dados quanto para o usuário.
-
-### Objetivos do Modelo ER:
-- **Simplicidade de representação**: Facilita a visualização dos dados e seus relacionamentos.
-- **Ferramenta para os projetistas**: Ajuda na criação de esquemas de banco de dados.
-- **Ferramenta de comunicação**: Facilita a comunicação entre os projetistas e os usuários.
-- **Criar uma visão unificada dos dados**: Integra diferentes visões dos usuários em um modelo único.
-
-### Entidade
-Uma **entidade** é qualquer objeto distinto que precisa ser representado no banco de dados. Pode ser concreta (como um carro ou uma casa) ou abstrata (como uma atividade ou um cargo).
-
-- **Instância de uma Entidade**:  
-  Representa uma ocorrência específica de uma entidade. Por exemplo, um carro específico com uma placa única.
-
-![texto](./img/entidade.drawio.png)
-
-### Atributo
-Um **atributo** é uma informação útil sobre uma entidade ou relacionamento. Os atributos podem ser:
-
-- **Determinante**: Valor único que identifica uma instância da entidade (chave primária).
-- **Composto**: Atributo que pode ser dividido em sub-atributos (por exemplo, endereço pode ser dividido em rua, número, cidade, etc.).
-- **Multivalorado**: Atributo que pode ter mais de um valor para uma entidade (por exemplo, um funcionário pode ter vários telefones).
-
-**Domínio de um atributo** - determina o conjunto de valores válidos de um
-atributo
-
-Ex : Idade – numérico (0,120)
-Nome – texto de 30 posições
-
-![texto](./img/entidade-atrib.drawio.png)
-
-**Representação no Diagrama de Entidade-Relacionamento(DER)**
-
-![texto](./img/exemplo_ER.png)
-
-## Entidade
-
-### Definição
-O nome da entidade é representado por uma lista de atributos entre parênteses:
-
-
-## Atributos
-
-### Tipos de Atributos:
-1. **Identificador**:  
-   - Representado por um atributo **sublinhado**.  
-   - Exemplo: `Placa` (chave primária).
-
-2. **Multivalorados**:  
-   - Representados por **chaves `{}`**.  
-   - Exemplo: `{cor}` (um carro pode ter várias cores).
-
-3. **Compostos**:  
-   - Representados por **parênteses `( )`**.  
-   - Exemplo: `Registro(Numero, Estado)` (um atributo composto por sub-atributos).
+A Normalização substitui, gradativamente, um conjunto de Relações (Entidades e Relacionamentos) por um outro mais consistente, evitando anomalias de atualização (inclusão, alteração e exclusão).
+A decomposição deve ser sem perdas, significando que precisa ser reversível, sem que nenhuma informação seja perdida.
 
 ---
 
-## Exemplo
-
-### Entidade: Carro
-```plaintext
-Carro = (Placa, Registro(Numero, Estado), Modelo, {cor})
-```
-
-Instâncias da Entidade Carro:
-
-```plaintext
-(BSA3321, (234, Bahia), Corsa, {azul, branco})
-(VIT3521, (317, Bahia), Corsa, {vermelho, preto})
-```
-
-**Entidade: Carro**
-
-- **Atributos**:
-  - `Placa` (Identificador)
-  - `Registro` (Composto):
-    - `Numero`
-    - `Estado`
-  - `Modelo` (Simples)
-  - `{cor}` (Multivalorado)
-
-**Instâncias**:
-1. `(BSA3321, (234, Bahia), Corsa, {azul, branco})`
-2. `(VIT3521, (317, Bahia), Corsa, {vermelho, preto})`
-
+## **2. Objetivos da Normalização**
+A normalização busca:
+- **Eliminar redundâncias**: Evitar a repetição desnecessária de dados.
+- **Minimizar valores nulos**: Reduzir a ocorrência de campos sem informação.
+- **Facilitar a manutenção**: Evitar anomalias em operações de inserção, atualização e exclusão.
+- **Garantir consistência**: Evitar dados inconsistentes devido a atualizações parciais.
+- **Evitar perda de espaço**: Evitar que a mesma informação esteja armazenada em lugares diferentes.
+- **Evitar duplicidade de atualização**: Evitar que seja nescessário atualizar a mesma informações em lugares diferentes. 
+- **Evita a redundância**: Elaborar esquemas onde seja evitada a redundância de informações e conseqüentemente a inconsistência na atualização dos dados
 
 ---
 
-## Entidades Fortes e Fracas
-
-### Entidades Fortes
-- **Definição**:  
-  Entidades fortes são aquelas que possuem um **alto grau de independência** em relação à sua existência e identificação. Elas não dependem de outras entidades para existir no banco de dados.
-
-- **Características**:
-  - Possuem uma **chave primária própria** que as identifica unicamente.
-  - Podem existir sem estar associadas a outras entidades.
-  - São a base para a criação de entidades fracas.
-
-- **Exemplo**:  
-  A entidade **Funcionário** pode ser uma entidade forte, pois cada funcionário tem uma matrícula única que o identifica, e ele pode existir independentemente de outras entidades.
-
-
-### Entidades Fracas
-- **Definição**:  
-  Entidades fracas são aquelas que **dependem de outras entidades** (fortes ou fracas) para existir e serem identificadas. Elas não possuem uma chave primária própria completa e precisam estar associadas a uma entidade forte.
-
-- **Características**:
-  - **Dependência de existência**:  
-    Uma entidade fraca só existe se a entidade forte à qual está associada existir.
-  - **Dependência de identificação**:  
-    A chave primária de uma entidade fraca é composta por uma **chave parcial própria** e pela **chave primária da entidade forte** à qual está associada.
-  - **Relacionamento obrigatório**:  
-    Uma entidade fraca deve estar relacionada a pelo menos uma entidade forte.
-
-- **Propriedades das Entidades Fracas**:
-  1. **Pertencem a uma única entidade**:  
-     Uma entidade fraca está sempre associada a uma única entidade (forte ou fraca).
-  2. **Relacionamento com entidade forte**:  
-     Deve haver pelo menos um relacionamento estabelecido com uma entidade forte.
-  3. **Identificação parcial própria**:  
-     A entidade fraca possui pelo menos um atributo que a identifica parcialmente.
-  4. **Identificação da entidade forte**:  
-     A chave primária da entidade forte é parte da chave primária da entidade fraca.
-
-- **Exemplo**:  
-  A entidade **Dependente** pode ser uma entidade fraca, pois depende da entidade **Funcionário** para existir. A chave primária de **Dependente** pode ser composta pela matrícula do funcionário (chave estrangeira) e pelo nome do dependente (chave parcial).
-
-
-## Representação em Diagrama ER
-
-### Entidade Forte: Funcionário
-```plaintext
-Funcionário (
-    matricula,  -- Chave primária
-    nome,
-    endereço
-)
-```
-
-### Entidade Fraca: Dependente
-```plaintext
-Dependente (
-    matricula_funcionario,  -- Chave estrangeira (parte da chave primária)
-    nome_dependente,        -- Chave parcial
-    data_nascimento
-)
-```
-
-## Exemplo Prático
-
-### Entidade Forte: Funcionário
-```plaintext
-Funcionário (
-    matricula,  -- Chave primária
-    nome,
-    endereço
-)
-```
-
-### Entidade Fraca: Dependente
-```plaintext
-Dependente (
-    matricula_funcionario,  -- Chave estrangeira (referencia Funcionário)
-    nome_dependente,        -- Chave parcial
-    data_nascimento
-)
-```
-
-### Instâncias:
-1. **Funcionário**:
-   - `(123, "João Silva", "Rua A, 123")`
-   - `(456, "Maria Souza", "Rua B, 456")`
-
-2. **Dependente**:
-   - `(123, "Ana Silva", "2005-03-15")`
-   - `(123, "Pedro Silva", "2010-07-22")`
-   - `(456, "Carlos Souza", "2012-11-10")`
-
-
-## Resumo
-
-| **Tipo de Entidade** | **Características**                                                                 |
-|-----------------------|-------------------------------------------------------------------------------------|
-| **Forte**             | - Independente.<br>- Possui chave primária própria.<br>- Pode existir sozinha.      |
-| **Fraca**             | - Dependente de uma entidade forte.<br>- Chave primária composta.<br>- Relacionamento obrigatório com entidade forte. |
-
-![texto](./img/fig-dependencia.png)
-
-
-## Atributo de Identificação e Conexão
-
-Os atributos de identificação e conexão são fundamentais no modelo de banco de dados, pois garantem a integridade e a consistência dos dados. Eles ajudam a estabelecer relacionamentos entre entidades e a identificar unicamente cada instância de uma entidade.
-
-
-### 1. **Chave Primária (Primary Key)**
-
-#### Definição:
-A **chave primária** é um atributo (ou conjunto de atributos) que identifica **unicamente** cada instância de uma entidade. Ela garante que não haja duplicidade de registros em uma tabela.
-
-#### Características:
-- **Única**: Não pode haver duas instâncias com o mesmo valor para a chave primária.
-- **Não nula**: A chave primária não pode ter valores nulos (`NULL`).
-- **Imutável**: O valor da chave primária não deve mudar ao longo do tempo.
-
-#### Exemplo:
-Na entidade **Funcionário**, o atributo `matricula` pode ser a chave primária, pois cada funcionário tem uma matrícula única.
-
-```plaintext
-Funcionário (
-    matricula,  -- Chave primária
-    nome,
-    endereço
-)
-```
-
-#### Representação no Diagrama ER:
-- A chave primária é sublinhada no diagrama ER.
-- Exemplo: `matricula`.
-
-
-### 2. **Chave Candidata (Candidate Key)**
-
-#### Definição:
-Uma **chave candidata** é um atributo (ou conjunto de atributos) que **poderia ser usado como chave primária**, mas não foi escolhido como tal. Uma entidade pode ter várias chaves candidatas, mas apenas uma será selecionada como chave primária.
-
-#### Características:
-- **Única**: Assim como a chave primária, a chave candidata deve identificar unicamente cada instância.
-- **Não nula**: Não pode ter valores nulos.
-- **Minimalidade**: Deve conter o menor número possível de atributos para garantir a unicidade.
-
-#### Exemplo:
-Na entidade **Funcionário**, além da `matricula`, o atributo `CPF` também pode ser uma chave candidata, pois cada funcionário tem um CPF único.
-
-```plaintext
-Funcionário (
-    matricula,  -- Chave primária
-    CPF,        -- Chave candidata
-    nome,
-    endereço
-)
-```
-
-#### Representação no Diagrama ER:
-- As chaves candidatas não são sublinhadas, mas são consideradas como opções para a chave primária.
-
-
-### 3. **Chave Estrangeira (Foreign Key)**
-
-#### Definição:
-A **chave estrangeira** é um atributo (ou conjunto de atributos) em uma entidade que **referencia a chave primária de outra entidade**. Ela é usada para estabelecer relacionamentos entre entidades.
-
-#### Características:
-- **Referência**: A chave estrangeira deve sempre referenciar uma chave primária válida em outra entidade.
-- **Integridade referencial**: Garante que não haja referências a registros que não existem.
-- **Pode ser nula**: Dependendo do relacionamento, a chave estrangeira pode permitir valores nulos.
-
-#### Exemplo:
-Na entidade **Dependente**, o atributo `matricula_funcionario` é uma chave estrangeira que referencia a chave primária `matricula` da entidade **Funcionário**.
-
-```plaintext
-Funcionário (
-    matricula,  -- Chave primária
-    nome,
-    endereço
-)
-
-Dependente (
-    matricula_funcionario,  -- Chave estrangeira (referencia Funcionário)
-    nome_dependente,        -- Chave parcial
-    data_nascimento
-)
-```
-
-#### Representação no Diagrama ER:
-- A chave estrangeira é representada por uma seta ou linha que conecta as entidades.
-- Exemplo: `matricula_funcionario` em **Dependente** referencia `matricula` em **Funcionário**.
-
-
-### Exemplo Completo
-
-#### Entidade Forte: Funcionário
-```plaintext
-Funcionário (
-    matricula,  -- Chave primária
-    CPF,        -- Chave candidata
-    nome,
-    endereço
-)
-```
-
-#### Entidade Fraca: Dependente
-```plaintext
-Dependente (
-    matricula_funcionario,  -- Chave estrangeira (referencia Funcionário)
-    nome_dependente,        -- Chave parcial
-    data_nascimento
-)
-```
-
-#### Instâncias:
-1. **Funcionário**:
-   - `(123, "111.222.333-44", "João Silva", "Rua A, 123")`
-   - `(456, "555.666.777-88", "Maria Souza", "Rua B, 456")`
-
-2. **Dependente**:
-   - `(123, "Ana Silva", "2005-03-15")`
-   - `(123, "Pedro Silva", "2010-07-22")`
-   - `(456, "Carlos Souza", "2012-11-10")`
-
-
-### Resumo
-
-| **Tipo de Chave**      | **Definição**                                                                 | **Exemplo**                          |
-|-------------------------|-------------------------------------------------------------------------------|--------------------------------------|
-| **Chave Primária**      | Atributo que identifica unicamente uma instância de uma entidade.             | `matricula` em **Funcionário**.      |
-| **Chave Candidata**     | Atributo que poderia ser usado como chave primária, mas não foi escolhido.    | `CPF` em **Funcionário**.            |
-| **Chave Estrangeira**   | Atributo que referencia a chave primária de outra entidade.                   | `matricula_funcionario` em **Dependente**. |
-
-### Relacionamento
-
-# Relacionamentos entre Entidades
-
-No contexto de modelagem de banco de dados, as **entidades** representam objetos ou conceitos do mundo real que possuem atributos e são armazenados em tabelas. No entanto, as entidades não existem isoladamente. Elas estão interconectadas por meio de **relacionamentos**, que são associações lógicas entre duas ou mais entidades. Esses relacionamentos são essenciais para representar corretamente o ambiente observado e garantir a integridade dos dados.
+## **3. Semântica dos Atributos**
+A semântica refere-se ao **significado** e ao **relacionamento lógico** entre os atributos. Um esquema bem normalizado deve:
+- **Agrupar atributos logicamente relacionados** (ex.: dados de um cliente em uma tabela `Cliente`, dados de um produto em `Produto`).
+- **Evitar misturar atributos de entidades diferentes** em uma única tabela (ex.: não colocar `Nome_Cliente` e `Preço_Produto` na mesma tabela sem uma relação clara).
 
 ---
 
-## O que é um Relacionamento?
-Um **relacionamento** é uma associação lógica entre entidades. Ele descreve como as entidades interagem entre si e como os dados de uma entidade estão conectados aos dados de outra. Por exemplo:
-- Um **departamento** pode ter vários **empregados**.
-- Um **empregado** pode trabalhar em apenas um **departamento**.
-- Um **produto** pode ser vendido em várias **vendas**.
+## **4. Problemas Causados pela Falta de Normalização**
+### **4.1. Redundância de Dados**
+- Ocorre quando a mesma informação é armazenada múltiplas vezes.
+- **Exemplo**: Em uma tabela `Pedidos` que repete o endereço do cliente em cada pedido, qualquer mudança exige atualização em vários registros.
 
-Os relacionamentos são representados graficamente em diagramas entidade-relacionamento (DER) por meio de **losangos**, que conectam as entidades envolvidas.
+### **4.2. Anomalias de Atualização**
+- **Inserção**: Dificuldade em adicionar dados sem informações complementares (ex.: cadastrar um cliente sem um pedido).
+- **Exclusão**: Perda acidental de dados (ex.: apagar um pedido e perder informações do cliente).
+- **Modificação**: Necessidade de atualizar múltiplos registros para uma única alteração (ex.: mudar o preço de um produto em vários pedidos).
 
----
-
-## Tipos de Relacionamentos
-Os relacionamentos podem ser classificados de acordo com a cardinalidade, ou seja, quantas instâncias de uma entidade estão associadas a instâncias de outra entidade. Os principais tipos são:
-
-### 1. Relacionamento **1:1** (Um para Um)
-- Uma instância de uma entidade está associada a **no máximo uma** instância de outra entidade.
-- Exemplo: Um **empregado** tem apenas um **crachá**, e um **crachá** pertence a apenas um **empregado**.
-
-### 2. Relacionamento **1:N** (Um para Muitos)
-- Uma instância de uma entidade está associada a **várias** instâncias de outra entidade.
-- Exemplo: Um **departamento** pode ter vários **empregados**, mas um **empregado** pertence a apenas um **departamento**.
-
-### 3. Relacionamento **N:N** (Muitos para Muitos)
-- Várias instâncias de uma entidade estão associadas a várias instâncias de outra entidade.
-- Exemplo: Um **projeto** pode ter vários **empregados**, e um **empregado** pode trabalhar em vários **projetos**.
+### **4.3. Valores Nulos Excessivos**
+- Campos sem dados podem ocupar espaço e dificultar consultas.
 
 ---
 
-### Representação Gráfica
-Em um diagrama entidade-relacionamento (DER), os relacionamentos são representados da seguinte forma:
-- **Entidades**: São representadas por retângulos.
-- **Atributos**: São representados por elipses.
-- **Relacionamentos**: São representados por losangos.
+## **5. Formas Normais (Níveis de Normalização)**
+A normalização é aplicada em etapas, conhecidas como **formas normais**:
 
-![texto](./img/fig-entidade-rel.png)
-
-## Grau do relacionamento
-
-O grau de um relacionamento refere-se ao número de entidades que participam de uma associação lógica. Em outras palavras, ele define quantas entidades estão envolvidas em um relacionamento. Dependendo do número de entidades, os relacionamentos podem ser classificados como:
-
-Relacionamento Binário (Grau 2): Envolve duas entidades.
-
-Relacionamento Ternário (Grau 3): Envolve três entidades.
-
-Relacionamento N-ário (Grau N): Envolve N entidades.
-
-![texto](./img/fig-grau-rel.png)
-
-![texto](./img/fig-grau-terc-rel.png)
+| **Forma Normal** | **Descrição** | **Exemplo de Problema Resolvido** |
+|-----------------|--------------|----------------------------------|
+| **1FN** (Primeira Forma Normal) | Todos os atributos devem ser atômicos (indivisíveis). | Evitar múltiplos valores em um campo (ex.: "Telefone1, Telefone2"). |
+| **2FN** (Segunda Forma Normal) | Deve estar na 1FN e todos os atributos não-chave devem depender **totalmente** da chave primária. | Remover dependências parciais (ex.: em `Pedido_Item`, `Preço_Produto` deve depender do `ID_Produto`, não do `ID_Pedido`). |
+| **3FN** (Terceira Forma Normal) | Deve estar na 2FN e nenhum atributo não-chave pode depender de outro não-chave (eliminar dependências transitivas). | Separar `Cliente` e `Cidade` se `Cidade` depender do `CEP` e não diretamente do `ID_Cliente`. |
+| **BCNF** (Boyce-Codd) | Versão reforçada da 3FN, onde toda dependência funcional deve ter uma **superchave** como determinante. | Garantir que nenhum atributo não-chave determine parte da chave. |
+| **4FN** e **5FN** | Lidam com dependências multivaloradas e junções. | Casos mais complexos, como relações muitos-para-muitos com atributos adicionais. |
 
 ---
 
-# Cardinalidade em Relacionamentos
-
-A **cardinalidade** em modelagem de banco de dados define o número de instâncias de uma entidade que podem ser associadas a instâncias de outra entidade por meio de um relacionamento. Ela é fundamental para representar as regras de negócio e garantir a integridade dos dados. A cardinalidade é geralmente expressa em termos de:
-
-1. **Mínimo**: O número mínimo de instâncias que podem participar de um relacionamento.
-2. **Máximo**: O número máximo de instâncias que podem participar de um relacionamento.
-
-A cardinalidade é representada em diagramas entidade-relacionamento (DER) por meio de notações como `(0,1)`, `(1,1)`, `(0,N)` ou `(1,N)`.
+## **6. Vantagens da Normalização**
+✔ **Economia de armazenamento** (menos dados repetidos).  
+✔ **Consultas mais eficientes** (estrutura organizada).  
+✔ **Facilidade de manutenção** (alterações consistentes).  
+✔ **Integridade dos dados** (evita inconsistências).  
 
 ---
 
-## Tipos de Cardinalidade
+## **7. Desvantagens e Quando Desnormalizar**
+Em alguns casos, a normalização excessiva pode:
+- Aumentar a complexidade de consultas (muitos `JOINs`).  
+- Reduzir desempenho em sistemas com muitas operações de leitura.  
 
-### 1. Cardinalidade **1:1** (Um para Um)
-- **Descrição**: Cada instância de uma entidade está associada a **no máximo uma** instância de outra entidade, e vice-versa.
-- **Notação**: `(1,1)` para ambos os lados do relacionamento.
-- **Exemplo**:
-  - Um **empregado** tem apenas um **crachá**.
-  - Um **crachá** pertence a apenas um **empregado**.
+**Soluções**:
+- **Desnormalização controlada**: Duplicar alguns dados para otimizar consultas.  
+- **Uso de views e índices**: Melhorar performance sem comprometer a estrutura.  
 
-#### Representação no DER:
+--- 
 
-![texto](./img/fig-rel-1x1.png)
+# **Primeira Forma Normal (1FN)**
 
----
-
-### 2. Cardinalidade **1:N** (Um para Muitos)
-- **Descrição**: Uma instância de uma entidade pode estar associada a **várias** instâncias de outra entidade, mas cada instância da segunda entidade está associada a **apenas uma** instância da primeira.
-- **Notação**: `(1,1)` de um lado e `(0,N)` ou `(1,N)` do outro.
-- **Exemplo**:
-  - Um **departamento** pode ter vários **empregados**.
-  - Um **empregado** pertence a apenas um **departamento**.
-
-#### Representação no DER:
-
-![texto](./img/fig-rel-1xN.png)
+## **1. Definição Formal da 1FN**
+Uma relação está na **Primeira Forma Normal (1FN)** se e somente se:
+- Todos os atributos contêm **valores atômicos** (indivisíveis).
+- Não existem **grupos repetitivos** (listas, conjuntos ou múltiplos valores em um único campo).
 
 ---
 
-### 3. Cardinalidade **N:N** (Muitos para Muitos)
-- **Descrição**: Várias instâncias de uma entidade podem estar associadas a várias instâncias de outra entidade.
-- **Notação**: `(0,N)` ou `(1,N)` em ambos os lados do relacionamento.
-- **Exemplo**:
-  - Um **empregado** pode participar de vários **projetos**.
-  - Um **projeto** pode ter vários **empregados**.
-
-#### Representação no DER:
-
-![texto](./img/fig-rel-NxN.png)
-
-#### Exemplo
-
-![texto](./img/fig-rel-exemp.png)
+## **2. Procedimento para Normalização na 1FN**
+### **Passo a Passo**
+1. **Identificar grupos repetitivos** (atributos multivalorados).  
+   - Ex.: `Telefones` em `Empregado(Matrícula, Nome, Telefones*)`.  
+2. **Transformar em atributos distintos** (se possível).  
+   - Ex.: Criar `Telefone1`, `Telefone2`, etc. (solução limitada).  
+3. **Se não for viável**, criar uma **nova tabela** com:  
+   - A **chave primária da tabela original** (`Matrícula`).  
+   - O **atributo multivalorado** (`Número`).  
+4. **Definir a chave primária da nova tabela**:  
+   - Concatenar a chave da tabela original + o atributo multivalorado.  
+   - Ex.: `Telefone_Empregado(Matrícula, Número)` → Chave primária = `(Matrícula, Número)`.  
 
 ---
 
-## Cardinalidade Mínima e Máxima
+## **3. Exemplo Prático**
+### **Antes da 1FN (Violação)**
+| **Matrícula** | **Nome**      | **Telefones**            |
+|---------------|--------------|--------------------------|
+| 101           | João Silva   | (11) 9999-1111, (11) 8888-2222 |
+| 102           | Maria Souza  | (11) 7777-3333                  |
 
-A cardinalidade pode ser expressa em termos de **mínimo** e **máximo**:
+**Problema**: O campo `Telefones` armazena múltiplos valores (não atômico).
 
-1. **Cardinalidade Mínima**:
-   - Indica se a participação de uma entidade no relacionamento é **obrigatória** (1) ou **opcional** (0).
-   - Exemplo: Um **empregado** deve pertencer a um **departamento** (mínimo = 1).
+### **Depois da 1FN (Solução Correta)**
+**Tabela `Empregado`**  
+| **Matrícula** | **Nome**      |
+|---------------|--------------|
+| 101           | João Silva   |
+| 102           | Maria Souza  |
 
-2. **Cardinalidade Máxima**:
-   - Indica o número máximo de instâncias que podem participar do relacionamento.
-   - Exemplo: Um **empregado** pode pertencer a apenas um **departamento** (máximo = 1).
+**Tabela `Telefone_Empregado`**  
+| **Matrícula** | **Número**       |
+|---------------|------------------|
+| 101           | (11) 9999-1111   |
+| 101           | (11) 8888-2222   |
+| 102           | (11) 7777-3333   |
 
-### Exemplo de Notação:
-- `(0,1)`: Opcional, no máximo uma instância.
-- `(1,1)`: Obrigatório, exatamente uma instância.
-- `(0,N)`: Opcional, muitas instâncias.
-- `(1,N)`: Obrigatório, muitas instâncias.
+**Chave primária de `Telefone_Empregado`**: `(Matrícula, Número)`.
 
 ---
 
-## Exemplo Prático
+## **4. Outros Exemplos de Atributos Multivalorados**
+### **4.1. Endereços de E-mail**
+- **Antes**: `Cliente(ID, Nome, Emails*)` → `Emails = "joao@exemplo.com; joao2@exemplo.com"`.  
+- **Depois**:  
+  - `Cliente(ID, Nome)`  
+  - `Email_Cliente(ID, Email)`  
 
-### Cenário:
-- Um **empregado** pode trabalhar em apenas um **departamento** (cardinalidade 1:1 ou 1:N).
-- Um **empregado** pode participar de vários **projetos**, e um **projeto** pode ter vários **empregados** (cardinalidade N:N).
+### **4.2. Habilidades de Funcionários**
+- **Antes**: `Funcionário(ID, Nome, Habilidades*)` → `Habilidades = "Java, SQL, Python"`.  
+- **Depois**:  
+  - `Funcionário(ID, Nome)`  
+  - `Habilidade_Funcionário(ID, Habilidade)`  
 
+### **4.3. Itens de Pedido**
+- **Antes**: `Pedido(Num_Pedido, Cliente, Itens*)` → `Itens = "Notebook, Mouse, Teclado"`.  
+- **Depois**:  
+  - `Pedido(Num_Pedido, Cliente)`  
+  - `Item_Pedido(Num_Pedido, Item)`  
+
+---
+
+## **5. Casos Especiais e Considerações**
+### **5.1. Quando Não Decompor?**
+- Se o atributo multivalorado for raramente consultado ou não causar redundância (ex.: `Tags` em um blog).  
+- Alternativa: Armazenar como **JSON** ou **array** (em bancos NoSQL).  
+
+### **5.2. Problemas Comuns**
+- **Chave primária composta muito grande**: Pode impactar desempenho.  
+- **Consulta mais complexa**: Necessidade de `JOIN` para recuperar dados completos.  
+
+---
+
+## **6. Exercício Proposto**
+Normalize a seguinte tabela para 1FN:  
+`Aluno(RA, Nome, Cursos*)`  
+Onde `Cursos` armazena múltiplos cursos matriculados (ex.: "Engenharia, Medicina, Direito").  
+
+**Solução Esperada**:  
+- `Aluno(RA, Nome)`  
+- `Matricula_Aluno(RA, Curso)`  
+
+---
+
+## **7. Conclusão**
+A **1FN** é a base da normalização, garantindo que os dados sejam **atômicos** e **livres de repetições**. A decomposição correta evita:  
+❌ Redundâncias.  
+❌ Dificuldades em consultas.  
+❌ Anomalias de atualização.  
+
+Aplicar a 1FN é o **primeiro passo** para um esquema de banco de dados eficiente e consistente.
+
+# **Dependência Funcional (DF) - Análise Detalhada**
+
+## **1. Conceito Fundamental**
+Uma **dependência funcional (DF)** é uma restrição que estabelece uma relação de determinação entre atributos em uma tabela. Formalmente:
+- **Notação**: `X → Y` (leia-se: "X determina Y" ou "Y é funcionalmente dependente de X").
+- **Definição**: Para quaisquer duas tuplas, se os valores de **X** são iguais, então os valores de **Y** também devem ser iguais.
+
+---
+
+## **2. Exemplo Prático**
+Considere a tabela de funcionários:
+
+| **CPF**  | **Nome**   | **Função**          | **Salário_Base** |
+|----------|------------|---------------------|------------------|
+| 1235     | Carlos     | Programador I       | R$ 1.500,00      |
+| 1412     | Marta      | DBA Senior          | R$ 4.000,00      |
+| 1311     | José       | DBA Senior          | R$ 4.000,00      |
+| 2152     | Eduardo    | Programador I       | R$ 1.500,00      |
+
+### **DFs Identificadas**:
+1. `CPF → Nome` (Cada CPF determina um único nome).  
+2. `CPF → Função` (Cada CPF está associado a uma única função).  
+3. `Função → Salário_Base` (Cada função tem um salário fixo).  
+
+---
+
+## **3. Análise do Exercício Proposto**
+Dada a relação **R(A, B, C, D, E)** com as tuplas:
+
+| **A** | **B** | **C** | **D** | **E** |
+|-------|-------|-------|-------|-------|
+| a1    | b1    | c1    | d1    | e4    |
+| a1    | b2    | c2    | d2    | e4    |
+| a2    | b1    | c3    | d3    | e2    |
+| a2    | b1    | c4    | d3    | e2    |
+| a3    | b2    | c5    | d1    | e1    |
+
+### **Verificação das Proposições**:
+1. **DF: A → D**  
+   - **Falso**: Para `A = a1`, há `D = d1` e `D = d2`.  
+     - Violação: Um valor de `A` não determina um único `D`.  
+
+2. **DF: AB → D**  
+   - **Verdadeiro**:  
+     - `(a1, b1)` → `d1`  
+     - `(a1, b2)` → `d2`  
+     - `(a2, b1)` → `d3`  
+     - `(a3, b2)` → `d1`  
+   - Cada combinação de `(A, B)` determina um único `D`.  
+
+3. **DF: D → C**  
+   - **Falso**: Para `D = d3`, há `C = c3` e `C = c4`.  
+
+4. **DF: E → D**  
+   - **Falso**: Para `E = e4`, há `D = d1` e `D = d2`.  
+
+5. **DF: A → E**  
+   - **Verdadeiro**:  
+     - `a1` → `e4`  
+     - `a2` → `e2`  
+     - `a3` → `e1`  
+   - Cada valor de `A` determina um único `E`.  
+
+---
+
+## **4. Resumo das Respostas**
+| **Proposição**   | **Verdadeiro/Falso** | **Justificativa**                                                                 |
+|------------------|----------------------|----------------------------------------------------------------------------------|
+| 1) A → D         | Falso                | `a1` está associado a `d1` e `d2`.                                               |
+| 2) AB → D        | Verdadeiro           | Cada par `(A, B)` determina um único `D`.                                        |
+| 3) D → C         | Falso                | `d3` está associado a `c3` e `c4`.                                               |
+| 4) E → D         | Falso                | `e4` está associado a `d1` e `d2`.                                               |
+| 5) A → E         | Verdadeiro           | Cada valor de `A` determina um único `E` (ex.: `a1` → `e4`, `a2` → `e2`).       |
+
+---
+
+## **5. Aplicação em Normalização**
+- As **DFs** são a base para definir as **formas normais** (1FN, 2FN, 3FN, BCNF).  
+  - Exemplo: A DF `Função → Salário_Base` no exemplo inicial levou à decomposição em **3FN**.  
+
+### **Regras para Identificar DFs**:
+1. **Unicidade**: Se `X → Y`, então para cada `X`, existe **no máximo um `Y`**.  
+2. **Consistência temporal**: A DF deve valer **em qualquer estado** da tabela.  
+3. **Atributos compostos**: `X` e `Y` podem ser conjuntos de atributos (ex.: `(A, B) → D`).  
+
+---
+
+## **6. Exercício Adicional**
+Dada a tabela **Pedidos**:
+
+| **Pedido_ID** | **Cliente_ID** | **Nome_Cliente** | **Produto_ID** | **Quantidade** |  
+|--------------|---------------|------------------|---------------|----------------|  
+| 1            | 101           | João             | P01           | 2              |  
+| 2            | 101           | João             | P02           | 1              |  
+| 3            | 102           | Maria            | P03           | 3              |  
+
+**Identifique as DFs válidas**:  
+1. `Pedido_ID → Cliente_ID`  
+2. `Cliente_ID → Nome_Cliente`  
+3. `Produto_ID → Quantidade`  
+
+**Respostas**:  
+1. **Verdadeiro** (Cada pedido tem um único `Cliente_ID`).  
+2. **Verdadeiro** (Cada cliente tem um único nome).  
+3. **Falso** (A quantidade depende do pedido, não do produto).  
+
+---
+
+## **7. Conclusão**
+- **DFs** são essenciais para projetar esquemas de bancos de dados **sem redundâncias** e **consistentes**.  
+- A análise correta das DFs permite aplicar **formas normais** e evitar anomalias.  
+- **Dica**: Sempre verifique se um atributo determina **unicamente** outro para validar uma DF.
+
+---
+
+# **Segunda Forma Normal (2FN)**
+
+## **1. Definição Formal da 2FN**
+Uma relação está na **Segunda Forma Normal (2FN)** se e somente se:
+1. Estiver na **1FN** (todos os atributos são atômicos).
+2. **Todos os atributos não-chave** forem **totalmente dependentes** da **chave primária inteira** (não apenas de parte dela).
+
+---
+
+## **2. Conceitos-Chave**
+### **2.1. Dependência Parcial vs. Total**
+- **Dependência Total**: Um atributo não-chave **depende de toda a chave primária** (composta).  
+  - Ex.: Em `Remessa(#Cod_prod, #Cod_forn, Quant)`, `Quant` depende **dos dois campos juntos**.  
+- **Dependência Parcial**: Um atributo não-chave **depende apenas de parte da chave primária**.  
+  - Ex.: Em `Remessa(#Cod_prod, #Cod_forn, Cidade)`, `Cidade` depende **apenas de `#Cod_forn`**.  
+
+### **2.2. Procedimento para Normalização na 2FN**
+1. **Identificar atributos parcialmente dependentes**.  
+2. **Removê-los** da tabela original.  
+3. **Criar uma nova tabela** com:  
+   - A **parte da chave primária** da qual eles dependem.  
+   - Os **atributos removidos**.  
+4. **Manter na tabela original** apenas os atributos **totalmente dependentes**.  
+
+---
+
+## **3. Exemplo Prático**
+### **Antes da 2FN (Violação)**
+**Tabela `Remessa`**:  
+| **#Cod_prod** | **#Cod_forn** | **Quant** | **Cidade** | **Status_F** |
+|--------------|--------------|----------|------------|-------------|
+| P01          | F01          | 100      | São Paulo  | Ativo       |
+| P02          | F01          | 50       | São Paulo  | Ativo       |
+| P03          | F02          | 200      | Rio de Janeiro | Inativo   |
+
+**Problema**:  
+- `Cidade` e `Status_F` dependem **apenas de `#Cod_forn`** (não de `#Cod_prod`).  
+- `Quant` depende **de ambos** (`#Cod_prod` e `#Cod_forn`).  
+
+### **Depois da 2FN (Solução Correta)**
+**Tabela `Remessa` (mantém apenas dependências totais)**:  
+| **#Cod_prod** | **#Cod_forn** | **Quant** |
+|--------------|--------------|----------|
+| P01          | F01          | 100      |
+| P02          | F01          | 50       |
+| P03          | F02          | 200      |
+
+**Tabela `Fornecedor` (nova tabela para dependências parciais)**:  
+| **#Cod_forn** | **Cidade**      | **Status_F** |
+|--------------|----------------|-------------|
+| F01          | São Paulo      | Ativo       |
+| F02          | Rio de Janeiro | Inativo     |
+
+**Chaves**:  
+- `Remessa`: Chave primária composta `(#Cod_prod, #Cod_forn)`.  
+- `Fornecedor`: Chave primária `#Cod_forn`.  
+
+---
+
+## **4. Outros Exemplos de Aplicação da 2FN**
+### **4.1. Matrícula de Alunos em Cursos**
+**Antes (violação)**:  
+`Matricula(#Aluno_ID, #Curso_ID, Nota, Nome_Aluno, Departamento_Curso)`  
+
+**Problema**:  
+- `Nome_Aluno` depende apenas de `#Aluno_ID`.  
+- `Departamento_Curso` depende apenas de `#Curso_ID`.  
+
+**Depois (2FN)**:  
+- `Matricula(#Aluno_ID, #Curso_ID, Nota)`  
+- `Aluno(#Aluno_ID, Nome_Aluno)`  
+- `Curso(#Curso_ID, Departamento_Curso)`  
+
+### **4.2. Pedidos de Vendas**
+**Antes (violação)**:  
+`Pedido(#Pedido_ID, #Produto_ID, Quantidade, Nome_Cliente, Endereço_Cliente)`  
+
+**Depois (2FN)**:  
+- `Pedido_Item(#Pedido_ID, #Produto_ID, Quantidade)`  
+- `Pedido(#Pedido_ID, Nome_Cliente, Endereço_Cliente)` *(Observação: Na prática, isso ainda violaria a 3FN!)*  
+
+---
+
+## **5. Casos Especiais**
+### **5.1. Quando a 2FN Não se Aplica?**
+- Se a chave primária for **simples** (não composta), a tabela **automaticamente está na 2FN**.  
+  - Ex.: `Cliente(ID, Nome, CPF)` já está na 2FN, pois não há dependências parciais.  
+
+### **5.2. Erros Comuns**
+- **Não identificar corretamente as dependências**: Levar a decomposições incorretas.  
+- **Criar tabelas redundantes**: Separar atributos que **já estão totalmente dependentes**.  
+
+---
+
+## **6. Exercício Proposto**
+Normalize para 2FN a tabela:  
+`Projeto(#Func_ID, #Proj_ID, Horas_Trabalhadas, Nome_Func, Cargo_Func)`  
+
+**Solução Esperada**:  
+- `Alocacao_Projeto(#Func_ID, #Proj_ID, Horas_Trabalhadas)`  
+- `Funcionario(#Func_ID, Nome_Func, Cargo_Func)`  
+
+---
+
+## **7. Conclusão**
+A **2FN** elimina **dependências parciais**, garantindo que:  
+✅ Atributos não-chave dependam **totalmente** da chave primária.  
+✅ Redundâncias sejam minimizadas.  
+✅ Anomalias de atualização sejam evitadas.  
+
+É o **segundo passo** para um esquema de banco de dados **eficiente e consistente**, preparando o terreno para a **3FN**.
 
 
 ---
 
-### Conclusão
-A cardinalidade é um conceito essencial na modelagem de banco de dados, pois define como as entidades se relacionam entre si. Ela ajuda a garantir que as regras de negócio sejam respeitadas e que os dados sejam consistentes. Ao compreender e aplicar corretamente a cardinalidade, é possível criar modelos de banco de dados eficientes e alinhados às necessidades do sistema.
+# **Terceira Forma Normal (3FN)**
 
+## **1. Definição Formal da 3FN**
+Uma relação está na **Terceira Forma Normal (3FN)** se e somente se:
+1. Estiver na **2FN** (sem dependências parciais).
+2. **Não existirem dependências transitivas** entre atributos não-chave (nenhum atributo não-chave determina outro atributo não-chave).
 
-## Notações para DER
-
-![texto](./img/fig-notacoes.png)
-
-
-## Outro Exemplo
-
-![texto](./img/fig-rel-outro-exempl.png)
-
-## Posto de Combuitível
-
-![texto](./img/fig-rel-posto.png)
-
-## Exercícios
-
-1. Definir o relacionamento entre as entidades Cliente, Agência e Conta Corrente, apontando a cardinalidade dos relacionamentos. Neste problema o Cliente pode possuir várias Contas-correntes. Uma Conta-corrente pertence a uma única Agência. Uma conta corrente pode pertencer a mais de um cliente. Uma agência pode possuir várias contas-correntes.
-
-2. Todo consumidor possui apenas um registro de dados cadastrais.
-
-Consumidor(CPF, Nome) FK=CPF se refere a CPF de Dados Cadastrais
-Dados Cadastrais(CPF, Endereço) FK=CPF se refere a CPF de Consumidor
-
-3. Um homem pode ser casado com uma única mulher. Uma mulher pode ser casa com um único homem. O casamento possui uma data de casamento.
-
-Homem(CPF, Nome)
-Mulher(CPF, Nome)
-Casado(CPFHomem, CPFMulher, DataCasamento)
-
-4. Todo vendedor emite vários pedidos de compra. Um pedido de compra pode ser emitido através da Internet sem o envolvimento do vendedor. A emissão de um pedido possui data.
-
-Vendedor(Nome, Telefone)
-Pedido(Número, Item, Quantidade)
-Emissão(NumeroPedido, NomeVendedor, Data)
-FK=NomeVendedor se refere a Nome de Vendedor
-
-
-5. Todo funcionário participa de pelo menos um projeto. Cada projeto tem a participação de um ou vários funcionários. Cada participação possui horas trabalhadas.
-
-Funcionario(Matricula, Nome, Função)
-Projeto(Codigo, Nome)
-Participa(MatFunc, CodProjeto, HorasTrabalhadas)
-
-
-## Auto-Relacionamento (Relacionamento Recursivo)
-
-O auto-relacionamento (ou relacionamento recursivo) ocorre quando uma entidade está relacionada consigo mesma. Esse tipo de relacionamento é útil para modelar situações em que uma instância de uma entidade precisa se associar a outras instâncias da mesma entidade. Vamos explorar esse conceito com um exemplo prático.
-
-Definição
-Auto-relacionamento: Um relacionamento onde uma entidade está associada a si mesma.
-
-Também chamado de: Relacionamento recursivo.
-
-Uso comum: Modelar hierarquias, relações de parentesco, estruturas organizacionais, etc.
-
-
-![texto](./img/fig-rel-auto.png)
-
-### Outro Exemplo
-
-![texto](./img/fig-rel-auto-outro.png)
-
-
-## Recomendações para criação de um DER
-
-✓ Antes de começar a modelar, conheça o “mundo real”.
-✓ Identifique quais são as ENTIDADES.
-✓ Para cada Entidade represente seus ATRIBUTOS.
-✓ Verifique a necessidade de ESPECIALIZAÇÃO.
-✓ Confronte cada Entidade consigo mesma e com as demais na procura de possíveis RELACIONAMENTOS.
-✓ Verifique a existência de ATRIBUTOS DE RELACIONAMENTO.
-✓ Identifique as cardinalidades dos relacionamentos
-✓ Para relacionamentos múltiplos estude a necessidade de AGREGAÇÕES.
-✓ Desenhe o DER, com todas as Entidades, Atributos e Relacionamentos.
-✓ Analise cuidadosamente todas as restrições que você impôs.
-✓ Até que você e os seus usuários estejam convencidos de que o DER reflete fielmente o “mundo real”, volte ao item 1.
-
-## Exercício Estúdio de Tatuagem
-
-Um proprietário de Estúdio de Tatuagem precisa de um sistema para controlar suas atividades.
-✓ O sistema deve oferecer a funcionalidade de cadastrar todos os clientes. Apenas clientes cadastrados são atendidos no Estúdio.
-✓ Todas as tatuagens aplicadas nos clientes são catalogadas e estão associadas aos clientes que as utilizou. Assim, é possível pesquisar que clientes utilizou cada uma das tatuagens.
-✓ Caso o cliente traga o desenho, esse precisa também ser cadastrado no catálogo do Estúdio.
-✓ Todos os tatuadores também precisam ser cadastrados e sempre fica registrado que tatuador aplicou a tatuagem ao cliente, devendo ser registrada em que data foi aplicada.
-▪ As tatuagens possuem um preço, além de informações sobre se é colorida ou não, qual o tamanho.
-▪ Dos tatuadores precisa cadastrar nome, data de nascimento, RG, CPF e telefone.
-▪ Dos clientes precisam ser guardados dados como nome, endereço, data de nascimento, profissão, CPF e telefone.
-
-
-## Exercício da Fazendo
-
-Uma fazenda precisa de um sistema para controlar o rebanho de ovelhas. Para cada animal é necessário guardar informações sobre seu código de registro, sexo, data de nascimento, raça, cor
-e data da última vacinação.
-O sistema precisa também acompanhar o peso do animal, e isso é aferido a cada mês e deve ficar registrado no sistema.
-Os animais também passam por consultas e procedimentos de veterinários. Os veterinários são registrados e deve ser armazenado no sistema informação do Registro CRMV, Nome, data de nascimento e especialidade de cada veterinário.
-As consultas e procedimentos que são feitos precisam ficar registrados, com dados da data, valor pago. No caso de procedimento, também deve ser registrado o tipo de procedimento realizado.
-
-# Extensões ao Modelo Entidade-Relacionamento (E-R)
-
-O modelo Entidade-Relacionamento (E-R) tradicional é uma ferramenta poderosa para modelagem conceitual de bancos de dados. No entanto, ele não consegue refletir todos os fatos do mundo real de forma completa. Para tornar a modelagem mais fiel à realidade e aumentar sua expressividade semântica, foram introduzidas extensões ao modelo E-R. Essas extensões incluem:
-
-1. **Generalização/Especialização**.
-2. **Agregação**.
-
-Vamos explorar cada uma dessas extensões em detalhes.
+### **Regra Prática:**
+- Todo atributo não-chave deve depender **apenas da chave primária** (não de outros atributos não-chave).
 
 ---
 
-## 1. Generalização/Especialização
+## **2. Dependência Transitiva (Problema Resolvido pela 3FN)**
+Ocorre quando:
+- Um atributo não-chave **A** determina outro atributo não-chave **B**.
+- Formalmente: Se **X → Y** e **Y → Z**, então **X → Z** é uma dependência transitiva.
 
-A **generalização/especialização** é uma técnica que permite organizar entidades em hierarquias, onde uma entidade mais geral (superclasse) pode ser dividida em entidades mais específicas (subclasses). Essa abordagem é útil para representar situações em que um conjunto de entidades compartilha características comuns, mas também possui atributos ou comportamentos específicos.
-
-### Conceitos Básicos
-
-#### Especialização
-- **Definição**: Processo de subdividir uma entidade (superclasse) em subclasses mais específicas.
-- **Objetivo**: Capturar características específicas de subconjuntos de instâncias da entidade.
-- **Exemplo**:
-  - A entidade **Funcionário** pode ser especializada em **Gerente** e **Analista**.
-  - **Funcionário** é a superclasse, enquanto **Gerente** e **Analista** são subclasses.
-
-#### Generalização
-- **Definição**: Processo inverso da especialização, onde várias subclasses são agrupadas em uma superclasse.
-- **Objetivo**: Capturar características comuns a todas as subclasses.
-- **Exemplo**:
-  - As entidades **Cachorro**, **Gato** e **Pássaro** podem ser generalizadas em **Animal**.
-  - **Animal** é a superclasse, enquanto **Cachorro**, **Gato** e **Pássaro** são subclasses.
-
-### Características
-- **Herança**: As subclasses herdam os atributos e relacionamentos da superclasse.
-- **Atributos Específicos**: Cada subclass pode ter atributos adicionais que não se aplicam à superclasse.
-- **Relacionamentos**: As subclasses podem participar de relacionamentos específicos.
-
-### Representação no DER
-
-![texto](./img/fig-espc.png)
-
-![texto](./img/fig-espc-2.png)
-
+**Exemplo Clássico**:
+- Na tabela `Empregado(#Mat, Nome, Função, Salário_base)`, se `Função → Salário_base`, então `#Mat → Salário_base` é transitiva.
 
 ---
 
-## 2. Agregação
-
-A **agregação** é uma abstração que permite tratar um relacionamento como uma entidade de nível mais alto. Isso é útil quando um relacionamento precisa participar de outro relacionamento ou quando desejamos associar atributos a um relacionamento.
-
-### Conceitos Básicos
-
-#### Definição
-- **Agregação**: Trata um relacionamento como uma entidade, permitindo que ele participe de outros relacionamentos.
-- **Objetivo**: Modelar situações complexas onde relacionamentos precisam ser associados a outras entidades ou relacionamentos.
-
-### Representação no DER
-
-![texto](./img/fig-agrega.png)
-
-![texto](./img/fig-agreg2.png)
+## **3. Procedimento para Normalização na 3FN**
+1. **Identificar dependências transitivas**:
+   - Ex.: `Função → Salário_base` em `Empregado`.
+2. **Remover os atributos dependentes**:
+   - Extrair `Salário_base` da tabela original.
+3. **Criar uma nova tabela** com:
+   - O **atributo determinante** (`Função`) como chave primária.
+   - O **atributo dependente** (`Salário_base`).
+4. **Manter na tabela original** apenas a **chave estrangeira** (`Função`).
 
 ---
 
-## Conclusão
+## **4. Exemplo Prático**
+### **Antes da 3FN (Violação)**
+**Tabela `Empregado`**:
+| **#Mat** | **Nome**  | **Endereço** | **Função**   | **Salário_base** | **Depto** |
+|----------|----------|-------------|-------------|------------------|----------|
+| 101      | João     | Rua A       | Gerente     | 10.000           | Vendas   |
+| 102      | Maria    | Rua B       | Analista    | 7.000            | TI       |
 
-As extensões ao modelo E-R, como **generalização/especialização** e **agregação**, tornam a modelagem conceitual mais rica e expressiva, permitindo representar situações complexas do mundo real de forma mais fiel. Essas técnicas são essenciais para modelar hierarquias de classes, relacionamentos complexos e atributos associados a relacionamentos. Ao dominar essas extensões, é possível criar modelos de banco de dados mais robustos e alinhados às necessidades do sistema.
+**Problema**:
+- `Salário_base` depende de `Função` (não diretamente da chave `#Mat`).
+
+### **Depois da 3FN (Solução Correta)**
+**Tabela `Empregado`**:
+| **#Mat** | **Nome**  | **Endereço** | **Função** | **Depto** |
+|----------|----------|-------------|-----------|----------|
+| 101      | João     | Rua A       | Gerente   | Vendas   |
+| 102      | Maria    | Rua B       | Analista  | TI       |
+
+**Tabela `Função_Salário`**:
+| **Função**  | **Salário_base** |
+|------------|------------------|
+| Gerente    | 10.000           |
+| Analista   | 7.000            |
+
+**Chaves**:
+- `Empregado`: Chave primária `#Mat`, com `Função` como chave estrangeira.
+- `Função_Salário`: Chave primária `Função`.
+
+---
+
+## **5. Vantagens da 3FN**
+| **Benefício**               | **Explicação**                                                                 |
+|-----------------------------|-------------------------------------------------------------------------------|
+| **Elimina redundâncias**    | `Salário_base` é armazenado uma única vez por função, não por empregado.     |
+| **Previne anomalias**       | Atualizar o salário de uma função requer mudança em apenas um registro.      |
+| **Melhora consistência**    | Não há risco de salários diferentes para a mesma função.                     |
+| **Facilita consultas**      | Estrutura mais organizada para buscas (ex.: listar todas as funções e salários). |
+
+---
+
+## **6. Comparação entre 2FN e 3FN**
+| **Critério**         | **2FN**                                  | **3FN**                                  |
+|----------------------|------------------------------------------|------------------------------------------|
+| **Foco**            | Elimina dependências **parciais**.       | Elimina dependências **transitivas**.    |
+| **Atributos Alvo**  | Atributos não-chave que dependem de **parte da chave primária**. | Atributos não-chave que dependem de **outros não-chave**. |
+| **Exemplo**        | Separar `Cidade` de `Pedido` (depende apenas do `Cliente_ID`). | Separar `Salário_base` de `Empregado` (depende de `Função`). |
+
+---
+
+## **7. Casos Especiais**
+### **7.1. Quando a 3FN Não é Suficiente?**
+- Se houver **dependências multivaloradas** ou **junções complexas**, a **Forma Normal de Boyce-Codd (BCNF)** pode ser necessária.
+- Exemplo: Se `Função` determinasse `Depto` (violação da BCNF).
+
+### **7.2. Desnormalização Controlada**
+- Em sistemas OLAP (análise de dados), a 3FN pode ser relaxada para melhorar desempenho em consultas complexas.
+
+---
+
+## **8. Exercício Proposto**
+Normalize para 3FN a tabela:  
+`Livro(ISBN, Título, Autor_ID, Nome_Autor, Nacionalidade_Autor, Editora_ID, País_Editora)`  
+
+**Solução Esperada**:
+- `Livro(ISBN, Título, Autor_ID, Editora_ID)`
+- `Autor(Autor_ID, Nome_Autor, Nacionalidade_Autor)`
+- `Editora(Editora_ID, País_Editora)`
+
+---
+
+## **9. Conclusão**
+A **3FN** é essencial para:
+✔ **Eliminar redundâncias ocultas** (dependências transitivas).  
+✔ **Garantir atualizações eficientes**.  
+✔ **Estruturar dados de forma lógica e consistente**.  
+
+É o **último passo** para a maioria dos projetos de bancos de dados tradicionais, antecedendo apenas a BCNF em casos específicos.
+
+---
+
+# **Forma Normal de Boyce-Codd (FNBC) - Teoria e Aplicação**
+
+## **1. Definição Formal da FNBC**
+Uma relação está na **Forma Normal de Boyce-Codd (FNBC)** se e somente se:
+- Estiver na **3FN** (sem dependências transitivas).
+- **Todo determinante (lado esquerdo de uma DF) for uma chave candidata** (superchave).
+
+### **Regra Prática**:
+- Se existir uma DF `X → Y` onde **X não é chave candidata**, a relação **não está na FNBC**.
+
+---
+
+## **2. Comparação entre 3FN e FNBC**
+| **Critério**         | **3FN**                                  | **FNBC**                                  |
+|----------------------|------------------------------------------|------------------------------------------|
+| **Foco**            | Elimina dependências **transitivas**.    | Exige que **todo determinante seja chave candidata**. |
+| **Restrição**       | Permite DFs onde o determinante **não é chave**, desde que o dependente seja **atributo primo** (parte de alguma chave). | **Não permite** DFs com determinantes não-chave, independentemente do tipo de atributo dependente. |
+| **Exemplo**        | `Função → Salário_base` (aceito na 3FN se `Função` não for chave). | `Função → Salário_base` (viola FNBC se `Função` não for chave candidata). |
+
+---
+
+## **3. Exemplo Prático: Turma (Estudante, Assunto, Professor)**
+### **Contexto**:
+- Cada estudante em um **Assunto** tem um único **Professor**.
+- Cada **Professor** ministra apenas um **Assunto** (mas um Assunto pode ter vários professores).
+
+### **Dependências Funcionais (DFs)**:
+1. `(Estudante, Assunto) → Professor`  
+   - **Chave candidata 1**: `(Estudante, Assunto)`.  
+2. `Professor → Assunto`  
+   - **Problema**: `Professor` **não é chave candidata** (viola FNBC).  
+
+### **Chaves Candidatas**:
+- `(Estudante, Assunto)` (pois determina `Professor`).  
+- `(Estudante, Professor)` (pois `Professor → Assunto`).  
+
+### **Decomposição para FNBC**:
+1. **Tabela `EP(Estudante, Professor)`**:  
+   - Chave primária: `(Estudante, Professor)`.  
+2. **Tabela `PA(Professor, Assunto)`**:  
+   - Chave primária: `Professor` (pois `Professor → Assunto`).  
+
+**Resultado**:
+- Ambas as tabelas estão na FNBC, pois:  
+  - Em `PA`, `Professor` é chave.  
+  - Em `EP`, `(Estudante, Professor)` é chave.  
+
+---
+
+## **4. Axiomas de Armstrong (Regras de Inferência para DFs)**
+São regras formais para **derivar novas DFs** a partir de um conjunto inicial.  
+
+| **Axioma**         | **Descrição**                                                                 | **Exemplo**                                  |
+|--------------------|------------------------------------------------------------------------------|--------------------------------------------|
+| **Reflexividade**  | Se \( B \subseteq A \), então \( A \rightarrow B \).                         | `(A, B) → B`.                              |
+| **Aumento**       | Se \( A \rightarrow B \), então \( AC \rightarrow BC \).                     | Se `CPF → Nome`, então `(CPF, Idade) → (Nome, Idade)`. |
+| **Transitividade** | Se \( A \rightarrow B \) e \( B \rightarrow C \), então \( A \rightarrow C \). | Se `CPF → Depto` e `Depto → Gerente`, então `CPF → Gerente`. |
+| **Decomposição**  | Se \( A \rightarrow BC \), então \( A \rightarrow B \) e \( A \rightarrow C \). | Se `CPF → (Nome, Idade)`, então `CPF → Nome` e `CPF → Idade`. |
+| **União**         | Se \( A \rightarrow B \) e \( A \rightarrow C \), então \( A \rightarrow BC \). | Se `CPF → Nome` e `CPF → Idade`, então `CPF → (Nome, Idade)`. |
+| **Composição**    | Se \( A \rightarrow B \) e \( C \rightarrow D \), então \( AC \rightarrow BD \). | Se `CPF → Nome` e `Cargo → Salário`, então `(CPF, Cargo) → (Nome, Salário)`. |
+
+---
+
+## **5. Quando Aplicar a FNBC?**
+### **Casos Típicos**:
+1. **Chaves candidatas sobrepostas**: Quando múltiplas chaves compartilham atributos (ex.: `(Estudante, Assunto)` e `(Estudante, Professor)`).  
+2. **Determinantes não-chave**: Se uma DF como `X → Y` existe, mas `X` não é chave.  
+
+### **Limitações**:
+- **Pode aumentar a complexidade**: Muitas tabelas podem dificultar consultas com `JOINs`.  
+- **Nem sempre necessária**: A 3FN é suficiente para a maioria dos casos práticos.  
+
+---
+
+## **6. Exercício Proposto**
+Dada a relação `Projeto(Func_ID, Proj_ID, Horas, Nome_Func, Cargo)`, com as DFs:  
+1. `Func_ID → (Nome_Func, Cargo)`  
+2. `(Func_ID, Proj_ID) → Horas`  
+
+**Pergunta**: A relação está na FNBC? Se não, normalize.  
+
+**Resposta**:  
+- **Violação**: `Func_ID → Cargo` (onde `Func_ID` não é chave candidata).  
+- **Decomposição**:  
+  - `Funcionario(Func_ID, Nome_Func, Cargo)`  
+  - `Alocacao(Func_ID, Proj_ID, Horas)`  
+
+---
+
+## **7. Conclusão**
+A **FNBC** é a forma normal mais rigorosa para:  
+✔ **Eliminar todas as redundâncias** baseadas em DFs.  
+✔ **Garantir que determinantes sejam chaves**.  
+✔ **Evitar anomalias em atualizações**.  
+
+Porém, sua aplicação deve ser **ponderada**, equilibrando normalização e desempenho. Os **Axiomas de Armstrong** são ferramentas essenciais para analisar DFs e projetar esquemas eficientes.
+
+
