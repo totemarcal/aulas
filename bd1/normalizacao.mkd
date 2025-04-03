@@ -551,7 +551,7 @@ Uma relação está na **Forma Normal de Boyce-Codd (FNBC)** se e somente se:
 
 - Cada estudante em um **Assunto** tem um único **Professor**.
 - Cada **Professor** ministra apenas um **Assunto** (mas um Assunto pode ter vários professores).
-- Cada Assunto é ensinado por diversos professores.
+- Cada **Assunto** é ensinado por diversos professores.
 
 ### **Dependências Funcionais (DFs)**:
 1. `(Estudante, Assunto) → Professor`  
