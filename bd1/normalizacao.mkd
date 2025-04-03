@@ -543,8 +543,15 @@ Uma relação está na **Forma Normal de Boyce-Codd (FNBC)** se e somente se:
 
 ## **3. Exemplo Prático: Turma (Estudante, Assunto, Professor)**
 ### **Contexto**:
+
+| **Estudante**  | **Assunto**  |  **Professor**   |
+|------------|------------------|------------------|
+| Antonio    | Banco de Dados   | Mst Carlos       |
+| Marcos     | Algoritmos       | Dr Magali        |
+
 - Cada estudante em um **Assunto** tem um único **Professor**.
 - Cada **Professor** ministra apenas um **Assunto** (mas um Assunto pode ter vários professores).
+- Cada Assunto é ensinado por diversos professores.
 
 ### **Dependências Funcionais (DFs)**:
 1. `(Estudante, Assunto) → Professor`  
@@ -561,6 +568,19 @@ Uma relação está na **Forma Normal de Boyce-Codd (FNBC)** se e somente se:
    - Chave primária: `(Estudante, Professor)`.  
 2. **Tabela `PA(Professor, Assunto)`**:  
    - Chave primária: `Professor` (pois `Professor → Assunto`).  
+
+
+| **Estudante** |  **Professor**   |
+|---------------|------------------|
+| Antonio       | Banco de Dados   |
+| Marcos        | Algoritmos       |
+
+
+|  **Professor**   | **Assunto**      |
+|------------------|------------------|
+| Mst Carlos       | Banco de Dados   |
+| Dr Magali        | Algoritmos       |
+
 
 **Resultado**:
 - Ambas as tabelas estão na FNBC, pois:  
