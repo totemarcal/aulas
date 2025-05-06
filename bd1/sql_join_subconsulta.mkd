@@ -313,3 +313,5 @@ Dominar esses conceitos é essencial para trabalhar eficientemente com bancos de
 9. Quais departamentos não têm empregados ?
 10. Que empregados não estão alocados em projetos ?
 11. Que empregados ganham menos que os de função auxiliar ?
+12. Recupere o nome do departamento, a função, o total de empregados e o total de salários por departamento e função cujo total de salários seja maior que a médias dos sálarios ordenados por departamento e função.
+13. Selecionar todos os empregados do departamento Informática que desempenham papel de Coordenação por mais de 40 hs.
