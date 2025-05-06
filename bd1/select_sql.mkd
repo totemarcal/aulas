@@ -215,5 +215,78 @@ SELECT 'Nome:', nome, 'Bairro:', bairro FROM empregado;
 ---
 
 
+## Para os exemplos abaixo execute os serguintes scripts
+```sql
+CREATE TABLE departamento (
+    cod INT PRIMARY KEY,
+    nome VARCHAR(50),
+    gerente INT -- pode ser NULL
+);
+
+CREATE TABLE empregado (
+    matricula INT PRIMARY KEY,
+    nome VARCHAR(50),
+    rua VARCHAR(100),
+    bairro VARCHAR(50),
+    salario DECIMAL(10, 2),
+    coddepart INT,
+    data_admissao DATE,
+    FOREIGN KEY (coddepart) REFERENCES departamento(cod)
+);
+
+CREATE TABLE trabalhaem (
+    codproj INT,
+    matricula INT,
+    horas INT,
+    PRIMARY KEY (codproj, matricula),
+    FOREIGN KEY (matricula) REFERENCES empregado(matricula)
+);
+
+CREATE TABLE dependente (
+    id INT PRIMARY KEY,
+    matricula INT,
+    nome VARCHAR(50),
+    parentesco VARCHAR(50),
+    sexo CHAR(1),
+    FOREIGN KEY (matricula) REFERENCES empregado(matricula)
+);
+
+```
+
+```sql
+-- Departamentos
+INSERT INTO departamento (cod, nome, gerente) VALUES
+(1, 'Administração', NULL),
+(2, 'Recursos Humanos', 112),
+(3, 'Informática', 115),
+(4, 'Financeiro', NULL);
+
+-- Empregados
+INSERT INTO empregado (matricula, nome, rua, bairro, salario, coddepart, data_admissao) VALUES
+(111, 'Maria', 'Rua A', 'Centro', 2800, 1, '1995-03-15'),
+(112, 'Carlos', 'Rua B', 'Jardins', 3200, 2, '1999-07-10'),
+(113, 'Joana', 'Rua C', 'Centro', 4500, 3, '1997-01-01'),
+(114, 'Marcos', 'Rua D', 'Vila Nova', 2500, 3, '1998-09-15'),
+(115, 'Marilene', 'Rua E', 'Centro', 3700, 3, '1996-04-12'),
+(116, 'João', 'Rua F', 'Bela Vista', 1200, 4, '2001-02-25'),
+(117, 'Marta', 'Rua G', 'Jardins', 3100, 2, '2000-08-08'),
+(118, 'Mario', 'Rua H', 'Centro', 900, 1, '2005-06-06');
+
+-- TrabalhaEm
+INSERT INTO trabalhaem (codproj, matricula, horas) VALUES
+(101, 111, 20),
+(102, 112, 35),
+(103, 113, 40),
+(104, 114, 30),
+(105, 115, 32);
+
+-- Dependentes
+INSERT INTO dependente (id, matricula, nome, parentesco, sexo) VALUES
+(1, 111, 'Ana', 'Filha', 'F'),
+(2, 112, 'Pedro', 'Filho', 'M'),
+(3, 113, 'Clara', 'Esposa', 'F'),
+(4, 114, 'Rita', 'Mãe', 'F');
+
+```
 
 
