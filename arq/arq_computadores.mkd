@@ -1,0 +1,207 @@
+
+# 📘 Introdução à Arquitetura de Computadores
+
+## **Seção 1: Conceitos Básicos de Informática**
+
+---
+
+## 🔹 1.1 O que é um Computador?
+
+Um **computador** é uma máquina composta por partes **eletrônicas e eletromecânicas** capaz de:
+
+✅ Coletar dados
+✅ Manipular dados
+✅ Fornecer resultados do processamento
+
+> Ou seja, é um **equipamento de processamento eletrônico de dados (EDP)**.
+
+### 🔁 Esquema básico do processamento de dados:
+
+```
+Entrada de Dados → Processamento → Saída de Informação
+```
+
+A **informação** é o **produto final** do processamento. Para isso, o computador executa um conjunto de **instruções** (programa), normalmente com **mínima intervenção humana**.
+
+---
+
+### 🧠 Benefícios do uso de computadores:
+
+| Benefício                    | Explicação                                            |
+| ---------------------------- | ----------------------------------------------------- |
+| 🚀 Velocidade                | Processa e fornece informações em milissegundos       |
+| 🎯 Precisão                  | Fornece dados exatos conforme a instrução do programa |
+| 🔁 Repetitividade            | Excelente para tarefas repetitivas sem erro           |
+| 💰 Redução de Custos         | Automatiza tarefas operacionais                       |
+| 🌐 Compartilhamento de dados | Integra sistemas e usuários via redes e dispositivos  |
+
+---
+
+## 🔹 1.2 Computadores: Hardware e Software
+
+Todo sistema computacional é composto por **duas partes fundamentais**:
+
+| Parte        | Descrição                                                                   |
+| ------------ | --------------------------------------------------------------------------- |
+| **Hardware** | Parte **física**, tangível: teclado, monitor, placas, cabos, CPU etc.       |
+| **Software** | Parte **lógica**, intangível: programas e sistemas que dão “vida” à máquina |
+
+> 💡 **Sem software, o hardware não executa nenhuma tarefa útil.**
+
+---
+
+### 🔸 1.2.1 Hardware: Componentes Básicos
+
+#### 🧩 1.2.1.1 Unidades de Entrada e Saída (E/S)
+
+Os dispositivos de Entrada e Saída são formados por:
+
+* Um **controlador** (chip responsável pelo controle físico)
+* O **dispositivo em si** (que executa a entrada ou saída de dados)
+
+---
+
+### 📥 Dispositivos de Entrada
+
+Permitem que o usuário **insira dados** no sistema.
+
+| Tipo de Dado | Exemplos de Dispositivos |
+| ------------ | ------------------------ |
+| Texto        | Teclado                  |
+| Movimento    | Mouse                    |
+| Imagem       | Scanner                  |
+| Som          | Microfone                |
+
+---
+
+### 📤 Dispositivos de Saída
+
+Apresentam os **resultados do processamento**.
+
+| Tipo de Saída      | Exemplos de Dispositivos                     |
+| ------------------ | -------------------------------------------- |
+| Visual             | Monitor de vídeo, projetores                 |
+| Impressa           | Impressoras, plotters                        |
+| Sensores/Terminais | Terminais bancários, painéis, telas digitais |
+
+---
+
+### 🔁 Dispositivos de Entrada e Saída (E/S)
+
+Atuam **tanto para entrada quanto para saída de dados**:
+
+| Dispositivo       | Função E/S                             |
+| ----------------- | -------------------------------------- |
+| Disco rígido (HD) | Lê e grava dados                       |
+| Pen Drive (USB)   | Armazena e transfere dados             |
+| CD/DVD            | Leitura e/ou gravação de dados         |
+| Tela Touchscreen  | Entrada (toque) e saída (visualização) |
+
+
+---
+
+Ótimo! Com essa nova parte do conteúdo, podemos dar continuidade à **Seção 1** da aula com os tópicos **Memória** e **Unidade Central de Processamento (CPU)**. Abaixo está a apresentação **didática, explicativa e detalhada**, ideal para uso em sala de aula ou material didático:
+
+---
+
+## 🔹 Memória
+
+### 🧠 Conceito de Memória em Computadores
+
+Para que um computador funcione corretamente, ele **precisa armazenar dados** — tanto os que estão sendo processados quanto os que serão usados posteriormente. Esse armazenamento pode ser:
+
+* **Temporário** (volátil) — usado durante a execução de programas
+* **Permanente** (não volátil) — usado para guardar dados mesmo quando o computador está desligado
+
+Essa estrutura é chamada genericamente de **memória**.
+
+---
+
+### 🔢 Como a informação é representada?
+
+* A **menor unidade de informação** em um computador é o **bit** (binary digit)
+
+  * Um bit pode ser: `0` ou `1`
+* Para representar dados mais complexos, bits são agrupados em:
+
+  * **Byte**: conjunto de **8 bits**
+
+> Exemplo:
+>
+> * 1 caractere (letra "A") = 1 byte = `01000001`
+
+---
+
+### 📏 Unidades de Medida de Armazenamento
+
+| Unidade         | Equivalência |
+| --------------- | ------------ |
+| 1 Byte          | 8 bits       |
+| 1 Kilobyte (KB) | 1024 Bytes   |
+| 1 Megabyte (MB) | 1024 KB      |
+| 1 Gigabyte (GB) | 1024 MB      |
+| 1 Terabyte (TB) | 1024 GB      |
+
+> ⚠️ Atenção: 1 KB = 1024 bytes, e não 1000 bytes, pois segue base binária (2¹⁰).
+
+---
+
+### 🧰 Tipos comuns de memória (adição recomendada)
+
+| Tipo          | Função                             | Volátil? |
+| ------------- | ---------------------------------- | -------- |
+| RAM           | Memória de trabalho temporária     | Sim      |
+| ROM           | Armazena o firmware                | Não      |
+| Cache         | Armazenamento rápido próximo à CPU | Sim      |
+| HD/SSD        | Armazenamento em disco             | Não      |
+| Registradores | Armazenamento imediato na CPU      | Sim      |
+
+---
+
+## 🔹 1.2.1.3 Unidade Central de Processamento (UCP ou CPU)
+
+### ⚙️ O que é a CPU?
+
+A **CPU (Central Processing Unit)** é o cérebro do computador.
+É responsável por **interpretar e executar instruções** fornecidas pelos programas (software).
+
+> Também é chamada de **processador** ou **microprocessador**.
+
+---
+
+### 🔁 Ciclo de Instrução da CPU
+
+A CPU executa um ciclo contínuo de operações:
+
+1. **Busca (Fetch)**: busca a próxima instrução na memória
+2. **Decodifica (Decode)**: identifica qual operação deve ser feita
+3. **Executa (Execute)**: realiza a operação sobre os dados
+4. **Atualiza (Store/Increment)**: armazena o resultado e avança para a próxima instrução
+
+Este ciclo é chamado de **Ciclo de Máquina**.
+
+---
+
+### 🧩 Componentes Internos da CPU
+
+| Componente                            | Função Principal                                                |
+| ------------------------------------- | --------------------------------------------------------------- |
+| **UC (Unidade de Controle)**          | Controla o fluxo das instruções e sinais de controle            |
+| **ULA (Unidade Lógica e Aritmética)** | Realiza cálculos e operações lógicas                            |
+| **Registradores**                     | Pequena memória interna usada para armazenar dados temporários  |
+| **Contador de Programa (PC)**         | Guarda o endereço da próxima instrução a ser buscada na memória |
+
+---
+
+### 📍 Funcionamento do Contador de Programa
+
+* Cada vez que uma instrução é executada, o **Contador de Programa (PC)** é atualizado para apontar para o **endereço da próxima instrução**.
+* Assim, garante-se a **execução sequencial** do programa (salvo instruções de salto/loop).
+
+---
+
+### 🔄 Esquema do Ciclo da CPU:
+
+![texto](./ucp.png)
+
+
