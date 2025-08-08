@@ -45,10 +45,6 @@ Segundo o *Scrum Guide*, os valores fundamentais são:
    * Valorizar diferentes perspectivas.
    * Criar um ambiente colaborativo e saudável.
 
----
-
-Perfeito, você quer transformar esse conteúdo em um **material didático claro e organizado sobre os Papéis no Scrum**.
-Eu estruturei de forma visual e objetiva, mas mantendo os detalhes importantes para que seja útil em treinamento, apresentação ou apostila.
 
 ---
 
@@ -146,11 +142,6 @@ O **Time Ágil** é composto essencialmente por três papéis:
 | **Product Owner**           | Negócio        | Stakeholders, Time de Desenvolvimento | Maximizar valor e priorizar backlog                             |
 | **Scrum Master**            | Processo       | PO, Time, Organização                 | Garantir que a metodologia seja aplicada e remover impedimentos |
 | **Time de Desenvolvimento** | Entrega        | PO, SM                                | Construir incrementos de produto com qualidade                  |
-
----
-
-Entendi — você quer algo no mesmo estilo claro e didático que fiz para os **Papéis no Scrum**, mas agora aplicando à parte das **Fases da Metodologia Ágil** que você me enviou.
-Vou manter a explicação organizada, com foco visual e objetivo, mas sem perder os detalhes importantes para um material de treinamento ou apostila.
 
 ---
 
@@ -270,9 +261,6 @@ Cada fase é leve, incremental e conectada aos princípios e valores ágeis, int
 | **Homologação** | Validar entregas           | Termo de Aceite        |
 | **Implantação** | Disponibilizar em produção | Produto em Operação    |
 
----
-
-Vou organizar esse conteúdo em um **material didático sobre os Artefatos do Scrum**, deixando claro, visual e pronto para ser usado em treinamento ou apostila.
 
 ---
 
@@ -289,6 +277,74 @@ No Scrum, temos quatro artefatos principais:
 4. **Definição de Pronto (Definition of Done – DoD)**
 
 ---
+
+Escrever histórias no Scrum (ou *user stories*) é uma prática essencial para capturar requisitos funcionais do ponto de vista do usuário final. Elas servem para descrever funcionalidades desejadas de forma clara, simples e orientada ao valor entregue.
+
+---
+
+## Como escrever boas histórias no Scrum
+
+### 1. Estrutura básica da história
+
+A forma clássica de uma *user story* segue o formato:
+
+> **Como** \[tipo de usuário]
+> **Eu quero** \[ação ou funcionalidade desejada]
+> **Para que** \[benefício ou valor esperado]
+
+**Exemplo:**
+
+> Como usuário do sistema de compras
+> Eu quero poder filtrar produtos por preço
+> Para que eu encontre ofertas mais rapidamente
+
+---
+
+### 2. Características das boas histórias (INVEST)
+
+* **I**ndependente: cada história deve poder ser desenvolvida separadamente.
+* **N**egociável: detalhes podem ser ajustados em colaboração com o time.
+* **V**aliosa: deve entregar valor para o usuário ou negócio.
+* **E**stimável: o time deve conseguir estimar o esforço necessário.
+* **S**imples (Small): deve ser pequena o suficiente para ser concluída em um sprint.
+* **T**estável: deve ser possível validar que a funcionalidade foi entregue.
+
+---
+
+### 3. Critérios de aceitação
+
+Junto com a história, sempre liste os **critérios de aceitação** que definem as condições que devem ser cumpridas para que a história seja considerada pronta.
+
+**Exemplo:**
+
+* O filtro deve permitir selecionar faixa de preço mínima e máxima.
+* O resultado deve mostrar apenas produtos dentro da faixa selecionada.
+* O filtro deve funcionar em desktop e mobile.
+
+---
+
+### 4. Dicas práticas
+
+* **Evite linguagem técnica:** escreva em linguagem simples, entendida por todos.
+* **Foque no usuário:** sempre pense em quem vai usar a funcionalidade.
+* **Não misture histórias:** evite juntar várias funcionalidades em uma única história (granularidade).
+* **Use exemplos:** incluir cenários ajuda a esclarecer o que deve ser feito.
+
+---
+
+### 5. Exemplo completo
+
+**História:**
+Como cliente da loja virtual
+Eu quero salvar meus produtos favoritos
+Para que eu possa comprá-los depois facilmente
+
+**Critérios de aceitação:**
+
+* Cliente pode adicionar/remover produtos da lista de favoritos.
+* A lista é persistida entre sessões.
+* Cliente pode acessar a lista a partir do menu principal.
+
 
 ## **1. Backlog do Produto (Product Backlog)**
 
@@ -380,6 +436,9 @@ Acordo claro sobre o que significa “pronto” para o time e stakeholders.
 
 ---
 
+![alt text](hist.png)
+
+---
 ## **Resumo Visual dos Artefatos**
 
 | Artefato                | Objetivo Principal                                 | Responsável             |
@@ -393,9 +452,6 @@ Acordo claro sobre o que significa “pronto” para o time e stakeholders.
 
 ![texto](./img_scrum.png)
 
-
-Certo — vou expandir o conteúdo que você enviou, incluindo mais detalhes práticos, exemplos, boas práticas e riscos comuns em cada cerimônia.
-A ideia é que você tenha um **material completo** para estudo, aula ou treinamento sobre as cerimônias do Scrum.
 
 ---
 
