@@ -1,0 +1,605 @@
+# Metodologia Ágil com Scrum
+
+## **Scrum – Valores Fundamentais**
+
+Link de referência: https://www.gov.br/mec/pt-br/acesso-a-informacao/institucional/estrutura-organizacional/orgaos-especificos-singulares/secretaria-executiva/stic/documentos/mdsagil_mec_v1-1_dez22.pdf
+
+No Scrum, a **proficiência no processo** não depende apenas de seguir práticas e eventos prescritos. Ela é conquistada quando as equipes **adotam** e **refletem** sobre os **valores ágeis**, utilizando-os como base para explorar novos comportamentos e evoluir continuamente o processo de desenvolvimento.
+
+Esses valores funcionam como um **guia cultural** para o time, ajudando a criar **clareza** na forma de trabalhar, construir **identidade** e agir de forma alinhada aos princípios da melhoria contínua. Quando seguidos, eles também ajudam a **evitar falhas no produto**.
+
+---
+
+### **Os Cinco Valores do Scrum**
+
+Segundo o *Scrum Guide*, os valores fundamentais são:
+
+1. **Compromisso**
+   Cada membro do time se compromete com os objetivos do projeto e com a entrega de valor para o cliente.
+
+   * Entregar o que foi prometido.
+   * Ser responsável pela própria contribuição.
+
+2. **Coragem**
+   O time precisa ter coragem para:
+
+   * Tomar decisões difíceis.
+   * Enfrentar problemas e riscos.
+   * Experimentar novas abordagens sem medo de falhar.
+
+3. **Foco**
+   Concentrar esforços no trabalho mais importante para atingir as metas da Sprint e do produto.
+
+   * Evitar distrações.
+   * Priorizar entregas de maior valor.
+
+4. **Abertura**
+   Estar disposto a compartilhar informações, receber feedback e manter a transparência no processo.
+
+   * Comunicação clara e constante.
+   * Troca de ideias sem barreiras.
+
+5. **Respeito**
+   Reconhecer o valor e as contribuições de cada membro do time.
+
+   * Valorizar diferentes perspectivas.
+   * Criar um ambiente colaborativo e saudável.
+
+---
+
+Perfeito, você quer transformar esse conteúdo em um **material didático claro e organizado sobre os Papéis no Scrum**.
+Eu estruturei de forma visual e objetiva, mas mantendo os detalhes importantes para que seja útil em treinamento, apresentação ou apostila.
+
+---
+
+# **Scrum – Papéis no Time Ágil**
+
+O **Time Ágil** é composto essencialmente por três papéis:
+
+1. **Gerente do Produto (Product Owner)**
+2. **Scrum Master**
+3. **Time de Desenvolvimento**
+
+> 📌 Esses papéis descrevem responsabilidades, e **não cargos formais**. Qualquer pessoa na organização pode assumir um desses papéis, desde que tenha as habilidades e responsabilidades exigidas.
+
+---
+
+## **Princípios Comuns a Todos os Papéis**
+
+* Trabalhar **como um time pequeno e auto-organizado**.
+* **Compartilhar responsabilidades**, colaborar e se comunicar com clareza.
+* Focar na **entrega de valor contínua e incremental**.
+* Aprender e melhorar a cada entrega.
+* Compartilhar aprendizados com o time e com as partes interessadas.
+
+---
+
+## **1. Gerente do Produto (Product Owner)**
+
+**Missão:** Representar o cliente e o negócio dentro do Time Ágil, garantindo que o produto entregue gere o **máximo de valor**.
+
+**Principais responsabilidades:**
+
+* Representar necessidades e prioridades do negócio.
+* Priorizar e gerenciar o **Backlog do Produto**.
+* Transformar a estratégia e os requisitos do negócio em **Histórias de Usuário** e especificações.
+* Manter contato constante com o Time de Desenvolvimento para tirar dúvidas e resolver impedimentos de negócio.
+* Planejar e organizar continuamente as próximas Sprints.
+* Apresentar o incremento na **Sprint Review** e coletar feedback.
+* Garantir que **cada produto tenha um único Product Owner**.
+
+**Requisitos:**
+
+* Alto conhecimento do negócio e do produto.
+* Disponibilidade para detalhar backlog e apoiar o time continuamente.
+* Capacidade de definir prioridades alinhadas ao ROI e ao **time to market**.
+
+---
+
+## **2. Scrum Master**
+
+**Missão:** Garantir que a metodologia ágil seja seguida, atuando como **líder-servidor** e facilitador do processo.
+
+**Principais responsabilidades:**
+
+* Assegurar que papéis, cerimônias e artefatos do Scrum sejam respeitados.
+* Remover impedimentos e facilitar o trabalho do time.
+* Promover a melhoria contínua e novas práticas ágeis.
+* Mediar conflitos e promover mudanças culturais e comportamentais.
+* Acompanhar métricas como Lead Time, Cycle Time, Velocity, Story Points e WIP.
+* Ser o “embaixador ágil” na organização.
+* Apoiar o Product Owner na comunicação com o time e stakeholders.
+
+**Características:**
+
+* Não chefia, mas lidera pelo exemplo.
+* Pode acumular outro papel em casos excepcionais (part-time).
+* Adapta sua atuação conforme a maturidade e contexto do time.
+
+---
+
+## **3. Time de Desenvolvimento**
+
+**Missão:** Transformar o **Backlog do Produto** em incrementos de valor que possam ser entregues.
+
+**Características:**
+
+* Composto por profissionais de várias disciplinas da Engenharia de Software.
+* Não há hierarquia interna: todos compartilham responsabilidade pelo produto.
+* Time ideal: **3 a 9 desenvolvedores** (no total do time ágil, 5 a 11 pessoas).
+
+**Principais responsabilidades:**
+
+* Definir, junto ao PO, a **Meta da Sprint** e o que será realizado.
+* Planejar como o trabalho será feito.
+* Executar garantindo a qualidade.
+* Reportar impedimentos ao Scrum Master.
+* Respeitar processos e cerimônias do Scrum.
+* Promover práticas como **TDD, BDD, Integração Contínua, Entrega Contínua** quando necessário.
+
+---
+
+## **Resumo Visual dos Papéis**
+
+| Papel                       | Foco Principal | Atua com                              | Responsabilidade-chave                                          |
+| --------------------------- | -------------- | ------------------------------------- | --------------------------------------------------------------- |
+| **Product Owner**           | Negócio        | Stakeholders, Time de Desenvolvimento | Maximizar valor e priorizar backlog                             |
+| **Scrum Master**            | Processo       | PO, Time, Organização                 | Garantir que a metodologia seja aplicada e remover impedimentos |
+| **Time de Desenvolvimento** | Entrega        | PO, SM                                | Construir incrementos de produto com qualidade                  |
+
+---
+
+Entendi — você quer algo no mesmo estilo claro e didático que fiz para os **Papéis no Scrum**, mas agora aplicando à parte das **Fases da Metodologia Ágil** que você me enviou.
+Vou manter a explicação organizada, com foco visual e objetivo, mas sem perder os detalhes importantes para um material de treinamento ou apostila.
+
+---
+
+# **Metodologia Ágil – Fases do Processo**
+
+A Metodologia Ágil do Ministério da Educação organiza o ciclo de desenvolvimento de software em **5 fases principais**.
+Cada fase é leve, incremental e conectada aos princípios e valores ágeis, integrando práticas DevOps para evitar silos e manter um ritmo constante de entrega.
+
+
+![texto](./fases.png)
+
+---
+
+## **Visão Geral das Fases**
+
+1. **Preparação** → Entender necessidades e criar a visão do produto.
+2. **Concepção** → Detalhar requisitos e criar o backlog.
+3. **Construção** → Desenvolver incrementos do produto.
+4. **Homologação** → Validar entregas antes da produção.
+5. **Implantação** → Colocar incrementos homologados em produção.
+
+---
+
+## **1. Preparação**
+
+**Objetivo:** Transformar necessidades do negócio em uma **Visão de Produto** clara e inspiradora.
+
+**Atividades-chave:**
+
+* Identificar, mapear e modelar necessidades e oportunidades.
+* Nomear o **Gerente de Produto**.
+* Criar a **Declaração de Visão do Produto** contendo:
+
+  * Por que o produto é necessário?
+  * Benefícios para o requisitante e o negócio.
+  * Estratégias e necessidades que o produto atenderá.
+  * Quem serão os usuários.
+  * Estado futuro desejado do produto.
+
+**Boas práticas:**
+
+* Revisar a visão periodicamente em projetos longos.
+* Compartilhar a declaração com todo o Time Ágil.
+
+---
+
+## **2. Concepção**
+
+**Objetivo:** Detalhar a visão em **Histórias de Usuário** e criar o **Backlog do Produto**.
+
+**Atividades-chave:**
+
+* Descrever arquitetura preliminar da solução.
+* Levantar necessidades funcionais e não funcionais.
+* Identificar integrações, sistemas impactados e dados necessários.
+* Produzir histórias priorizadas para ciclos de desenvolvimento.
+
+**Saída principal:** Backlog do Produto pronto para refinamento contínuo.
+
+---
+
+## **3. Construção**
+
+**Objetivo:** Criar incrementos de valor de forma contínua e incremental.
+
+**Atividades-chave:**
+
+* Desenvolver itens priorizados no **Sprint Backlog**.
+* Implementar código, componentes, testes, pacotes e documentação.
+* Executar cerimônias do Scrum:
+
+  * Planejamento da Sprint
+  * Daily Scrum
+  * Revisão
+  * Retrospectiva
+* Garantir qualidade com práticas ágeis (TDD, BDD, Integração Contínua).
+
+---
+
+## **4. Homologação**
+
+**Objetivo:** Validar que o incremento atende aos critérios de aceitação definidos.
+
+**Atividades-chave:**
+
+* Gerente de Produto realiza validação.
+* Registrar defeitos e avaliar causa raiz.
+* Garantir que ambiente de homologação seja igual ao de produção.
+* Formalizar **Termo de Aceite**.
+
+**Regras importantes:**
+
+* Não acumular Sprints sem homologação.
+* Seguir a **Definição de Pronto** acordada.
+
+---
+
+## **5. Implantação**
+
+**Objetivo:** Disponibilizar o incremento homologado no ambiente de produção.
+
+**Atividades-chave:**
+
+* Gerente de Produto decide o momento da implantação.
+* Interagir com times de QA, operações e infraestrutura.
+* Encerrar ciclo e transferir produto para operação e sustentação.
+
+---
+
+## **Resumo Visual das Fases**
+
+| Fase            | Foco Principal             | Saída Esperada         |
+| --------------- | -------------------------- | ---------------------- |
+| **Preparação**  | Entender e planejar        | Visão do Produto       |
+| **Concepção**   | Detalhar requisitos        | Backlog do Produto     |
+| **Construção**  | Desenvolver                | Incrementos de Produto |
+| **Homologação** | Validar entregas           | Termo de Aceite        |
+| **Implantação** | Disponibilizar em produção | Produto em Operação    |
+
+---
+
+Vou organizar esse conteúdo em um **material didático sobre os Artefatos do Scrum**, deixando claro, visual e pronto para ser usado em treinamento ou apostila.
+
+---
+
+# **Scrum – Artefatos**
+
+Os **artefatos do Scrum** existem para **garantir transparência**, facilitar inspeção e permitir adaptação ao longo do desenvolvimento.
+Eles mostram o **que está sendo feito**, **o que já foi feito** e **o que falta fazer**.
+
+No Scrum, temos quatro artefatos principais:
+
+1. **Backlog do Produto**
+2. **Sprint Backlog**
+3. **Incremento**
+4. **Definição de Pronto (Definition of Done – DoD)**
+
+---
+
+## **1. Backlog do Produto (Product Backlog)**
+
+📌 **O que é:**
+Lista ordenada de tudo que será necessário no produto. É a **única fonte oficial de requisitos** para mudanças.
+
+📌 **Responsável:**
+**Product Owner** – mantém conteúdo, ordem e disponibilidade.
+
+📌 **Características:**
+
+* É **vivo**: muda conforme o produto e o mercado evoluem.
+* Visível para **todas as partes interessadas**.
+* Refinado continuamente para estar pronto para o **Sprint Planning**.
+
+📌 **Formato dos itens:**
+
+* **Histórias de Usuário (User Stories)** → descrevem funcionalidade na linguagem do usuário final.
+* **Épicos** → grupo de histórias de usuário relacionadas, formando partes maiores do produto.
+* **Temas** → coleção de épicos com um objetivo comum.
+
+📌 **Boas práticas para Histórias de Usuário (INVEST):**
+
+* **I**ndependente → não depende de outras histórias.
+* **N**egociável → detalhes definidos junto ao time.
+* **V**aliosa → entrega valor ao cliente.
+* **E**stimável → clara e possível de estimar.
+* **S**mall (Pequena) → viável de entregar na Sprint.
+* **T**estável → possível de validar com testes.
+
+---
+
+## **2. Sprint Backlog**
+
+📌 **O que é:**
+Conjunto de itens do **Backlog do Produto** selecionados para a Sprint, com o plano para entregar o incremento e atingir o objetivo da Sprint.
+
+📌 **Responsável:**
+**Time de Desenvolvimento** – planeja como entregar.
+
+📌 **Características:**
+
+* Criado na **Sprint Planning**.
+* Itens do backlog são **quebrados em tarefas** com estimativa de esforço.
+* Pode mudar **apenas** dentro da Sprint para se ajustar ao objetivo.
+* Permite medir velocidade e capacidade do time.
+
+📌 **Técnica de priorização sugerida:**
+**MoSCoW** →
+
+* **M**ust have (Obrigatório)
+* **S**hould have (Importante)
+* **C**ould have (Desejável)
+* **W**on’t have (Não será incluído agora)
+
+---
+
+## **3. Incremento**
+
+📌 **O que é:**
+Soma de todos os itens do backlog concluídos na Sprint + valor dos incrementos anteriores.
+
+📌 **Características:**
+
+* Deve estar **em condição utilizável**, mesmo que não seja liberado.
+* Representa **valor real** entregue.
+* Avaliado na **Sprint Review** (homologação).
+
+💡 É a **prova prática** do empirismo do Scrum: decisões futuras devem se basear no que já foi entregue.
+
+---
+
+## **4. Definição de Pronto (Definition of Done – DoD)**
+
+📌 **O que é:**
+Acordo claro sobre o que significa “pronto” para o time e stakeholders.
+
+📌 **Importância:**
+
+* Garante **transparência** e evita interpretações diferentes.
+* Deve ser definida na **primeira Sprint**.
+* Impacta estimativas e o pipeline de desenvolvimento.
+
+📌 **Benefícios:**
+
+* Evita retrabalho.
+* Define critérios claros de qualidade.
+* Permite validação objetiva do trabalho.
+
+---
+
+## **Resumo Visual dos Artefatos**
+
+| Artefato                | Objetivo Principal                                 | Responsável             |
+| ----------------------- | -------------------------------------------------- | ----------------------- |
+| **Backlog do Produto**  | Centralizar e priorizar tudo que o produto precisa | Product Owner           |
+| **Sprint Backlog**      | Organizar o trabalho da Sprint                     | Time de Desenvolvimento |
+| **Incremento**          | Entregar valor utilizável                          | Time de Desenvolvimento |
+| **Definição de Pronto** | Garantir qualidade e transparência                 | Todo o Time Scrum       |
+
+---
+
+![texto](./img_scrum.png)
+
+
+Certo — vou expandir o conteúdo que você enviou, incluindo mais detalhes práticos, exemplos, boas práticas e riscos comuns em cada cerimônia.
+A ideia é que você tenha um **material completo** para estudo, aula ou treinamento sobre as cerimônias do Scrum.
+
+---
+
+# **Cerimônias do Scrum – Guia Detalhado**
+
+## **O que são cerimônias**
+
+No Scrum, chamamos de “cerimônias” as reuniões formais que **estruturam o ciclo de desenvolvimento**.
+Elas servem para:
+
+* Definir **o que será feito** e **como será feito**.
+* Sincronizar a equipe.
+* Demonstrar progresso para as partes interessadas.
+* Melhorar continuamente o processo e o produto.
+
+As cerimônias também têm um efeito psicológico importante: **celebrar conquistas** e **reforçar o comprometimento** do time.
+
+---
+
+## **1. Sprint – O Ciclo Central**
+
+A Sprint é o **coração** do Scrum. É um período fixo (time-box) durante o qual um **incremento potencialmente utilizável** do produto é criado.
+
+**Características principais:**
+
+* **Duração:** 2 a 4 semanas, mesmo tamanho durante todo o projeto.
+* **Início e fim fixos:** Não há “pausa” entre uma Sprint e outra.
+* **Entrega:** Sempre deve resultar em algo que **possa** ser entregue ao cliente (mesmo que a decisão de colocar em produção seja do Product Owner).
+
+**Componentes dentro da Sprint:**
+
+* **Planejamento (Sprint Planning)**
+* **Execução diária (Daily Meetings)**
+* **Apresentação de resultados (Sprint Review)**
+* **Análise e melhorias (Sprint Retrospective)**
+
+**Regras importantes:**
+
+1. Timebox de 2 a 4 semanas.
+2. Releases (conjuntos de sprints) têm no máximo 4 sprints.
+3. Escopo definido no planejamento não muda sem acordo de todos.
+4. Cancelamento só pelo **PO** e apenas se a meta da Sprint perder sentido.
+5. Toda Sprint deve ter início e término claros.
+
+**Boas práticas:**
+
+* Se o escopo do projeto muda com frequência, prefira **sprints curtas** (2 semanas).
+* Se há estabilidade e boa previsibilidade, **sprints mais longas** (3-4 semanas) podem gerar mais eficiência.
+* Evitar variar a duração para não distorcer métricas como a **velocidade do time** (Velocity Chart).
+
+**Exemplo prático:**
+
+> Um time de desenvolvimento de aplicativo define Sprints de 2 semanas.
+> Na Sprint 1, o objetivo é implementar a tela de login e autenticação.
+> Ao final, mesmo que o app ainda não esteja completo, essa funcionalidade já poderia ser colocada em produção.
+
+---
+
+## **2. Sprint Planning – Planejamento da Sprint**
+
+Reunião onde o **PO** e o **Time de Desenvolvimento**, facilitados pelo **Scrum Master**, decidem **o que será feito** e **como será feito** na Sprint.
+
+**Quando:** Primeiro dia da Sprint.
+**Timebox:** Até 8h para sprints de 1 mês (proporção 30:1).
+
+**Entradas necessárias:**
+
+* **Product Backlog** atualizado e priorizado.
+* Clareza sobre requisitos e critérios de aceite.
+* Capacidade do time (quantidade de trabalho que conseguem entregar).
+
+**Etapas:**
+
+1. **Parte 1 – O que será feito:**
+
+   * PO apresenta os itens mais prioritários do backlog.
+   * Time tira dúvidas e entende as expectativas.
+   * Define-se o **Sprint Goal** (meta que explica o valor da sprint).
+2. **Parte 2 – Como será feito:**
+
+   * Time quebra os itens selecionados em tarefas menores.
+   * Faz estimativas de esforço (story points, horas, etc.).
+   * Forma-se o **Sprint Backlog**.
+
+**Boas práticas:**
+
+* Ter o backlog refinado antes da Planning.
+* Evitar discussões excessivamente técnicas na reunião (podem ser resolvidas depois).
+* Garantir que todos entendam o **Sprint Goal**.
+* Sempre considerar feriados, férias e outras ausências na capacidade.
+
+**Riscos comuns:**
+
+* Backlog mal priorizado → Sprint sem foco.
+* Itens mal definidos → aumento de retrabalho.
+* Time assumir mais do que pode entregar → queda de credibilidade.
+
+---
+
+## **3. Daily Meeting – Reunião Diária**
+
+Encontro rápido para **sincronizar** as atividades do time.
+
+**Quando:** Todos os dias, mesmo horário e local.
+**Duração:** Máx. 15 minutos (em pé, se presencial).
+
+**Objetivo:**
+
+* Garantir que todos saibam **o que está acontecendo**.
+* Identificar impedimentos rapidamente.
+
+**Formato clássico – 3 perguntas:**
+
+1. O que fiz desde a última Daily?
+2. O que farei até a próxima Daily?
+3. Existe algo me impedindo?
+
+**Regras:**
+
+* Foco no **planejamento das próximas 24h**.
+* Não entrar em discussões técnicas (essas são levadas para depois com as pessoas envolvidas).
+* Time fala para o próprio time, não para o PO ou Scrum Master.
+
+**Papel do Scrum Master:** Garantir que ocorra e que impedimentos sejam resolvidos.
+**Papel do PO:** Participação opcional.
+
+**Erros comuns:**
+
+* Transformar a Daily em prestação de contas ao PO.
+* Demorar demais ou começar atrasado.
+* Discutir problemas complexos durante a reunião.
+
+---
+
+## **4. Sprint Review – Revisão da Sprint**
+
+Reunião no final da Sprint para **mostrar o que foi feito** e receber feedback.
+
+**Quando:** Último dia da Sprint.
+**Duração:** Máx. 4h para sprint de 30 dias.
+
+**Objetivos:**
+
+* Apresentar o incremento pronto.
+* Ajustar roadmap se necessário.
+* Criar alinhamento com stakeholders.
+
+**Conteúdo da reunião:**
+
+* Comparar planejado x realizado.
+* Mostrar funcionalidades prontas.
+* Apresentar impedimentos e como foram tratados.
+* Esboçar objetivos da próxima sprint.
+
+**Boas práticas:**
+
+* Fazer demonstração prática do produto.
+* Ter ambiente preparado (build funcional, dados de teste).
+* Estimular feedback ativo das partes interessadas.
+
+**Riscos comuns:**
+
+* Tratar como “demonstração interna” e não envolver o cliente.
+* Falta de transparência sobre o que não foi entregue.
+
+---
+
+## **5. Sprint Retrospective – Retrospectiva**
+
+Reunião final para **refletir sobre o processo** e definir melhorias.
+
+**Quando:** Após a Sprint Review, antes da próxima Sprint Planning.
+**Participantes:** Todo o time Scrum.
+
+**Objetivo:**
+
+* Identificar pontos fortes e fracos.
+* Definir plano de ação para a próxima Sprint.
+
+**Formato comum:**
+
+* Levantar o que **funcionou bem**, o que **não funcionou** e o que **pode ser melhorado**.
+* Priorizar ações concretas (com responsável e prazo).
+
+**Boas práticas:**
+
+* Criar ambiente seguro para sinceridade.
+* Usar dinâmicas variadas para evitar monotonia.
+* Registrar e acompanhar se as melhorias estão sendo implementadas.
+
+**Riscos comuns:**
+
+* Apontar melhorias abstratas sem ações concretas.
+* Focar em problemas fora do controle do time.
+* Cair na repetição sem inovação no formato.
+
+---
+
+## Matriz de atribuições e responsabilidades 
+
+![texto](./mapa_atrib.png)
+
+
+## Matriz do Processo
+
+![texto](./processo.png)
+
