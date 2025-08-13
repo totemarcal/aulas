@@ -100,10 +100,6 @@ Atuam **tanto para entrada quanto para saída de dados**:
 
 ---
 
-Ótimo! Com essa nova parte do conteúdo, podemos dar continuidade à **Seção 1** da aula com os tópicos **Memória** e **Unidade Central de Processamento (CPU)**. Abaixo está a apresentação **didática, explicativa e detalhada**, ideal para uso em sala de aula ou material didático:
-
----
-
 ## 🔹 Memória
 
 ### 🧠 Conceito de Memória em Computadores
@@ -204,4 +200,319 @@ Este ciclo é chamado de **Ciclo de Máquina**.
 
 ![texto](./ucp.png)
 
+---
+
+## **1.2.2 Software**
+
+Um **programa de computador** é uma sequência de instruções ou declarações, escritas de forma que o computador possa interpretá-las, com o objetivo de produzir um determinado resultado.
+O termo **software** pode ser usado para:
+
+* Um programa específico.
+* Um conjunto de programas.
+* Todo o conjunto de programas instalados em um computador.
+
+De forma geral, os softwares podem ser classificados em **software básico** e **software aplicativo**.
+
+---
+
+### **1.2.2.1 Software Básico**
+
+São softwares **essenciais para o funcionamento do computador**.
+Têm como funções principais:
+
+* Controlar os dispositivos (hardware).
+* Fazer a comunicação entre o computador e outros programas.
+* Garantir que aplicativos possam ser executados corretamente.
+
+**Principais categorias:**
+
+#### a) **Sistemas ou Ambientes Operacionais**
+
+* Mais conhecidos como **Sistemas Operacionais (SO)**.
+* São o núcleo que faz o computador "funcionar" de forma organizada, coordenando processador, memória, dispositivos de entrada/saída, armazenamento etc.
+* Sem um SO, o computador seria apenas um conjunto de placas sem utilidade.
+* Exemplos:
+
+  * **Windows** (Microsoft)
+  * **Linux** (diversas distribuições como Ubuntu, Fedora)
+  * **macOS** (Apple)
+
+#### b) **Linguagens de Programação**
+
+* Servem como meio de comunicação entre **humanos** e **computadores**.
+* Classificam-se em:
+
+  **1. Linguagens de baixo nível**
+
+  * Mais próximas do código binário (linguagem de máquina).
+  * Alta performance, mas difícil de programar.
+  * Exemplos: Assembly, linguagem de máquina.
+
+  **2. Linguagens de alto nível**
+
+  * Mais próximas da linguagem humana.
+  * Usam palavras e estruturas lógicas mais compreensíveis.
+  * Exigem tradução para código binário por meio de um **compilador** ou **interpretador**.
+  * Exemplos: Java, Python, C, C++, JavaScript.
+
+---
+
+### **1.2.2.2 Software Aplicativo**
+
+São programas criados para **executar tarefas específicas** para o usuário.
+Podem ser de **uso geral** ou **uso específico**.
+
+#### a) **Uso Geral**
+
+Fornecem funcionalidades comuns a diferentes áreas.
+Exemplos:
+
+* **Processadores de texto**: criação e edição de documentos.
+
+  * Word (Microsoft)
+  * WordPerfect (Corel)
+  * OpenEdit (open source)
+
+* **Planilhas eletrônicas**: cálculos, gráficos, organização de dados.
+
+  * MS Excel
+  * Lotus 1-2-3
+  * Quattro Pro
+  * OpenCalc
+
+* **Programas gráficos**: criação de imagens, ilustrações e animações.
+
+  * CorelDRAW
+  * Adobe Photoshop
+
+#### b) **Uso Específico**
+
+* Desenvolvidos sob medida para atender a necessidades específicas de uma empresa ou setor.
+
+* Exemplos:
+
+  * Sistemas de controle financeiro.
+  * Gestão de estoque e produção.
+  * Sistemas de faturamento.
+  * Controle de clientes.
+
+* Normalmente dependem de **Sistemas Gerenciadores de Banco de Dados (SGBD)** para manipular grandes volumes de informação.
+
+  * Exemplos: MySQL, Oracle, PostgreSQL, SQL Server.
+
+
+Perfeito, vou explicar de forma **mais detalhada** cada sistema de numeração e como fazer a conversão entre eles, com lógica passo a passo.
+
+---
+
+## **3.2 Sistemas de Numeração**
+
+Computadores só entendem **0** e **1**, mas nós, humanos, usamos naturalmente o **decimal** (0 a 9).
+Por isso, precisamos conhecer três sistemas principais:
+
+* **Decimal** → Base 10 (usado no dia a dia)
+* **Binário** → Base 2 (usado internamente pelos computadores)
+* **Hexadecimal** → Base 16 (usado para representar dados de forma compacta)
+
+Esses sistemas são **posicionais**, ou seja, cada dígito vale **um número multiplicado pela base elevada à posição**.
+
+---
+
+### **1. Sistema Decimal (Base 10)**
+
+* Base: 10 símbolos → 0 1 2 3 4 5 6 7 8 9
+
+* Origem histórica: provavelmente relacionado ao fato de termos 10 dedos nas mãos, facilitando a contagem.
+
+* Uso: cotidiano, medidas, dinheiro, estatísticas etc.
+
+Regras:
+
+* Cada posição representa uma potência de 10 (unidade, dezena, centena, milhar...).
+
+* Exemplo de leitura: o número 5 432 significa 5 milhares, 4 centenas, 3 dezenas e 2 unidades.
+
+
+* Dígitos possíveis: **0, 1, 2, 3, 4, 5, 6, 7, 8, 9**
+* Base: **10**
+* Cada posição aumenta sua potência de 10 conforme andamos da direita para a esquerda.
+
+**Exemplo:** 4 3 4 5
+
+$$
+4345 = (4 × 10^3) + (3 × 10^2) + (4 × 10^1) + (5 × 10^0)
+$$
+
+$$
+= 4000 + 300 + 40 + 5
+$$
+
+💡 *No decimal, 10⁰ = 1, 10¹ = 10, 10² = 100, 10³ = 1000, e assim por diante.*
+
+---
+
+### **2. Sistema Binário (Base 2)**
+
+* Base: 2 símbolos → 0 e 1.
+
+Motivo de uso no computador:
+
+* Circuitos eletrônicos digitais só diferenciam dois estados estáveis (ligado/desligado, presença/ausência de corrente).
+
+* Cada dígito binário é chamado bit (binary digit).
+
+Regras:
+
+* Cada posição representa uma potência de 2.
+
+* O computador interpreta cada sequência de bits como números, caracteres, cores, sons ou instruções, dependendo do contexto.
+
+Vantagens:
+
+* Alta confiabilidade — sinais binários são mais resistentes a ruídos.
+
+* Fácil implementação em hardware.
+
+* Dígitos possíveis: **0 e 1**
+* Base: **2**
+* Cada posição vale uma potência de 2: **2⁰ = 1**, **2¹ = 2**, **2² = 4**, **2³ = 8**, etc.
+
+**Exemplo:** 1 1 0 0 1 0 1 0₂
+
+$$
+11001010_2 = (1 × 2^7) + (1 × 2^6) + (0 × 2^5) + (0 × 2^4) + (1 × 2^3) + (0 × 2^2) + (1 × 2^1) + (0 × 2^0)
+$$
+
+$$
+= 128 + 64 + 0 + 0 + 8 + 0 + 2 + 0 = 202_{10}
+$$
+
+💡 *Computadores usam binário porque cada bit pode estar ligado (1) ou desligado (0), o que é fácil de representar fisicamente com eletricidade.*
+
+---
+
+### **3. Sistema Hexadecimal (Base 16)**
+
+* Base: 16 símbolos → 0 1 2 3 4 5 6 7 8 9 A B C D E F
+
+* Letras de A a F representam valores de 10 a 15.
+
+Motivo de uso no computador:
+
+* É uma forma mais compacta e legível de representar números binários.
+
+* Cada dígito hexadecimal equivale exatamente a 4 bits (meio byte).
+
+* Usado para endereços de memória, códigos de cores, instruções de máquina e depuração de software.
+
+Regras:
+
+* Cada posição representa uma potência de 16.
+
+* É muito comum em programação e engenharia eletrônica.
+
+* Dígitos possíveis:
+  0, 1, 2, 3, 4, 5, 6, 7, 8, 9, A(10), B(11), C(12), D(13), E(14), F(15)
+* Base: **16**
+* Cada posição vale **potência de 16**: 16⁰ = 1, 16¹ = 16, 16² = 256...
+
+**Exemplo:** 3E0₁₆
+
+$$
+3E0_{16} = (3 × 16^2) + (E × 16^1) + (0 × 16^0)
+$$
+
+$$
+= (3 × 256) + (14 × 16) + (0 × 1)
+$$
+
+$$
+= 768 + 224 + 0 = 992_{10}
+$$
+
+### Resumo Comparativo
+
+| Sistema     | Base | Símbolos | Onde é mais usado                          |
+| ----------- | ---- | -------- | ------------------------------------------ |
+| Decimal     | 10   | 0–9      | Cotidiano, cálculos humanos                |
+| Binário     | 2    | 0, 1     | Processamento interno do computador        |
+| Hexadecimal | 16   | 0–9, A–F | Representação compacta de valores binários |
+
+
+Aqui vai um conjunto de exercícios práticos sobre **sistemas de numeração** nas bases **2 (binário)**, **10 (decimal)** e **16 (hexadecimal)**, sem entrar na parte de conversão, mas que estimulam o raciocínio sobre como esses sistemas funcionam.
+
+---
+
+## **Exercícios — Sistemas de Numeração (Bases 2, 10 e 16)**
+
+### **1. Completando sequências**
+
+Preencha as lacunas das sequências abaixo de acordo com o sistema indicado:
+
+a) **Binário (base 2):**
+
+```
+000, 001, 010, ___, ___, 101, 110, ___
+```
+
+b) **Decimal (base 10):**
+
+```
+193, 194, ___, ___, 197, 198, ___
+```
+
+c) **Hexadecimal (base 16):**
+
+```
+1A, 1B, 1C, ___, ___, 1F, ___
+```
+
+---
+
+### **2. Identificando padrões**
+
+Marque com **V** (verdadeiro) ou **F** (falso):
+
+(   ) No sistema binário, depois de 1 vem 10.
+(   ) No sistema decimal, depois de 9 vem 11.
+(   ) No sistema hexadecimal, a letra “A” representa o valor decimal 11.
+(   ) O hexadecimal usa dígitos de 0 até 15.
+
+---
+
+### **3. Contagem por bases**
+
+Escreva os **5 próximos números** de cada sequência:
+
+a) **Base 2:**
+
+```
+1010, 1011, ___, ___, ___, ___, ___
+```
+
+b) **Base 10:**
+
+```
+45, 46, ___, ___, ___, ___, ___
+```
+
+c) **Base 16:**
+
+```
+2E, 2F, ___, ___, ___, ___, ___
+```
+
+---
+
+### **4. Reconhecendo a base**
+
+Cada número abaixo pertence a um sistema diferente. Identifique se está em **base 2**, **base 10** ou **base 16** (não é necessário converter):
+
+a) `101011` → \_\_\_\_\_\_\_
+b) `7F` → \_\_\_\_\_\_\_
+c) `128` → \_\_\_\_\_\_\_
+d) `1101` → \_\_\_\_\_\_\_
+e) `1B3` → \_\_\_\_\_\_\_
+
+---
 
