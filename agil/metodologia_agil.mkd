@@ -551,6 +551,55 @@ Reunião onde o **PO** e o **Time de Desenvolvimento**, facilitados pelo **Scrum
 
 ---
 
+O **Planning Poker** é uma técnica bastante utilizada em equipes ágeis para **estimar o esforço** necessário na execução de tarefas ou histórias de usuário. Ele combina elementos de **jogo**, **colaboração** e **consenso**, ajudando o time a chegar em uma estimativa realista e compartilhada.
+
+### Como funciona o Planning Poker
+
+1. **Preparação**
+
+   * O Product Owner apresenta um item do backlog (por exemplo, uma história de usuário) e explica seu objetivo.
+   * O time pode discutir dúvidas, dependências ou critérios de aceitação.
+
+2. **Distribuição das cartas**
+
+   * Cada participante recebe um conjunto de cartas com números que representam a escala de esforço.
+   * A escala mais comum é a sequência de Fibonacci (0, 1, 2, 3, 5, 8, 13, 21...), pois ajuda a refletir que quanto maior a complexidade, maior a incerteza.
+
+3. **Estimativa individual**
+
+   * Cada membro escolhe uma carta de forma **individual e silenciosa**, sem influenciar os demais.
+   * A carta representa o esforço que ele acredita ser necessário para completar o item.
+
+4. **Revelação simultânea**
+
+   * Todos revelam suas cartas ao mesmo tempo.
+   * Se todos concordarem, a estimativa é registrada.
+   * Se houver divergência, abre-se uma rodada de discussão.
+
+5. **Discussão e nova rodada**
+
+   * As pessoas que escolheram valores extremos (o menor e o maior) explicam seus motivos.
+   * O time discute novamente os critérios e faz outra rodada de votação.
+   * O processo continua até que se chegue a um consenso ou a uma estimativa considerada aceitável pelo time.
+
+### Benefícios do Planning Poker
+
+* **Participação de todos**: evita que apenas uma pessoa decida a estimativa.
+* **Redução de vieses**: o voto simultâneo impede que alguém influencie os demais antes da escolha.
+* **Maior precisão**: aproveita o conhecimento coletivo do time.
+* **Alinhamento**: promove discussões importantes sobre requisitos, riscos e dependências.
+* **Engajamento**: o formato gamificado torna o processo mais leve e colaborativo.
+
+### Quando usar
+
+* Para **estimar histórias de usuário** ou tarefas em um **Sprint Planning**.
+* Em projetos novos, quando há muitas incertezas.
+* Em times ágeis que desejam mais colaboração e consenso nas estimativas.
+
+
+
+---
+
 ## **3. Daily Meeting – Reunião Diária**
 
 Encontro rápido para **sincronizar** as atividades do time.
