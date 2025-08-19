@@ -683,3 +683,38 @@ BEGIN
 END registrar_pedido;
 
 ```
+
+
+### FUNCTION
+
+No MySQL, uma função (FUNCTION) é um bloco de código armazenado no banco que pode receber parâmetros, executar operações e retornar um único valor (diferente de uma procedure, que pode retornar múltiplos resultados).
+
+- DELIMITER → troca o delimitador padrão ; para $$ (ou outro) temporariamente, para que o MySQL não encerre a função antes da hora. No final, voltamos ao ;.
+
+- RETURNS tipo_retorno → define o tipo do valor que a função vai retornar (ex: INT, VARCHAR(50), DECIMAL(10,2)).
+
+- DETERMINISTIC → indica que a função sempre retorna o mesmo resultado dado os mesmos parâmetros (há também NOT DETERMINISTIC).
+
+- RETURN → retorna o valor final da função.
+
+
+```sql
+DELIMITER $$
+
+CREATE FUNCTION fn_total_pedido(p_id_pedido INT)
+RETURNS DECIMAL(10,2)
+DETERMINISTIC
+BEGIN
+    DECLARE v_total DECIMAL(10,2);
+
+    -- Soma todos os subtotais dos itens do pedido
+    SELECT COALESCE(SUM(subtotal), 0)
+    INTO v_total
+    FROM itens_pedido
+    WHERE id_pedido = p_id_pedido;
+
+    RETURN v_total;
+END$$
+
+DELIMITER ;
+```
