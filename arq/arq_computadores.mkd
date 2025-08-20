@@ -516,3 +516,201 @@ e) `1B3` → \_\_\_\_\_\_\_
 
 ---
 
+## **1. Conversão de decimal para binário**
+
+**Conceito:**
+O sistema binário usa apenas **2 dígitos** (0 e 1). Para converter um número decimal para binário, usamos **divisões sucessivas por 2** e registramos os restos.
+
+**Passos:**
+
+1. Divida o número decimal por 2.
+2. Anote o **resto** da divisão (0 ou 1).
+3. Use o **quociente** da divisão para a próxima divisão.
+4. Repita até que o quociente seja 0.
+5. Leia os restos **de baixo para cima**; este é o número binário.
+
+**Exemplo:** Converter 45 decimal para binário:
+
+```
+45 / 2 = 22, resto 1
+22 / 2 = 11, resto 0
+11 / 2 = 5,  resto 1
+5 / 2  = 2,  resto 1
+2 / 2  = 1,  resto 0
+1 / 2  = 0,  resto 1
+```
+
+**Resultado:** 45₁₀ = 101101₂
+
+---
+
+## **2. Conversão de decimal para hexadecimal**
+
+**Conceito:**
+O sistema hexadecimal usa **16 símbolos**: 0, 1, 2, …, 9, A, B, C, D, E, F.
+
+* Letras A a F representam valores de 10 a 15.
+
+**Passos:**
+
+1. Divida o número decimal por 16.
+2. Anote o **resto** da divisão. Se for maior que 9, substitua pelo símbolo hexadecimal correspondente.
+3. Use o quociente da divisão para a próxima divisão.
+4. Repita até que o quociente seja 0.
+5. Leia os restos de **baixo para cima**.
+
+**Exemplo:** Converter 970 decimal para hexadecimal:
+
+```
+970 / 16 = 60, resto 10 → A
+60 / 16  = 3,  resto 12 → C
+3 / 16   = 0,  resto 3
+```
+
+**Resultado:** 970₁₀ = 3CA₁₆
+
+---
+
+## **3. Conversão de binário para decimal**
+
+**Conceito:**
+Para converter binário em decimal, usamos as **potências de 2**. Cada dígito do binário representa 2 elevado à posição do dígito, contando da direita para a esquerda (começando do 0).
+
+**Passos:**
+
+1. Escreva o número binário.
+2. Identifique os expoentes de 2, da direita para a esquerda.
+3. Calcule 2⁰, 2¹, 2², … conforme a posição.
+4. Multiplique cada dígito do binário pelo valor da potência correspondente.
+5. Some todos os resultados.
+
+**Exemplo:** Converter 101101₂ para decimal:
+
+| Dígito        | 1       | 0      | 1     | 1     | 0     | 1     |
+| ------------- | ------- | ------ | ----- | ----- | ----- | ----- |
+| 2^expo        | 2^5     | 2^4    | 2^3   | 2^2   | 2^1   | 2^0   |
+| Valor         | 32      | 16     | 8     | 4     | 2     | 1     |
+| Multiplicação | 32×1=32 | 16×0=0 | 8×1=8 | 4×1=4 | 2×0=0 | 1×1=1 |
+
+**Soma:** 32 + 0 + 8 + 4 + 0 + 1 = 45
+
+**Resultado:** 101101₂ = 45₁₀
+
+---
+
+## **4. Conversão de hexadecimal para decimal**
+
+**Conceito:**
+Semelhante à conversão de binário, mas agora usamos **potências de 16**. Cada dígito hexadecimal representa 16 elevado à posição do dígito, da direita para a esquerda.
+
+**Passos:**
+
+1. Substitua as letras A–F pelos valores decimais 10–15.
+2. Identifique os expoentes de 16, da direita para a esquerda (começando do 0).
+3. Multiplique cada dígito pelo valor da potência correspondente.
+4. Some todos os resultados.
+
+**Exemplo:** Converter 3F8₁₆ para decimal:
+
+| Dígito        | 3         | F         | 8     |
+| ------------- | --------- | --------- | ----- |
+| Valor         | 3         | 15        | 8     |
+| 16^expo       | 16^2      | 16^1      | 16^0  |
+| Multiplicação | 3×256=768 | 15×16=240 | 8×1=8 |
+
+**Soma:** 768 + 240 + 8 = 1016
+
+**Resultado:** 3F8₁₆ = 1016₁₀
+
+---
+
+Perfeito! Vamos detalhar a **conversão entre binário e hexadecimal**, que na prática é **bem direta**, porque cada dígito hexadecimal corresponde exatamente a **4 bits** (4 dígitos binários).
+
+---
+
+## **5. Binário → Hexadecimal**
+
+**Conceito:**
+
+* Cada grupo de 4 bits (começando da direita) corresponde a **um dígito hexadecimal**.
+* Se a quantidade de bits não for múltipla de 4, adicionamos **zeros à esquerda** para completar o grupo.
+
+**Passos:**
+
+1. Separe o número binário em grupos de 4 bits, da direita para a esquerda.
+2. Converta cada grupo de 4 bits em decimal.
+3. Substitua valores de 10 a 15 por A, B, C, D, E ou F.
+4. Junte os dígitos hexadecimais resultantes.
+
+**Exemplo:** Converter 101101₂ para hexadecimal
+
+1. Número binário: 101101
+2. Complete 4 bits por grupo: **0010 1101** (adicionamos dois zeros à esquerda)
+3. Converta cada grupo para decimal:
+
+   * 0010 → 2
+   * 1101 → 13 → D
+4. Combine os resultados: **2D**
+
+**Resultado:** 101101₂ = 2D₁₆
+
+---
+
+## **6. Hexadecimal → Binário**
+
+**Conceito:**
+
+* Cada dígito hexadecimal é substituído por **seus 4 bits binários equivalentes**.
+
+**Passos:**
+
+1. Substitua cada dígito hexadecimal pelo seu equivalente binário de 4 bits.
+2. Junte todos os grupos de 4 bits.
+
+**Exemplo:** Converter 3A₁₆ para binário
+
+1. Dígitos hexadecimais: 3 e A
+2. Substitua por 4 bits:
+
+   * 3 → 0011
+   * A → 1010
+3. Junte os bits: 00111010
+
+**Resultado:** 3A₁₆ = 00111010₂ (ou 111010₂ sem zeros à esquerda)
+
+---
+
+
+Aqui está uma **tabela completa de conversão entre binário e hexadecimal**, mostrando cada valor de 0 a F:
+
+| Hexadecimal | Binário | Decimal |
+| ----------- | ------- | ------- |
+| 0           | 0000    | 0       |
+| 1           | 0001    | 1       |
+| 2           | 0010    | 2       |
+| 3           | 0011    | 3       |
+| 4           | 0100    | 4       |
+| 5           | 0101    | 5       |
+| 6           | 0110    | 6       |
+| 7           | 0111    | 7       |
+| 8           | 1000    | 8       |
+| 9           | 1001    | 9       |
+| A           | 1010    | 10      |
+| B           | 1011    | 11      |
+| C           | 1100    | 12      |
+| D           | 1101    | 13      |
+| E           | 1110    | 14      |
+| F           | 1111    | 15      |
+
+---
+
+### **Como usar a tabela:**
+
+* **Binário → Hexadecimal:**
+  Agrupe os bits em **4 bits** da direita para a esquerda e substitua cada grupo pelo dígito hexadecimal correspondente.
+
+* **Hexadecimal → Binário:**
+  Substitua cada dígito hexadecimal pelos **4 bits binários** da tabela.
+
+---
+
