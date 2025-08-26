@@ -1,0 +1,175 @@
+
+O banco de dados **loja\_virtual** foi projetado para simular o funcionamento de um sistema de comércio eletrônico. Ele contém **7 tabelas inter-relacionadas** que permitem o gerenciamento completo do fluxo de compras, desde o cadastro do cliente até o pagamento final.
+
+A tabela **clientes** armazena as informações básicas de cada consumidor, como nome, e-mail e telefone. Associada a ela, a tabela **enderecos** permite que cada cliente registre um ou mais locais de entrega, garantindo flexibilidade no processo de compra.
+
+Os produtos disponíveis na loja são organizados na tabela **produtos**, que contém dados como nome, preço, estoque e a categoria à qual o item pertence. Essa categorização é feita por meio da tabela **categorias**, que facilita a organização do catálogo, separando, por exemplo, eletrônicos, roupas e livros.
+
+O processo de compra é controlado pela tabela **pedidos**, onde cada registro representa uma compra realizada por um cliente. Como um pedido pode conter diversos produtos, a tabela **itens\_pedido** foi criada para detalhar cada item comprado, especificando o produto, a quantidade e o valor subtotal.
+
+Por fim, a tabela **pagamentos** registra as transações financeiras referentes aos pedidos, incluindo o valor pago, o método utilizado (cartão, boleto ou pix) e a data do pagamento.
+
+Esse modelo de banco de dados permite que seja possível:
+
+* Gerenciar o cadastro de clientes e seus endereços;
+* Manter o controle de estoque e categorias de produtos;
+* Acompanhar o histórico de pedidos e os itens comprados;
+* Controlar o status e os pagamentos de cada compra.
+
+Assim, o **loja\_virtual** oferece uma estrutura robusta e organizada para atender às principais necessidades de um sistema de e-commerce.
+
+
+
+View: vw_pedidos_detalhados
+
+Descrição: Essa view reúne informações de pedidos, clientes, itens e produtos, trazendo um relatório consolidado com subtotal e valor total por pedido.
+Agora vou incluir também o valor total do pedido (usando SUM).
+
+Procedure 1: sp_listar_pedidos_cliente
+
+Descrição: Retorna todos os pedidos de um cliente, incluindo quantidade total de itens e valor total gasto, ordenados do mais recente para o mais antigo.
+
+Procedure 2: sp_detalhes_pedido
+
+Descrição: Retorna os detalhes de um pedido específico (cliente, produtos, quantidade, subtotal e total geral), utilizando a view vw_pedidos_detalhados.
+
+
+Trigger: trg_update_estoque
+
+Descrição: Essa trigger registra no log de estoque sempre que houver uma atualização no campo estoque da tabela produtos. Além de salvar o estoque antigo e o novo, também armazena o tipo da operação (aumento ou redução).
+
+Criar tabela de log:
+
+```sql
+
+CREATE TABLE IF NOT EXISTS log_estoque (
+    id_log INT AUTO_INCREMENT PRIMARY KEY,
+    id_produto INT,
+    estoque_antigo INT,
+    estoque_novo INT,
+    tipo_operacao ENUM('AUMENTO','REDUCAO') NOT NULL,
+    data_alteracao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    usuario VARCHAR(100) DEFAULT USER()
+);
+
+```
+
+---
+
+## Script completo:
+
+```sql
+-- Criar banco de dados
+CREATE DATABASE IF NOT EXISTS loja_virtual;
+USE loja_virtual;
+
+-- 1. Clientes
+CREATE TABLE clientes (
+    id_cliente INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    email VARCHAR(150) UNIQUE NOT NULL,
+    telefone VARCHAR(20),
+    data_cadastro TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- 2. Endereços
+CREATE TABLE enderecos (
+    id_endereco INT AUTO_INCREMENT PRIMARY KEY,
+    id_cliente INT,
+    rua VARCHAR(150) NOT NULL,
+    cidade VARCHAR(100) NOT NULL,
+    estado VARCHAR(50) NOT NULL,
+    cep VARCHAR(15) NOT NULL,
+    FOREIGN KEY (id_cliente) REFERENCES clientes(id_cliente)
+);
+
+-- 3. Categorias
+CREATE TABLE categorias (
+    id_categoria INT AUTO_INCREMENT PRIMARY KEY,
+    nome_categoria VARCHAR(100) NOT NULL
+);
+
+-- 4. Produtos
+CREATE TABLE produtos (
+    id_produto INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(150) NOT NULL,
+    preco DECIMAL(10,2) NOT NULL,
+    estoque INT NOT NULL,
+    id_categoria INT,
+    FOREIGN KEY (id_categoria) REFERENCES categorias(id_categoria)
+);
+
+-- 5. Pedidos
+CREATE TABLE pedidos (
+    id_pedido INT AUTO_INCREMENT PRIMARY KEY,
+    id_cliente INT,
+    data_pedido TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    status ENUM('Pendente','Pago','Enviado','Concluído','Cancelado') DEFAULT 'Pendente',
+    FOREIGN KEY (id_cliente) REFERENCES clientes(id_cliente)
+);
+
+-- 6. Itens do Pedido
+CREATE TABLE itens_pedido (
+    id_item INT AUTO_INCREMENT PRIMARY KEY,
+    id_pedido INT,
+    id_produto INT,
+    quantidade INT NOT NULL,
+    subtotal DECIMAL(10,2) NOT NULL,
+    FOREIGN KEY (id_pedido) REFERENCES pedidos(id_pedido),
+    FOREIGN KEY (id_produto) REFERENCES produtos(id_produto)
+);
+
+-- 7. Pagamentos
+CREATE TABLE pagamentos (
+    id_pagamento INT AUTO_INCREMENT PRIMARY KEY,
+    id_pedido INT,
+    valor_pago DECIMAL(10,2) NOT NULL,
+    metodo ENUM('Cartão','Boleto','Pix') NOT NULL,
+    data_pagamento TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (id_pedido) REFERENCES pedidos(id_pedido)
+);
+
+-- ===========================
+-- INSERTS DE EXEMPLO
+-- ===========================
+
+-- Clientes
+INSERT INTO clientes (nome, email, telefone) VALUES
+('Maria Souza', 'maria@email.com', '7199999-0001'),
+('João Silva', 'joao@email.com', '7199999-0002');
+
+-- Endereços
+INSERT INTO enderecos (id_cliente, rua, cidade, estado, cep) VALUES
+(1, 'Rua das Flores, 123', 'Salvador', 'BA', '40000-000'),
+(2, 'Av. Central, 456', 'Feira de Santana', 'BA', '44000-000');
+
+-- Categorias
+INSERT INTO categorias (nome_categoria) VALUES
+('Eletrônicos'),
+('Roupas'),
+('Livros');
+
+-- Produtos
+INSERT INTO produtos (nome, preco, estoque, id_categoria) VALUES
+('Smartphone Samsung', 1500.00, 10, 1),
+('Camisa Polo', 80.00, 50, 2),
+('Livro de MySQL', 45.90, 30, 3);
+
+-- Pedidos
+INSERT INTO pedidos (id_cliente, status) VALUES
+(1, 'Pago'),
+(2, 'Pendente');
+
+-- Itens do Pedido
+INSERT INTO itens_pedido (id_pedido, id_produto, quantidade, subtotal) VALUES
+(1, 1, 1, 1500.00), -- Maria comprou 1 Smartphone
+(1, 3, 2, 91.80),  -- Maria comprou 2 Livros
+(2, 2, 3, 240.00); -- João comprou 3 Camisas
+
+-- Pagamentos
+INSERT INTO pagamentos (id_pedido, valor_pago, metodo) VALUES
+(1, 1591.80, 'Cartão');
+```
+
+---
+

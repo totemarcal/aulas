@@ -1,0 +1,50 @@
+
+Contexto
+
+O grupo deverá simular o desenvolvimento de um sistema de gerenciamento de biblioteca online, no qual usuários poderão pesquisar, reservar e devolver livros.
+
+Objetivo
+
+Criar um backlog do produto com no mínimo 15 User Stories, todas com critérios de aceitação.
+
+Durante a aula, o grupo deverá realizar as cerimônias Scrum: Planning, Daily, Review e Retrospective.
+
+Cada grupo deverá ter um PO, Scrum master e o time de desenvolvimento.
+
+O grupo deve ser de 5 a 6 alunos.
+
+Cerimônias a serem realizadas:
+
+- Planning (Planejamento da Sprint)
+
+O grupo deve selecionar as histórias que serão trabalhadas na “sprint simulada” (ex: 5 histórias).
+
+Definir quem ficará responsável por cada tarefa.
+
+Fazer o planning poker.
+
+- Daily (Reunião Diária – 15 min máx.)
+
+Cada integrante deve responder:
+
+O que fiz ontem?
+
+O que farei hoje?
+
+Tenho algum impedimento?
+
+- Review (Revisão da Sprint)
+
+O grupo apresenta as histórias concluídas.
+
+O PO valida se os critérios de aceitação foram atendidos.
+
+- Retrospective (Retrospectiva da Sprint)
+
+O grupo deve refletir:
+
+O que funcionou bem?
+
+O que não funcionou?
+
+Que melhorias podem ser aplicadas na próxima sprint?
