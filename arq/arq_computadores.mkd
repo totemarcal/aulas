@@ -714,3 +714,72 @@ Aqui está uma **tabela completa de conversão entre binário e hexadecimal**, m
 
 ---
 
+
+O **Modelo de Von Neumann** é um dos pilares da **Arquitetura de Computadores** e continua sendo a base da maioria dos sistemas atuais. Vamos organizar o que você trouxe de Stallings (2002) e detalhar os principais pontos para ficar mais claro:
+
+![texto](./vonneuman.png)
+
+---
+
+## 📌 Conceitos Fundamentais da Arquitetura de Von Neumann
+
+1. **Memória única para dados e instruções**
+
+   * Tanto os programas quanto as informações manipuladas por eles ficam armazenados no mesmo espaço de memória.
+   * Isso permite flexibilidade, já que o mesmo hardware pode executar diferentes programas sem precisar ser reconfigurado.
+
+2. **Endereçamento por posição e não por tipo**
+
+   * Cada posição da memória possui um endereço único.
+   * O processador não distingue se o conteúdo é dado (número, texto) ou instrução (código de máquina); ele apenas busca e interpreta.
+
+3. **Execução sequencial de instruções**
+
+   * As instruções são executadas em ordem, uma após a outra.
+   * Só ocorre desvio desse fluxo quando o programa contém instruções de **controle de fluxo**, como saltos, laços e chamadas de função.
+
+---
+
+## 📌 Expansão do Modelo de Von Neumann
+
+Na prática, esse modelo é representado por quatro grandes blocos principais:
+
+![texto](./barramento.png)
+
+
+1. **Processador (CPU)**
+
+   * **Unidade de Controle (UC):** coordena e sincroniza todas as operações.
+   * **ULA (Unidade Lógica e Aritmética):** executa cálculos matemáticos e operações lógicas.
+   * **Registradores:** pequenas memórias internas da CPU que armazenam temporariamente dados e resultados.
+
+2. **Memória Principal (RAM)**
+
+   * Armazena **programas** (instruções) e **dados**.
+   * É volátil (perde o conteúdo quando o sistema é desligado).
+
+3. **Dispositivos de Entrada e Saída (E/S ou I/O)**
+
+   * Responsáveis pela comunicação com o ambiente externo.
+   * Exemplos: teclado, mouse, monitor, impressora, discos, rede.
+
+4. **Barramentos**
+
+   * Conjunto de linhas de comunicação que interligam os componentes.
+   * Três tipos principais:
+
+     * **Barramento de Dados**: transfere dados entre memória, CPU e dispositivos.
+     * **Barramento de Endereços**: indica a posição na memória a ser lida ou escrita.
+     * **Barramento de Controle**: leva sinais de controle e sincronização.
+
+---
+
+## 📌 Importância do Modelo
+
+* **Generalidade**: um mesmo hardware pode executar diferentes softwares.
+* **Flexibilidade**: basta trocar o programa para mudar a função do computador.
+* **Base para linguagens e sistemas operacionais**: todo o conceito de programação depende dessa arquitetura.
+
+
+---
+
