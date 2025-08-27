@@ -783,3 +783,68 @@ Na prática, esse modelo é representado por quatro grandes blocos principais:
 
 ---
 
+
+Ótimo! O trecho que você trouxe aprofunda a **relação entre os componentes e suas funções** no **Modelo de Von Neumann**. Vou organizar e detalhar essas informações de forma esquemática para facilitar o entendimento:
+
+---
+
+## 📌 Relação entre os Componentes e Suas Funções
+
+### 1. **CPU (Unidade Central de Processamento)**
+
+* É o "cérebro" do computador.
+* Responsável por **interpretar instruções** e **executar operações lógicas e aritméticas**.
+* Principais módulos:
+
+  * **Unidade de Controle (UC):** interpreta as instruções do programa e coordena a execução.
+  * **ULA (Unidade Lógica e Aritmética):** realiza cálculos e comparações.
+  * **Registradores:** pequenas memórias internas que armazenam dados temporários e endereços.
+
+#### Registradores importantes:
+
+* **Registrador de Endereços de Memória (MAR - Memory Address Register):**
+  Contém o endereço da célula de memória que será acessada.
+* **Registrador de Dados de Memória (MDR - Memory Data Register):**
+  Guarda o valor lido da memória ou o dado a ser gravado nela.
+* **Registrador de Endereço de E/S:**
+  Especifica qual dispositivo de entrada/saída será acessado.
+* **Registrador de Dados de E/S:**
+  Faz a ponte para a troca de informações entre CPU e dispositivos de E/S.
+
+---
+
+### 2. **Memória Principal**
+
+* Local onde ficam armazenados **dados** e **instruções**.
+* Necessária porque:
+
+  * Programas nem sempre são executados de forma totalmente sequencial.
+  * Operações podem precisar de múltiplos dados ao mesmo tempo.
+  * Resultados intermediários e temporários precisam ser guardados até que sejam usados novamente.
+
+---
+
+### 3. **Dispositivos de Entrada e Saída (E/S ou I/O)**
+
+* **Entrada:** permite inserir dados e instruções no sistema (ex.: teclado, mouse, scanner).
+* **Saída:** permite que os resultados sejam apresentados (ex.: monitor, impressora).
+* A CPU interage com esses dispositivos por meio de **registradores de endereçamento e de dados de E/S**, de forma análoga ao que ocorre com a memória.
+
+---
+
+### 4. **Troca de Dados entre os Componentes**
+
+* A interação funciona assim:
+
+  1. **CPU ↔ Memória:**
+
+     * A CPU pede um dado ou instrução da memória (usando MAR e MDR).
+     * A memória envia o valor solicitado ou armazena um valor recebido da CPU.
+  2. **CPU ↔ E/S:**
+
+     * A CPU especifica qual dispositivo acessar (registrador de endereçamento de E/S).
+     * A troca de informações ocorre via registrador de dados de E/S.
+
+---
+
+
