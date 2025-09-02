@@ -14,14 +14,6 @@ A tabela pagamentos controla as mensalidades e taxas pagas pelos alunos.
 
 Por fim, a tabela log_notas registra automaticamente, através de uma trigger, todas as alterações feitas nas notas para fins de auditoria.
 
-Além disso, foram criados recursos adicionais:
-
-Uma view (vw_boletim_aluno) que mostra o boletim consolidado de cada aluno, com médias por disciplina.
-
-Duas procedures (sp_historico_aluno e sp_relatorio_pagamentos) que geram relatórios acadêmicos e financeiros.
-
-Uma trigger (trg_update_nota) que garante rastreabilidade ao atualizar notas.
-
 Esse modelo permite que a universidade controle com eficiência tanto o lado acadêmico quanto o financeiro dos seus alunos.
 
 ## Tabelas
