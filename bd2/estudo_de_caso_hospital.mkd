@@ -245,10 +245,37 @@ Retornar todas as consultas de um médico específico, mostrando informações d
 
 ---
 
+Aqui está a descrição detalhada da procedure `sp_pacientes_por_especialidade`:
 
 ---
 
+**Nome da Procedure:** `sp_pacientes_por_especialidade`
 
+**Finalidade:**
+Retornar todos os pacientes que têm consultas agendadas com médicos de uma determinada especialidade.
+
+**Parâmetro de entrada:**
+
+* `p_especialidade` → Nome da especialidade do médico (tipo `VARCHAR(100)`).
+
+**Tabelas envolvidas:**
+
+* `pacientes` → informações do paciente (nome, telefone, email).
+* `consultas` → informações sobre as consultas realizadas.
+* `medicos` → informações sobre o médico, incluindo sua especialidade.
+
+**Detalhes de funcionamento:**
+
+* A procedure utiliza uma **subconsulta** para identificar todos os pacientes que têm consultas com médicos da especialidade informada.
+* A subconsulta seleciona os `id_paciente` da tabela `consultas` onde o `id_medico` pertence a médicos com a especialidade desejada.
+* A consulta externa retorna todos os dados do paciente correspondente.
+
+**Colunas retornadas:**
+
+1. `id_paciente` → Identificador do paciente.
+2. `nome_paciente` → Nome do paciente.
+3. `telefone` → Telefone de contato do paciente.
+4. `email` → Email do paciente.
 
 
 ---
