@@ -280,5 +280,42 @@ Retornar todos os pacientes que têm consultas agendadas com médicos de uma det
 
 ---
 
+Aqui está a descrição detalhada da trigger `trg_pagamento_inserido`:
+
+---
+
+**Nome da Trigger:** `trg_pagamento_inserido`
+
+**Finalidade:**
+Garantir que, sempre que um novo pagamento for registrado na tabela `pagamentos`:
+
+* O status seja definido corretamente (`Pago` ou `Pendente`) com base no valor do pagamento.
+* A data do pagamento seja preenchida automaticamente caso não seja informada.
+
+**Tipo de Trigger:**
+
+* **BEFORE INSERT** → Executa **antes de inserir** um novo registro na tabela `pagamentos`.
+* **FOR EACH ROW** → Executa para **cada registro** inserido.
+
+**Tabela envolvida:**
+
+* `pagamentos` → tabela onde os registros de pagamento são armazenados.
+
+**Detalhes de funcionamento:**
+
+1. Verifica o valor do pagamento (`NEW.valor`):
+
+   * Se maior que zero → define `status = 'Pago'`
+   * Se igual ou menor que zero → define `status = 'Pendente'`
+2. Verifica se a coluna `data_pagamento` está nula (`NEW.data_pagamento IS NULL`):
+
+   * Se estiver → define a data como a data atual (`CURDATE()`).
+
+**Colunas afetadas:**
+
+* `status` → atualizado automaticamente para refletir a situação do pagamento.
+* `data_pagamento` → preenchida automaticamente caso não tenha sido fornecida.
+
+---
 
 
