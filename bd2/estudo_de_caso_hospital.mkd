@@ -241,34 +241,40 @@ Retornar todas as consultas de um médico específico, mostrando informações d
 
 ---
 
-**Nome da Procedure:** `sp_pacientes_por_especialidade`
+Aqui está a descrição detalhada da procedure `sp_medicos_sem_consulta`:
+
+---
+
+**Nome da Procedure:** `sp_medicos_sem_consulta`
 
 **Finalidade:**
-Retornar todos os pacientes que têm consultas agendadas com médicos de uma determinada especialidade.
+Retornar todos os médicos que **não possuem consultas agendadas**.
+
+**Tipo de Procedure:**
+
+* **Sem parâmetros de data ou número**.
 
 **Parâmetro de entrada:**
 
-* `p_especialidade` → Nome da especialidade do médico (tipo `VARCHAR(100)`).
+* Nenhum.
 
 **Tabelas envolvidas:**
 
-* `pacientes` → informações do paciente (nome, telefone, email).
-* `consultas` → informações sobre as consultas realizadas.
-* `medicos` → informações sobre o médico, incluindo sua especialidade.
+* `medicos` → contém informações dos médicos (nome, CRM, especialidade).
+* `consultas` → utilizada na subconsulta para verificar quais médicos possuem consultas registradas.
 
 **Detalhes de funcionamento:**
 
-* A procedure utiliza uma **subconsulta** para identificar todos os pacientes que têm consultas com médicos da especialidade informada.
-* A subconsulta seleciona os `id_paciente` da tabela `consultas` onde o `id_medico` pertence a médicos com a especialidade desejada.
-* A consulta externa retorna todos os dados do paciente correspondente.
+* A procedure faz uma **subconsulta** para identificar todos os médicos que têm consultas registradas (`SELECT DISTINCT c.id_medico FROM consultas c`).
+* A cláusula `NOT IN` na consulta externa filtra todos os médicos que **não estão presentes na subconsulta**, ou seja, aqueles sem consultas.
+* Retorna todas as informações do médico (ID, nome, CRM, especialidade).
 
 **Colunas retornadas:**
 
-1. `id_paciente` → Identificador do paciente.
-2. `nome_paciente` → Nome do paciente.
-3. `telefone` → Telefone de contato do paciente.
-4. `email` → Email do paciente.
-
+1. `id_medico` → Identificador do médico.
+2. `nome_medico` → Nome do médico.
+3. `crm` → CRM do médico.
+4. `especialidade` → Especialidade do médico.
 
 ---
 
