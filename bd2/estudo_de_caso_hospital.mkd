@@ -211,85 +211,15 @@ Fornecer um **histórico completo das consultas médicas** de cada paciente, inc
 ---
 
 
-## **Descrição da Procedure `sp_listar_pedidos_cliente`**
 
-A procedure **`sp_listar_pedidos_cliente`** tem como objetivo listar os pedidos realizados por um cliente específico, detalhando informações essenciais de cada compra.
-
-**O que ela faz:**
-
-1. Recebe como parâmetro de entrada (`p_id_cliente`) o identificador do cliente.
-2. Retorna todos os pedidos desse cliente, mostrando:
-
-   * **ID do pedido** (`id_pedido`),
-   * **Status do pedido** (`status`),
-   * **Data do pedido** (`data_pedido`),
-   * **Total de itens** comprados em cada pedido (`total_itens`),
-   * **Valor total do pedido** (`valor_total`).
-3. Inclui também uma **subconsulta** que calcula o **maior valor de pedido já realizado pelo cliente** (`maior_pedido_cliente`).
-
-   * Essa subconsulta percorre todos os pedidos do mesmo cliente e retorna o valor mais alto entre eles.
-4. Os resultados são agrupados por pedido e ordenados da data mais recente para a mais antiga.
 
 ---
 
-Aqui está uma descrição detalhada e profissional para a sua procedure **`sp_detalhes_pedido`**:
 
 ---
 
-## **Descrição da Procedure `sp_detalhes_pedido`**
 
-A procedure **`sp_detalhes_pedido`** foi desenvolvida para exibir os **detalhes completos de um pedido específico**, trazendo informações consolidadas da **view `vw_pedidos_detalhados`**, que já integra dados de pedidos, clientes, produtos e itens.
 
----
-
-### **Funcionamento**
-
-1. **Parâmetro de entrada:**
-
-   * `p_id_pedido` → identificador do pedido que se deseja consultar.
-
-2. **Dados retornados:**
-
-   * **`id_pedido`** → identificador do pedido;
-   * **`cliente`** → nome do cliente que realizou o pedido;
-   * **`produto`** → nome do produto incluído no pedido;
-   * **`quantidade`** → quantidade do produto;
-   * **`subtotal`** → valor parcial do produto no pedido;
-   * **`total_pedido`** → valor total do pedido;
-   * **`status`** → situação atual do pedido (ex.: "Aberto", "Pago", "Cancelado");
-   * **`data_pedido`** → data em que o pedido foi realizado.
-
-3. **Subconsulta no `WHERE`:**
-
-   * Garante que apenas pedidos pertencentes ao mesmo cliente do pedido informado sejam retornados,
-   * A subconsulta interna identifica o **ID do cliente** associado ao pedido e compara com todos os pedidos desse cliente, reforçando a integridade da consulta.
-
----
-
-## **Descrição da Trigger `trg_update_estoque`**
-
-A trigger **`trg_update_estoque`** foi criada para **monitorar alterações no estoque dos produtos** e registrar qualquer modificação em uma tabela de log (`log_estoque`), garantindo rastreabilidade e controle sobre o inventário.
-
----
-
-### **Funcionamento**
-
-1. **Evento que dispara a trigger:**
-
-   * A trigger é executada **após (`AFTER`) qualquer atualização (`UPDATE`)** na tabela `produtos`.
-
-2. **Condição de ativação:**
-
-   * A trigger só realiza a ação se o valor do **estoque for alterado**, ou seja, se `OLD.estoque <> NEW.estoque`.
-
-3. **Ação executada:**
-
-   * Insere um registro na tabela **`log_estoque`** contendo:
-
-     * **`id_produto`** → identificador do produto cujo estoque foi alterado;
-     * **`estoque_antigo`** → valor do estoque antes da atualização;
-     * **`estoque_novo`** → valor do estoque após a atualização;
-     * **`tipo_operacao`** → indica se o estoque foi **aumentado** (`AUMENTO`) ou **reduzido** (`REDUCAO`), definido por um `CASE` baseado na comparação entre `OLD` e `NEW`.
 
 ---
 
