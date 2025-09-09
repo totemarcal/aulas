@@ -1,27 +1,40 @@
 Grupo de Arquitetura
 
-Grupo 1
+Grupo 1 - Manjaro KDE
 Adailton silva menezes
 Gabriel domingos araújo meneses
-rafael frança de araujo carvalho
-caique chung dias lawinsky
+Rafael frança de araujo carvalho
+Caique chung dias lawinsky
 
 
-Grupo 2
-aldair silva de araujo
-victor antonio santos da sousa
-guilherme silva guedes
+Grupo 2 - Mint Cinnamon
+Aldair silva de araujo
+Victor antonio santos da sousa
+Guilherme silva guedes
 
-Grupo 3
-bernardo santana de oliveira
-wesley silva de sena
-emerson de jesus pedra
-ivan luciano fonsêca rodrigues junior
+Grupo 3 - Debian GNOME
+Bernardo santana de oliveira
+Wesley silva de sena
+Emerson de jesus pedra
+Ivan luciano fonsêca rodrigues junior
 
-Grupo 4
-levi jesus dos santos
-flávio dos santos borges
-juan luis de lima torres
+Grupo 4 - Ubuntu
+Levi jesus dos santos
+Flávio dos santos borges
+Juan luis de lima torres
+
+
+Apresentação dia 24/09
+Cada equipe deverá instalar e usar o Linux escolhido para sua equipe.
+Deverá fazer uma apresentação prática sobre:
+- Os principais recursos gráficos
+- Comandos via terminal
+- Gerenciador de pacotes (Instalação/remoção de programas via terminal)
+- Avaliação individual sobre a distribuição (gostou? justifique.)
+
+
+
+
 
 
 

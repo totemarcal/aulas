@@ -1,0 +1,277 @@
+
+---
+
+# Estudo de Caso: Sistema de Gestão Hospitalar
+
+O **Sistema de Gestão Hospitalar** foi projetado para otimizar o gerenciamento de informações em um hospital, garantindo maior organização, eficiência e suporte à tomada de decisão.
+
+O banco de dados abrange os seguintes aspectos principais:
+
+* **Cadastro e gerenciamento de pacientes e médicos**, permitindo o controle das informações pessoais, especialidades e histórico clínico.
+* **Organização das consultas e especialidades médicas**, facilitando o agendamento e a associação entre pacientes, médicos e áreas de atuação.
+* **Controle de exames, internações e prescrições médicas**, assegurando que o acompanhamento clínico seja preciso e atualizado.
+* **Administração de enfermarias, quartos e pagamentos**, possibilitando uma gestão adequada dos recursos físicos e financeiros do hospital.
+
+Além do gerenciamento operacional, o sistema possibilita a geração de **relatórios gerenciais**, como por exemplo:
+
+* Listagem de pacientes internados em determinado período.
+* Consultas realizadas por especialidade médica.
+* Identificação de pacientes com pagamentos pendentes.
+
+Dessa forma, o banco de dados proporciona uma visão completa do funcionamento hospitalar, integrando os setores assistenciais, administrativos e financeiros.
+
+
+---
+
+# Estrutura das Tabelas
+
+```sql
+-- 1. Pacientes
+CREATE TABLE pacientes (
+    id_paciente INT PRIMARY KEY AUTO_INCREMENT,
+    nome VARCHAR(100),
+    data_nascimento DATE,
+    telefone VARCHAR(20),
+    email VARCHAR(100)
+);
+
+-- 2. Médicos
+CREATE TABLE medicos (
+    id_medico INT PRIMARY KEY AUTO_INCREMENT,
+    nome VARCHAR(100),
+    crm VARCHAR(20) UNIQUE,
+    especialidade VARCHAR(100)
+);
+
+-- 3. Especialidades
+CREATE TABLE especialidades (
+    id_especialidade INT PRIMARY KEY AUTO_INCREMENT,
+    nome_especialidade VARCHAR(100)
+);
+
+-- 4. Consultas
+CREATE TABLE consultas (
+    id_consulta INT PRIMARY KEY AUTO_INCREMENT,
+    id_paciente INT,
+    id_medico INT,
+    data_consulta DATETIME,
+    FOREIGN KEY (id_paciente) REFERENCES pacientes(id_paciente),
+    FOREIGN KEY (id_medico) REFERENCES medicos(id_medico)
+);
+
+-- 5. Exames
+CREATE TABLE exames (
+    id_exame INT PRIMARY KEY AUTO_INCREMENT,
+    id_consulta INT,
+    tipo_exame VARCHAR(100),
+    resultado TEXT,
+    FOREIGN KEY (id_consulta) REFERENCES consultas(id_consulta)
+);
+
+-- 6. Internações
+CREATE TABLE internacoes (
+    id_internacao INT PRIMARY KEY AUTO_INCREMENT,
+    id_paciente INT,
+    data_internacao DATE,
+    data_alta DATE,
+    FOREIGN KEY (id_paciente) REFERENCES pacientes(id_paciente)
+);
+
+-- 7. Quartos
+CREATE TABLE quartos (
+    id_quarto INT PRIMARY KEY AUTO_INCREMENT,
+    numero INT UNIQUE,
+    tipo VARCHAR(50),
+    status VARCHAR(20)
+);
+
+-- 8. Enfermarias
+CREATE TABLE enfermarias (
+    id_enfermaria INT PRIMARY KEY AUTO_INCREMENT,
+    nome VARCHAR(100),
+    capacidade INT
+);
+
+-- 9. Prescrições
+CREATE TABLE prescricoes (
+    id_prescricao INT PRIMARY KEY AUTO_INCREMENT,
+    id_consulta INT,
+    medicamento VARCHAR(100),
+    dosagem VARCHAR(50),
+    FOREIGN KEY (id_consulta) REFERENCES consultas(id_consulta)
+);
+
+-- 10. Pagamentos
+CREATE TABLE pagamentos (
+    id_pagamento INT PRIMARY KEY AUTO_INCREMENT,
+    id_paciente INT,
+    valor DECIMAL(10,2),
+    data_pagamento DATE,
+    status VARCHAR(20),
+    FOREIGN KEY (id_paciente) REFERENCES pacientes(id_paciente)
+);
+```
+
+---
+
+# Inserts
+
+```sql
+-- Pacientes
+INSERT INTO pacientes (nome, data_nascimento, telefone, email) VALUES
+('Maria Silva', '1985-05-10', '11999999999', 'maria@exemplo.com'),
+('João Souza', '1990-08-20', '11888888888', 'joao@exemplo.com');
+
+-- Médicos
+INSERT INTO medicos (nome, crm, especialidade) VALUES
+('Dr. Carlos Pereira', 'CRM1234', 'Cardiologia'),
+('Dra. Fernanda Lima', 'CRM5678', 'Clínica Geral');
+
+-- Especialidades
+INSERT INTO especialidades (nome_especialidade) VALUES
+('Cardiologia'),
+('Clínica Geral');
+
+-- Consultas
+INSERT INTO consultas (id_paciente, id_medico, data_consulta) VALUES
+(1, 1, '2025-08-20 09:00:00'),
+(2, 2, '2025-08-21 14:00:00');
+
+-- Exames
+INSERT INTO exames (id_consulta, tipo_exame, resultado) VALUES
+(1, 'Eletrocardiograma', 'Normal'),
+(2, 'Hemograma', 'Anemia leve');
+
+-- Internações
+INSERT INTO internacoes (id_paciente, data_internacao, data_alta) VALUES
+(1, '2025-08-15', '2025-08-18');
+
+-- Quartos
+INSERT INTO quartos (numero, tipo, status) VALUES
+(101, 'Individual', 'Ocupado'),
+(102, 'Duplo', 'Livre');
+
+-- Enfermarias
+INSERT INTO enfermarias (nome, capacidade) VALUES
+('Enfermaria A', 10),
+('Enfermaria B', 20);
+
+-- Prescrições
+INSERT INTO prescricoes (id_consulta, medicamento, dosagem) VALUES
+(1, 'Aspirina', '1 comprimido ao dia'),
+(2, 'Vitamina B12', '1 ampola semanal');
+
+-- Pagamentos
+INSERT INTO pagamentos (id_paciente, valor, data_pagamento, status) VALUES
+(1, 500.00, '2025-08-19', 'Pago'),
+(2, 300.00, '2025-08-21', 'Pendente');
+```
+
+---
+
+## Descrição da View `vw_pedidos_detalhados`
+
+A view `vw_pedidos_detalhados` foi criada para fornecer uma **visão consolidada e detalhada dos pedidos realizados pelos clientes**, reunindo informações de múltiplas tabelas relacionadas (`pedidos`, `clientes`, `itens_pedido` e `produtos`).
+
+Ela tem como objetivo **facilitar consultas e relatórios gerenciais** sobre vendas, apresentando em uma única estrutura dados que normalmente estariam distribuídos em várias tabelas.
+
+---
+
+### Dados exibidos pela view:
+
+* **`id_pedido`** → identificador único do pedido.
+* **`cliente`** → nome do cliente associado ao pedido.
+* **`produto`** → nome do produto incluído no pedido.
+* **`quantidade`** → quantidade de itens comprados daquele produto.
+* **`subtotal`** → valor parcial referente ao produto dentro do pedido.
+* **`status`** → situação atual do pedido (ex.: "Aberto", "Pago", "Cancelado").
+* **`data_pedido`** → data em que o pedido foi realizado.
+* **`total_pedido`** → valor total do pedido, calculado por meio de uma **subconsulta** que soma todos os subtotais dos itens vinculados ao mesmo pedido.
+
+---
+
+
+## **Descrição da Procedure `sp_listar_pedidos_cliente`**
+
+A procedure **`sp_listar_pedidos_cliente`** tem como objetivo listar os pedidos realizados por um cliente específico, detalhando informações essenciais de cada compra.
+
+**O que ela faz:**
+
+1. Recebe como parâmetro de entrada (`p_id_cliente`) o identificador do cliente.
+2. Retorna todos os pedidos desse cliente, mostrando:
+
+   * **ID do pedido** (`id_pedido`),
+   * **Status do pedido** (`status`),
+   * **Data do pedido** (`data_pedido`),
+   * **Total de itens** comprados em cada pedido (`total_itens`),
+   * **Valor total do pedido** (`valor_total`).
+3. Inclui também uma **subconsulta** que calcula o **maior valor de pedido já realizado pelo cliente** (`maior_pedido_cliente`).
+
+   * Essa subconsulta percorre todos os pedidos do mesmo cliente e retorna o valor mais alto entre eles.
+4. Os resultados são agrupados por pedido e ordenados da data mais recente para a mais antiga.
+
+---
+
+Aqui está uma descrição detalhada e profissional para a sua procedure **`sp_detalhes_pedido`**:
+
+---
+
+## **Descrição da Procedure `sp_detalhes_pedido`**
+
+A procedure **`sp_detalhes_pedido`** foi desenvolvida para exibir os **detalhes completos de um pedido específico**, trazendo informações consolidadas da **view `vw_pedidos_detalhados`**, que já integra dados de pedidos, clientes, produtos e itens.
+
+---
+
+### **Funcionamento**
+
+1. **Parâmetro de entrada:**
+
+   * `p_id_pedido` → identificador do pedido que se deseja consultar.
+
+2. **Dados retornados:**
+
+   * **`id_pedido`** → identificador do pedido;
+   * **`cliente`** → nome do cliente que realizou o pedido;
+   * **`produto`** → nome do produto incluído no pedido;
+   * **`quantidade`** → quantidade do produto;
+   * **`subtotal`** → valor parcial do produto no pedido;
+   * **`total_pedido`** → valor total do pedido;
+   * **`status`** → situação atual do pedido (ex.: "Aberto", "Pago", "Cancelado");
+   * **`data_pedido`** → data em que o pedido foi realizado.
+
+3. **Subconsulta no `WHERE`:**
+
+   * Garante que apenas pedidos pertencentes ao mesmo cliente do pedido informado sejam retornados,
+   * A subconsulta interna identifica o **ID do cliente** associado ao pedido e compara com todos os pedidos desse cliente, reforçando a integridade da consulta.
+
+---
+
+## **Descrição da Trigger `trg_update_estoque`**
+
+A trigger **`trg_update_estoque`** foi criada para **monitorar alterações no estoque dos produtos** e registrar qualquer modificação em uma tabela de log (`log_estoque`), garantindo rastreabilidade e controle sobre o inventário.
+
+---
+
+### **Funcionamento**
+
+1. **Evento que dispara a trigger:**
+
+   * A trigger é executada **após (`AFTER`) qualquer atualização (`UPDATE`)** na tabela `produtos`.
+
+2. **Condição de ativação:**
+
+   * A trigger só realiza a ação se o valor do **estoque for alterado**, ou seja, se `OLD.estoque <> NEW.estoque`.
+
+3. **Ação executada:**
+
+   * Insere um registro na tabela **`log_estoque`** contendo:
+
+     * **`id_produto`** → identificador do produto cujo estoque foi alterado;
+     * **`estoque_antigo`** → valor do estoque antes da atualização;
+     * **`estoque_novo`** → valor do estoque após a atualização;
+     * **`tipo_operacao`** → indica se o estoque foi **aumentado** (`AUMENTO`) ou **reduzido** (`REDUCAO`), definido por um `CASE` baseado na comparação entre `OLD` e `NEW`.
+
+---
+
+
+
