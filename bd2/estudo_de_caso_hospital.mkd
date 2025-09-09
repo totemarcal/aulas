@@ -210,7 +210,37 @@ Fornecer um **histórico completo das consultas médicas** de cada paciente, inc
 
 ---
 
+Aqui está a descrição detalhada da procedure `sp_consultas_medico`:
 
+---
+
+**Nome da Procedure:** `sp_consultas_medico`
+
+**Finalidade:**
+Retornar todas as consultas de um médico específico, mostrando informações detalhadas sobre os pacientes atendidos, sem filtrar por data.
+
+**Parâmetro de entrada:**
+
+* `p_id_medico` → Identificador do médico cujas consultas serão listadas (tipo `INT`).
+
+**Tabelas envolvidas:**
+
+* `consultas` → fornece as consultas realizadas pelo médico.
+* `pacientes` → fornece os dados do paciente (nome, telefone, email).
+
+**Detalhes de funcionamento:**
+
+* A procedure faz um **INNER JOIN** entre `consultas` e `pacientes` para vincular cada consulta ao paciente correspondente.
+* Filtra todas as consultas do médico com base no parâmetro `p_id_medico`.
+* Ordena os resultados pelo campo `data_consulta` para exibir as consultas em ordem cronológica.
+
+**Colunas retornadas:**
+
+1. `id_consulta` → Identificador da consulta.
+2. `nome_paciente` → Nome do paciente atendido.
+3. `telefone` → Telefone do paciente.
+4. `email` → Email do paciente.
+5. `data_consulta` → Data e hora da consulta.
 
 
 ---
