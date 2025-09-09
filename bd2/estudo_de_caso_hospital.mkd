@@ -210,10 +210,6 @@ Fornecer um **histórico completo das consultas médicas** de cada paciente, inc
 
 ---
 
-Aqui está a descrição detalhada da procedure `sp_consultas_medico`:
-
----
-
 **Nome da Procedure:** `sp_consultas_medico`
 
 **Finalidade:**
