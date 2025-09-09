@@ -241,10 +241,6 @@ Retornar todas as consultas de um médico específico, mostrando informações d
 
 ---
 
-Aqui está a descrição detalhada da procedure `sp_pacientes_por_especialidade`:
-
----
-
 **Nome da Procedure:** `sp_pacientes_por_especialidade`
 
 **Finalidade:**
