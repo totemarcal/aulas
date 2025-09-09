@@ -272,10 +272,6 @@ Retornar todos os pacientes que têm consultas agendadas com médicos de uma det
 
 ---
 
-Aqui está a descrição detalhada da trigger `trg_pagamento_inserido`:
-
----
-
 **Nome da Trigger:** `trg_pagamento_inserido`
 
 **Finalidade:**
