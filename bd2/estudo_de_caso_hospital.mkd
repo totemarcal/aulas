@@ -169,24 +169,44 @@ INSERT INTO pagamentos (id_paciente, valor, data_pagamento, status) VALUES
 
 ---
 
-## Descrição da View `vw_pedidos_detalhados`
 
-A view `vw_pedidos_detalhados` foi criada para fornecer uma **visão consolidada e detalhada dos pedidos realizados pelos clientes**, reunindo informações de múltiplas tabelas relacionadas (`pedidos`, `clientes`, `itens_pedido` e `produtos`).
+**Nome da View:** `vw_historico_paciente`
 
-Ela tem como objetivo **facilitar consultas e relatórios gerenciais** sobre vendas, apresentando em uma única estrutura dados que normalmente estariam distribuídos em várias tabelas.
+**Finalidade:**
+Fornecer um **histórico completo das consultas médicas** de cada paciente, incluindo informações sobre o paciente, o médico que realizou a consulta, a especialidade do médico e os exames realizados, com seus respectivos resultados.
 
----
+**Tabelas envolvidas:**
 
-### Dados exibidos pela view:
+* `pacientes` → informações do paciente (nome, data de nascimento, telefone, email).
+* `consultas` → dados da consulta (id da consulta, data da consulta).
+* `medicos` → informações do médico (nome, CRM, especialidade).
+* `exames` → informações sobre exames feitos na consulta (tipo de exame e resultado).
 
-* **`id_pedido`** → identificador único do pedido.
-* **`cliente`** → nome do cliente associado ao pedido.
-* **`produto`** → nome do produto incluído no pedido.
-* **`quantidade`** → quantidade de itens comprados daquele produto.
-* **`subtotal`** → valor parcial referente ao produto dentro do pedido.
-* **`status`** → situação atual do pedido (ex.: "Aberto", "Pago", "Cancelado").
-* **`data_pedido`** → data em que o pedido foi realizado.
-* **`total_pedido`** → valor total do pedido, calculado por meio de uma **subconsulta** que soma todos os subtotais dos itens vinculados ao mesmo pedido.
+**Detalhes de funcionamento:**
+
+* Garantir que mesmo pacientes sem consultas ou exames ainda apareçam na view.
+* Relaciona:
+
+  * Paciente → Consulta (`id_paciente`)
+  * Consulta → Médico (`id_medico`)
+  * Consulta → Exame (`id_consulta`)
+
+
+**Colunas retornadas:**
+
+1. `id_paciente` → Identificador do paciente.
+2. `nome_paciente` → Nome do paciente.
+3. `data_nascimento` → Data de nascimento do paciente.
+4. `telefone` → Telefone de contato do paciente.
+5. `email` → Email do paciente.
+6. `id_consulta` → Identificador da consulta.
+7. `data_consulta` → Data e hora da consulta.
+8. `nome_medico` → Nome do médico que atendeu a consulta.
+9. `crm` → CRM do médico.
+10. `especialidade_medico` → Especialidade do médico.
+11. `tipo_exame` → Tipo de exame realizado na consulta.
+12. `resultado` → Resultado do exame.
+
 
 ---
 
