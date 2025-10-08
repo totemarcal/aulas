@@ -108,7 +108,7 @@ Com base nela, surgem as operações fundamentais:
 
 *Observação:* a NAND é uma **porta universal**, pois pode construir qualquer outra porta lógica.
 
-![texto](./img/portas_nand.png)
+![texto](./img/porta_nand.png)
 
 ---
 
@@ -128,7 +128,7 @@ Com base nela, surgem as operações fundamentais:
 
 *Também é uma porta universal.*
 
-![texto](./img/portas_nor.png)
+![texto](./img/porta_nor.png)
 ---
 
 ### **Porta XOR (OU Exclusivo)**
@@ -144,7 +144,7 @@ Com base nela, surgem as operações fundamentais:
 | 1 | 0 | 1         |
 | 1 | 1 | 0         |
 
-![texto](./img/portas_xor.png)
+![texto](./img/porta_xor.png)
 
 ---
 
@@ -161,7 +161,7 @@ Com base nela, surgem as operações fundamentais:
 | 1 | 0 | 0         |
 | 1 | 1 | 1         |
 
-![texto](./img/portas_xnor.png)
+![texto](./img/porta_xnor.png)
 
 ---
 
