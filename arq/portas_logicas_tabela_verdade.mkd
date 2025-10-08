@@ -38,6 +38,8 @@ Com base nela, surgem as operações fundamentais:
 
 ## 🔹 3. Tipos de Portas Lógicas
 
+![texto](./img/portas_geral.png)
+
 ### **Porta AND (E)**
 
 * **Símbolo:** Semicírculo com base reta.
@@ -51,6 +53,8 @@ Com base nela, surgem as operações fundamentais:
 | 0 | 1 | 0         |
 | 1 | 0 | 0         |
 | 1 | 1 | 1         |
+
+![texto](./img/portas_and.png)
 
 ---
 
@@ -68,6 +72,8 @@ Com base nela, surgem as operações fundamentais:
 | 1 | 0 | 1         |
 | 1 | 1 | 1         |
 
+![texto](./img/portas_or.png)
+
 ---
 
 ### **Porta NOT (NÃO ou INVERSORA)**
@@ -81,6 +87,8 @@ Com base nela, surgem as operações fundamentais:
 | - | --------- |
 | 0 | 1         |
 | 1 | 0         |
+
+![texto](./img/portas_not.png)
 
 ---
 
@@ -100,6 +108,8 @@ Com base nela, surgem as operações fundamentais:
 
 *Observação:* a NAND é uma **porta universal**, pois pode construir qualquer outra porta lógica.
 
+![texto](./img/portas_nand.png)
+
 ---
 
 ### **Porta NOR (NÃO-OU)**
@@ -118,6 +128,7 @@ Com base nela, surgem as operações fundamentais:
 
 *Também é uma porta universal.*
 
+![texto](./img/portas_nor.png)
 ---
 
 ### **Porta XOR (OU Exclusivo)**
@@ -133,6 +144,8 @@ Com base nela, surgem as operações fundamentais:
 | 1 | 0 | 1         |
 | 1 | 1 | 0         |
 
+![texto](./img/portas_xor.png)
+
 ---
 
 ### **Porta XNOR (OU Exclusivo Negado)**
@@ -147,6 +160,8 @@ Com base nela, surgem as operações fundamentais:
 | 0 | 1 | 0         |
 | 1 | 0 | 0         |
 | 1 | 1 | 1         |
+
+![texto](./img/portas_xnor.png)
 
 ---
 
