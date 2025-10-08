@@ -54,7 +54,7 @@ Com base nela, surgem as operações fundamentais:
 | 1 | 0 | 0         |
 | 1 | 1 | 1         |
 
-![texto](./img/portas_and.png)
+![texto](./img/porta_and.png)
 
 ---
 
@@ -72,7 +72,7 @@ Com base nela, surgem as operações fundamentais:
 | 1 | 0 | 1         |
 | 1 | 1 | 1         |
 
-![texto](./img/portas_or.png)
+![texto](./img/porta_or.png)
 
 ---
 
@@ -88,7 +88,7 @@ Com base nela, surgem as operações fundamentais:
 | 0 | 1         |
 | 1 | 0         |
 
-![texto](./img/portas_not.png)
+![texto](./img/porta_not.png)
 
 ---
 
