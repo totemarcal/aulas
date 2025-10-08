@@ -1,0 +1,188 @@
+
+# **Portas Lógicas: Conceitos, Tabelas e Exercícios**
+
+## 🔹 1. O que são Portas Lógicas?
+
+As **portas lógicas** são os **blocos fundamentais da eletrônica digital**, responsáveis por executar operações baseadas na **álgebra booleana**, manipulando variáveis binárias (0 e 1).
+
+Elas recebem **um ou mais sinais de entrada** e produzem **uma saída**, conforme uma **regra lógica fixa**.
+Essas portas são essenciais para o funcionamento de **microprocessadores, controladores, computadores, sistemas embarcados e circuitos digitais**.
+
+![texto](./img/portas.png)
+
+
+### ⚙️ Aplicações principais:
+
+* Somadores e subtratores binários
+* Comparadores lógicos
+* Multiplexadores e demultiplexadores
+* Flip-flops e contadores
+* Sistemas de decisão e controle lógico
+
+---
+
+## 🔹 2. Álgebra Booleana e Operações Lógicas
+
+A álgebra booleana usa apenas dois valores:
+
+* **0 (falso / nível baixo)**
+* **1 (verdadeiro / nível alto)**
+
+Com base nela, surgem as operações fundamentais:
+
+* **AND (E)** → multiplicação lógica
+* **OR (OU)** → adição lógica
+* **NOT (NÃO)** → negação lógica
+
+---
+
+## 🔹 3. Tipos de Portas Lógicas
+
+### **Porta AND (E)**
+
+* **Símbolo:** Semicírculo com base reta.
+* **Função:** Saída é 1 **somente se todas as entradas forem 1**.
+* **Expressão booleana:** Y = A ⋅ B
+* **Tabela da Verdade:**
+
+| A | B | Saída (Y) |
+| - | - | --------- |
+| 0 | 0 | 0         |
+| 0 | 1 | 0         |
+| 1 | 0 | 0         |
+| 1 | 1 | 1         |
+
+---
+
+### **Porta OR (OU)**
+
+* **Símbolo:** Curva côncava voltada para as entradas.
+* **Função:** Saída é 1 **se pelo menos uma entrada for 1**.
+* **Expressão booleana:** Y = A + B
+* **Tabela da Verdade:**
+
+| A | B | Saída (Y) |
+| - | - | --------- |
+| 0 | 0 | 0         |
+| 0 | 1 | 1         |
+| 1 | 0 | 1         |
+| 1 | 1 | 1         |
+
+---
+
+### **Porta NOT (NÃO ou INVERSORA)**
+
+* **Símbolo:** Triângulo com um círculo na saída.
+* **Função:** Inverte o valor da entrada.
+* **Expressão booleana:** Y = ¬A
+* **Tabela da Verdade:**
+
+| A | Saída (Y) |
+| - | --------- |
+| 0 | 1         |
+| 1 | 0         |
+
+---
+
+### **Porta NAND (NÃO-E)**
+
+* **Combinação:** AND + NOT
+* **Função:** Saída é 0 **somente quando todas as entradas são 1**.
+* **Expressão booleana:** Y = ¬(A ⋅ B)
+* **Tabela da Verdade:**
+
+| A | B | Saída (Y) |
+| - | - | --------- |
+| 0 | 0 | 1         |
+| 0 | 1 | 1         |
+| 1 | 0 | 1         |
+| 1 | 1 | 0         |
+
+*Observação:* a NAND é uma **porta universal**, pois pode construir qualquer outra porta lógica.
+
+---
+
+### **Porta NOR (NÃO-OU)**
+
+* **Combinação:** OR + NOT
+* **Função:** Saída é 1 **somente quando todas as entradas são 0**.
+* **Expressão booleana:** Y = ¬(A + B)
+* **Tabela da Verdade:**
+
+| A | B | Saída (Y) |
+| - | - | --------- |
+| 0 | 0 | 1         |
+| 0 | 1 | 0         |
+| 1 | 0 | 0         |
+| 1 | 1 | 0         |
+
+*Também é uma porta universal.*
+
+---
+
+### **Porta XOR (OU Exclusivo)**
+
+* **Função:** Saída é 1 **quando as entradas são diferentes**.
+* **Expressão booleana:** Y = A ⊕ B
+* **Tabela da Verdade:**
+
+| A | B | Saída (Y) |
+| - | - | --------- |
+| 0 | 0 | 0         |
+| 0 | 1 | 1         |
+| 1 | 0 | 1         |
+| 1 | 1 | 0         |
+
+---
+
+### **Porta XNOR (OU Exclusivo Negado)**
+
+* **Função:** Saída é 1 **quando as entradas são iguais**.
+* **Expressão booleana:** Y = ¬(A ⊕ B)
+* **Tabela da Verdade:**
+
+| A | B | Saída (Y) |
+| - | - | --------- |
+| 0 | 0 | 1         |
+| 0 | 1 | 0         |
+| 1 | 0 | 0         |
+| 1 | 1 | 1         |
+
+---
+
+## 🔹 4. Tabela Resumo das Portas
+
+| Porta | Expressão | Saída é 1 quando...     |
+| ----- | --------- | ----------------------- |
+| AND   | A ⋅ B     | Todas as entradas são 1 |
+| OR    | A + B     | Pelo menos uma é 1      |
+| NOT   | ¬A        | Entrada é 0             |
+| NAND  | ¬(A ⋅ B)  | Pelo menos uma é 0      |
+| NOR   | ¬(A + B)  | Todas são 0             |
+| XOR   | A ⊕ B     | Entradas diferentes     |
+| XNOR  | ¬(A ⊕ B)  | Entradas iguais         |
+
+---
+
+## 🔹 5. Implementação Física
+
+* As portas lógicas são construídas com **transistores MOSFET**, que atuam como **interruptores eletrônicos**.
+* Em **circuitos integrados (CIs)**, diversas portas são combinadas em um mesmo chip (como **7400 NAND**, **7432 OR**, **7408 AND**, etc).
+* São os **blocos básicos** de processadores, memórias, sensores digitais e sistemas embarcados.
+
+---
+
+## 🔹 6. Simuladores Recomendados
+
+Experimente montar circuitos digitais online:
+
+| Simulador                     | Link / Observação                               |
+| ----------------------------- | ----------------------------------------------- |
+| **Logic.ly**                  | Interface simples e intuitiva                   |
+| **Logisim Evolution**         | Open source, muito usado em cursos técnicos     |
+| **CircuitVerse.org**          | Simulador online colaborativo                   |
+| **Falstad Circuit Simulator** | Permite visualizar sinais digitais e analógicos |
+
+Link de referência: https://www.makerhero.com/blog/o-que-sao-portas-logicas/?srsltid=AfmBOopPfEN_Tqm9mJNacHxZDXRvvPo6Bm_TW6jZ-eKrKYjCHtURroIp 
+---
+
