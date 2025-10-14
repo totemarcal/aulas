@@ -220,9 +220,7 @@ CREATE TABLE Dependente (
 CREATE TABLE Departamento (
   Cod INT PRIMARY KEY,
   nome VARCHAR(30),
-  localizacao VARCHAR(30),
-  matgerente INT,
-  datainicioger DATE
+  localizacao VARCHAR(30)
 );
 ```
 
@@ -268,7 +266,12 @@ VALUES (valor1, valor2, ..., valorn);
 
 #### Exemplo com colunas específicas:
 ```sql
-INSERT INTO Empregado (matricula, nomeemp, depart, salario)
+INSERT INTO departamento (cod, nome , localizacao, matgerente, datainicioger )
+VALUES (1, 'TI', '45455.54545', 1212, now());
+```
+
+```sql
+INSERT INTO Empregado (matricula, nome, coddepart, salario)
 VALUES (2, 'Jose Lopes', 1, 2500);
 ```
 
