@@ -222,8 +222,7 @@ CREATE TABLE Departamento (
   nome VARCHAR(30),
   localizacao VARCHAR(30),
   matgerente INT,
-  datainicioger DATE,
-  FOREIGN KEY (matgerente) REFERENCES Empregado(Matricula)
+  datainicioger DATE
 );
 ```
 
