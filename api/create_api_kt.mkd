@@ -1,5 +1,3 @@
-Perfeito 👍
-Aqui está o **passo a passo completo** baseado no artigo **“Kotlin - REST API completa com Spring Boot, Swagger, MySQL e Docker - Parte 01”** do Rafael Moura — transformado em um **guia estruturado e executável**:
 
 ---
 
