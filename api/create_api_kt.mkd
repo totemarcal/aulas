@@ -1,0 +1,794 @@
+Perfeito 👍
+Aqui está o **passo a passo completo** baseado no artigo **“Kotlin - REST API completa com Spring Boot, Swagger, MySQL e Docker - Parte 01”** do Rafael Moura — transformado em um **guia estruturado e executável**:
+
+---
+
+## 🚀 **1. Objetivo do Projeto**
+
+Criar uma **API REST em Kotlin com Spring Boot**, documentada com **Swagger**, persistindo dados em um **banco MySQL** que roda em **Docker**.
+
+---
+
+## 🧰 **2. Preparar o Ambiente**
+
+### ✅ Requisitos
+
+* **Docker e Docker Compose** instalados
+* **IntelliJ IDEA** (ou sua IDE favorita)
+* **JDK 17+**
+* **Gradle** (caso não use o wrapper)
+
+---
+
+## ⚙️ **3. Criar o Projeto com Spring Initializr**
+
+![texto](./img/springboot_create.png)
+
+Acesse: [https://start.spring.io](https://start.spring.io)
+
+**Configurações:**
+
+* **Project:** Gradle Project
+* **Language:** Kotlin
+* **Spring Boot:** versão estável (ex: `3.x`)
+* **Packaging:** Jar
+* **Java:** 17 ou 21
+
+**Dependências:**
+
+* Spring Web
+* Spring Data JPA
+* MySQL Driver
+* Spring Boot Actuator
+
+Clique em **Generate**, baixe o `.zip`, extraia e abra na sua IDE.
+
+---
+
+## 🐳 **4. Criar o `docker-compose.yml`**
+
+Na **raiz do projeto**, crie o arquivo `docker-compose.yml`:
+
+```yaml
+version: '3.1'
+services:
+  db:
+    container_name: mysql_local
+    image: mysql:5.7
+    volumes:
+      - ./db:/var/lib/mysql
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+      MYSQL_ROOT_PASSWORD: "test"
+      MYSQL_DATABASE: "crudexample"
+      MYSQL_USER: "admin"
+      MYSQL_PASSWORD: "test"
+      MYSQL_ROOT_HOST: "%"
+    ports:
+      - "1000:3306"
+
+```
+
+### ▶️ Subir o container
+
+```bash
+docker-compose up -d
+```
+
+### 🔍 Verificar se está rodando
+
+```bash
+docker ps
+```
+
+---
+
+## ⚙️ **5. Configurar o `application.yml`**
+
+Substitua ou renomeie o arquivo `application.properties` por `application.yml` em
+`src/main/resources/application.yml`:
+
+```yaml
+server:
+  port: 8081
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    initialization-mode: always
+    password: test
+    platform: mysql
+    url: jdbc:mysql://localhost:1000/crudexample
+    username: admin
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    generate-ddl: true
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+      naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    try-it-out-enabled: true
+    operations-sorter: method
+    tags-sorter: alpha
+
+```
+
+---
+
+## ▶️ **6. Executar a Aplicação**
+
+Rode a classe principal `CrudexampleApplication.kt`:
+
+📍 Caminho:
+`src/main/kotlin/com/kotlin/crudexample/CrudexampleApplication.kt`
+
+Ao rodar, você verá no log:
+
+```
+Started CrudexampleApplicationKt in X seconds (JVM running for X)
+```
+
+---
+
+## ✅ **7. Testar o Actuator**
+
+Acesse no navegador:
+
+```
+http://localhost:8081/actuator
+```
+
+Deve retornar um JSON indicando o status da aplicação (exemplo: `{"status":"UP"}`).
+
+---
+
+## 🧩 **8. Criar o Controller Inicial**
+
+Crie o arquivo `ProductController.kt`:
+
+📍 `src/main/kotlin/com/kotlin/crudexample/controller/ProductController.kt`
+
+```kotlin
+package com.kotlin.crudexample.controller
+
+import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.RestController
+
+@RestController
+class ProductController {
+
+    @GetMapping("/products")
+    fun getAll(): List<String> = listOf("product1", "product2")
+}
+```
+
+---
+
+## 🌐 **9. Testar Endpoint**
+
+Execute novamente a aplicação e acesse:
+
+```
+http://localhost:8081/products
+```
+
+Você deve ver o retorno:
+
+```json
+["product1", "product2"]
+```
+
+---
+
+## ⚙️ **10. Criar o modelo (Entity)**
+
+📁 `src/main/kotlin/com/kotlin/crudexample/model/Product.kt`
+
+```kotlin
+package com.kotlin.crudexample.model
+
+import jakarta.persistence.Entity
+import jakarta.persistence.GeneratedValue
+import jakarta.persistence.GenerationType
+import jakarta.persistence.Id
+import jakarta.persistence.Table
+
+@Entity
+@Table(name = "Product")
+data class Product(
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    val id: Long = 0,
+    val name: String
+)
+```
+
+> ✅ Usa `jakarta.persistence` (versão compatível com Spring Boot 3+)
+> ✅ `data class` simplifica getters/setters/toString/equals automaticamente
+
+---
+
+## 🧩 **11. Criar o repositório (Repository)**
+
+📁 `src/main/kotlin/com/kotlin/crudexample/repository/ProductRepository.kt`
+
+```kotlin
+package com.kotlin.crudexample.repository
+
+import com.kotlin.crudexample.model.Product
+import org.springframework.data.jpa.repository.JpaRepository
+import org.springframework.stereotype.Repository
+
+@Repository
+interface ProductRepository : JpaRepository<Product, Long>
+```
+
+> O Spring Data JPA gera todos os métodos CRUD automaticamente:
+> `.findAll()`, `.save()`, `.deleteById()`, `.existsById()`, etc.
+
+---
+
+## 🧠 **12. Criar a interface do serviço (Service)**
+
+📁 `src/main/kotlin/com/kotlin/crudexample/service/ProductService.kt`
+
+```kotlin
+package com.kotlin.crudexample.service
+
+import com.kotlin.crudexample.model.Product
+import org.springframework.stereotype.Service
+
+@Service
+interface ProductService {
+    fun getAll(): List<Product>
+    fun getById(id: Long): Product
+    fun create(product: Product): Product
+    fun update(product: Product): String
+    fun delete(id: Long): String
+}
+```
+
+> Essa interface define as operações que o serviço precisa oferecer.
+
+---
+
+## 💡 **13. Implementar o serviço**
+
+📁 `src/main/kotlin/com/kotlin/crudexample/service/ProductServiceImpl.kt`
+
+```kotlin
+package com.kotlin.crudexample.service
+
+import com.kotlin.crudexample.model.Product
+import com.kotlin.crudexample.repository.ProductRepository
+import org.springframework.stereotype.Service
+
+@Service
+class ProductServiceImpl(private val productRepository: ProductRepository) : ProductService {
+
+    override fun getAll(): List<Product> = productRepository.findAll()
+
+    override fun getById(id: Long): Product = productRepository.findById(id)
+        .orElseThrow { NoSuchElementException("Produto com id $id não encontrado") }
+
+    override fun create(product: Product): Product = productRepository.save(product)
+
+    override fun update(product: Product): String {
+        if (!productRepository.existsById(product.id))
+            return "Produto não existe na base de dados"
+
+        productRepository.save(product)
+        return "Produto id ${product.id} alterado com sucesso"
+    }
+
+    override fun delete(id: Long): String {
+        if (!productRepository.existsById(id))
+            return "Produto não existe na base de dados"
+
+        productRepository.deleteById(id)
+        return "Produto removido com sucesso!"
+    }
+}
+```
+
+> ⚠️ Aqui o `@Service` indica que o Spring gerencia essa classe como um bean,
+> e a injeção do `ProductRepository` é feita via construtor (`private val`).
+
+---
+
+## 🚀 **14. Criar o controller REST**
+
+📁 `src/main/kotlin/com/kotlin/crudexample/controller/ProductController.kt`
+
+```kotlin
+package com.kotlin.crudexample.controller
+
+import com.kotlin.crudexample.model.Product
+import com.kotlin.crudexample.service.ProductService
+import org.springframework.web.bind.annotation.*
+
+@RestController
+@RequestMapping("/api")
+class ProductController(private val productService: ProductService) {
+
+    @GetMapping("/products")
+    fun getAll(): List<Product> = productService.getAll()
+
+    @GetMapping("/product/{id}")
+    fun getById(@PathVariable id: Long): Product = productService.getById(id)
+
+    @PostMapping("/product")
+    fun create(@RequestBody product: Product): Product = productService.create(product)
+
+    @PutMapping("/product")
+    fun update(@RequestBody product: Product): String = productService.update(product)
+
+    @DeleteMapping("/product/{id}")
+    fun delete(@PathVariable id: Long): String = productService.delete(id)
+}
+```
+
+> O controller agora apenas delega as operações ao service — deixando a lógica limpa.
+
+---
+
+## 🧪 **15. Testar com o Postman**
+
+### 🔹 Endpoints:
+
+| Método   | Rota                | Descrição                   |
+| -------- | ------------------- | --------------------------- |
+| `GET`    | `/api/products`     | Lista todos os produtos     |
+| `GET`    | `/api/product/{id}` | Busca um produto específico |
+| `POST`   | `/api/product`      | Cria novo produto           |
+| `PUT`    | `/api/product`      | Atualiza produto existente  |
+| `DELETE` | `/api/product/{id}` | Remove produto              |
+
+### 🔹 Exemplo de JSON para `POST`:
+
+```json
+{
+  "name": "Janela"
+}
+```
+
+---
+
+## ⚙️ **16. Swagger UI (OpenAPI)**
+
+Se você manteve a dependência:
+
+```kotlin
+implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.5.0")
+```
+
+Acesse:
+
+```
+http://localhost:8081/swagger-ui/index.html
+```
+
+> 🟢 Swagger gera automaticamente a documentação e testes de endpoints.
+
+---
+
+## ✅ **Resumo da Estrutura Final**
+
+```
+src/
+ └── main/
+     ├── kotlin/
+     │   └── com/kotlin/crudexample/
+     │       ├── controller/
+     │       │   └── ProductController.kt
+     │       ├── model/
+     │       │   └── Product.kt
+     │       ├── repository/
+     │       │   └── ProductRepository.kt
+     │       └── service/
+     │           ├── ProductService.kt
+     │           └── ProductServiceImpl.kt
+     └── resources/
+         └── application.yml
+```
+---
+
+## 17 — Adicionar dependência no `build.gradle.kts`
+
+Verifique se **essas linhas estão presentes** nas suas dependências:
+
+```kotlin
+dependencies {
+    implementation("org.springframework.boot:spring-boot-starter-web")
+    implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.5.0")
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
+    implementation("org.jetbrains.kotlin:kotlin-reflect")
+}
+```
+
+---
+
+## 18 — Criar o pacote de configuração
+
+Crie o arquivo no caminho:
+
+```
+src/main/kotlin/com/example/crudexample/config/SwaggerConfiguration.kt
+```
+
+E coloque exatamente o código que você já colou:
+
+```kotlin
+package com.example.crudexample.config
+
+import io.swagger.v3.oas.models.OpenAPI
+import io.swagger.v3.oas.models.info.Contact
+import io.swagger.v3.oas.models.info.Info
+import io.swagger.v3.oas.models.info.License
+import org.springframework.context.annotation.Bean
+import org.springframework.context.annotation.Configuration
+
+@Configuration
+class SwaggerConfiguration {
+
+    @Bean
+    fun customOpenAPI(): OpenAPI {
+        return OpenAPI()
+            .info(
+                Info()
+                    .title("Api Title")
+                    .description("Api Definition")
+                    .version("1.0.0")
+                    .contact(
+                        Contact().apply {
+                            name = "Rafael Moura"
+                            url = "https://rafaelmoura.dev"
+                            email = "teste@gmail.com"
+                        }
+                    )
+                    .license(
+                        License().apply {
+                            name = "Apache 2.0"
+                            url = "http://www.apache.org/licenses/LICENSE-2.0"
+                        }
+                    )
+            )
+    }
+}
+```
+
+---
+
+## 19 — (Opcional) Configurar o `application.yml`
+
+Se quiser personalizar o caminho da documentação (não é obrigatório):
+
+```yaml
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+```
+
+---
+
+## 20 — Documentar os endpoints
+
+Agora você pode usar as **anotações OpenAPI 3** (`io.swagger.v3.oas.annotations.*`) nos seus controllers.
+
+Exemplo:
+
+```kotlin
+package com.example.crudexample.controller
+
+import com.example.crudexample.model.Product
+import com.example.crudexample.service.ProductService
+import io.swagger.v3.oas.annotations.Operation
+import io.swagger.v3.oas.annotations.tags.Tag
+import org.springframework.web.bind.annotation.*
+
+@Tag(name = "Product Controller", description = "Operações com produtos")
+@RestController
+@RequestMapping("/api")
+class ProductController(private val productService: ProductService) {
+
+    @Operation(summary = "Listar todos os produtos")
+    @GetMapping("/products")
+    fun getAll(): List<Product> = productService.getAll()
+
+    @Operation(summary = "Buscar produto por ID")
+    @GetMapping("/product/{id}")
+    fun getById(@PathVariable id: Long): Product = productService.getById(id)
+
+    @Operation(summary = "Criar um novo produto")
+    @PostMapping("/product")
+    fun create(@RequestBody product: Product): Product = productService.create(product)
+
+    @Operation(summary = "Atualizar um produto existente")
+    @PutMapping("/product")
+    fun update(@RequestBody product: Product): String = productService.update(product)
+
+    @Operation(summary = "Deletar um produto")
+    @DeleteMapping("/product/{id}")
+    fun delete(@PathVariable id: Long): String = productService.delete(id)
+}
+```
+
+---
+
+## 21 — Rodar a aplicação
+
+Execute:
+
+```bash
+./gradlew bootRun
+```
+
+---
+
+## 22 — Acessar a documentação Swagger
+
+Abra o navegador e vá para:
+
+```
+http://localhost:8080/swagger-ui.html
+```
+
+ou (dependendo da versão do Spring Boot):
+
+```
+http://localhost:8080/swagger-ui/index.html
+```
+
+Você verá a interface interativa do Swagger (com todos os endpoints que o Spring detectou).
+
+---
+
+## 23 — Endpoints automáticos do OpenAPI
+
+O `springdoc` cria dois endpoints automáticos:
+
+* **JSON do OpenAPI:** `http://localhost:8080/v3/api-docs`
+* **Swagger UI:** `http://localhost:8080/swagger-ui.html`
+
+Esses endpoints permitem integração com ferramentas como Postman ou Insomnia.
+
+---
+
+Perfeito 👍
+Vamos montar **um exemplo completo** de como criar uma tabela `products` com 5 campos e **modificar o `JpaRepository` para usar SQL nativo (via `@Query`)** no Spring Boot com Kotlin.
+
+---
+
+## 24 Criar a tabela `products`
+
+Se você estiver usando um banco como MySQL ou Oracle, execute o SQL abaixo:
+
+```sql
+CREATE TABLE products (
+    id INT auto_increment PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    description VARCHAR(255),
+    price DECIMAL(10,2) NOT NULL,
+    quantity INT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+```
+
+
+## 25 Aletere a entidade `Product.kt`
+
+```kotlin
+package com.example.crudexample.model
+
+import jakarta.persistence.*
+import java.math.BigDecimal
+import java.time.LocalDateTime
+
+@Entity
+@Table(name = "products")
+data class Product(
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    val id: Long = 0,
+
+    @Column(nullable = false)
+    val name: String,
+
+    val description: String? = null,
+
+    @Column(nullable = false)
+    val price: BigDecimal,
+
+    @Column(nullable = false)
+    val quantity: Int,
+
+    @Column(name = "created_at")
+    val createdAt: LocalDateTime = LocalDateTime.now()
+)
+
+```
+
+---
+
+## 26 Altere o `Repository` com consultas SQL nativas
+
+```kotlin
+package com.example.crudexample.repository
+
+import com.example.crudexample.model.Product
+import org.springframework.data.jpa.repository.JpaRepository
+import org.springframework.data.jpa.repository.Query
+import org.springframework.data.repository.query.Param
+import org.springframework.stereotype.Repository
+import org.springframework.data.jpa.repository.Modifying
+import org.springframework.transaction.annotation.Transactional
+
+
+@Repository
+interface ProductRepository : JpaRepository<Product, Long> {
+
+    // Busca todos os produtos (SQL nativo)
+    @Query(value = "SELECT * FROM products", nativeQuery = true)
+    fun findAllProducts(): List<Product>
+
+    // Busca um produto pelo nome
+    @Query(value = "SELECT * FROM products WHERE name = :name", nativeQuery = true)
+    fun findByName(@Param("name") name: String): Product?
+
+    // Busca produtos com preço acima de um valor
+    @Query(value = "SELECT * FROM products WHERE price > :price", nativeQuery = true)
+    fun findProductsAbovePrice(@Param("price") price: Double): List<Product>
+
+    // Atualiza a quantidade de um produto
+    @Modifying
+    @Transactional
+    @Query(value = "UPDATE products SET quantity = :quantity WHERE id = :id", nativeQuery = true)
+    fun updateQuantity(@Param("id") id: Long, @Param("quantity") quantity: Int)
+
+    // Deleta produto pelo nome
+    @Modifying
+    @Transactional
+    @Query(value = "DELETE FROM products WHERE name = :name", nativeQuery = true)
+    fun deleteByName(@Param("name") name: String)
+
+}
+
+```
+
+🟡 **Observações:**
+
+* As queries usam `nativeQuery = true`, ou seja, são **SQLs diretas no banco** (não JPQL).
+* Para o método `updateQuantity` e `deleteByName`, é recomendado anotar o método com `@Modifying` e `@Transactional`:
+
+
+## 26 Altere o `Service` com consultas SQL nativas
+```kotlin
+@Service
+interface ProductService {
+    fun getAll(): List<Product>
+    fun getByName(name: String): Product?
+    fun save(product: Product): Product
+    fun update(product: Product): String
+    fun updateQuantity( id: Long, quantity: Int)
+    fun delete(name: String): String
+}
+
+```
+
+```kotlin
+package com.example.crudexample.service
+
+import com.example.crudexample.model.Product
+import com.example.crudexample.repository.ProductRepository
+import org.springframework.stereotype.Service
+
+@Service
+class ProductServiceImpl(val productRepository: ProductRepository) : ProductService {
+
+    override fun getAll(): List<Product> = productRepository.findAll()
+
+    override fun getByName(name: String): Product? = productRepository.findByName(name)
+
+    override fun save(product: Product): Product = productRepository.save(product)
+
+    override fun update(product: Product): String {
+        if (!productRepository.existsById(product.id))
+            return "Produto não existe na base de dados"
+
+        productRepository.save(product)
+
+        return "Produto id ${product.id} alterado com sucesso"
+    }
+
+    override fun updateQuantity(id: Long, quantity: Int) = productRepository.updateQuantity(id, quantity)
+
+    override fun delete(name: String): String {
+        /*if (!productRepository.existsById(id))
+            return "Produto não existe na base de dados"
+*/
+        productRepository.deleteByName(name)
+
+        return "Produto removido com sucesso!"
+    }
+}
+
+```
+---
+
+## 27 Altere o `Controller` para testar as chamadas
+
+```kotlin
+package com.example.crudexample.controller
+
+import com.example.crudexample.model.Product
+import com.example.crudexample.repository.ProductRepository
+import com.example.crudexample.service.ProductService
+import org.springframework.web.bind.annotation.*
+
+@RestController
+@RequestMapping("/products")
+class ProductController(
+    private val productService: ProductService
+) {
+
+    @GetMapping
+    fun getAll(): List<Product> = productService.getAll()
+
+    @GetMapping("/{name}")
+    fun getByName(@PathVariable name: String): Product? = productService.getByName(name)
+
+    @PostMapping
+    fun create(@RequestBody product: Product): Product = productService.save(product)
+
+    @PutMapping("/{id}/quantity/{quantity}")
+    fun updateQuantity(
+        @PathVariable id: Long,
+        @PathVariable quantity: Int
+    ): String {
+        productService.updateQuantity(id, quantity)
+        return "Quantidade atualizada!"
+    }
+
+    @DeleteMapping("/{name}")
+    fun deleteByName(@PathVariable name: String): String {
+        productService.delete(name)
+        return "Produto removido!"
+    }
+}
+
+```
+
+---
+
+## 28 Testar no Swagger
+
+
+👉 **[http://localhost:8081/swagger-ui/index.html](http://localhost:8080/swagger-ui/index.html)**
+
+Lá você verá:
+
+* **GET /products** → lista todos
+* **GET /products/{name}** → busca por nome
+* **POST /products** → cria novo
+* **PUT /products/{id}/quantity/{quantity}** → atualiza quantidade
+* **DELETE /products/{name}** → remove
+
+---
+
+
+
+Referência:
+https://rafaelmoura.dev/kotlin-rest-api-completa-01
+https://rafaelmoura.dev/kotlin-rest-api-completa-02
+https://rafaelmoura.dev/kotlin-rest-api-completa-03
+---
+
