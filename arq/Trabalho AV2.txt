@@ -1,0 +1,196 @@
+Apresentação dia 19/11
+Tempo de apresentação será de 15 minutos
+
+Cada equipe deverá escolher um supercomputador e fazer uma apresentação sobre ele.
+Deverá fazer uma apresentação prática sobre:
+- Utilizar de imagens e videos
+
+# **Roteiro Completo de Apresentação – Supercomputador **
+
+---
+
+## **1. Capa e Identificação**
+
+**Deve conter:**
+
+* Título: “Estudo do Supercomputador *[nome]*”
+* Nome do aluno e professor
+* Disciplina e curso
+* Data
+* Imagem de destaque do supercomputador
+
+---
+
+## **2. Introdução**
+
+**Objetivo:** contextualizar o motivo da escolha do supercomputador e sua importância.
+
+Inclua:
+
+* Breve definição de supercomputador (1 slide).
+* Motivo da escolha do *[nome]* (por exemplo, maior do mundo, inovação em IA, foco em sustentabilidade, etc.).
+* O papel desse supercomputador na pesquisa científica global.
+
+
+---
+
+## **3. Contexto e histórico de desenvolvimento**
+
+**Objetivo:** apresentar a origem e evolução do projeto.
+
+Inclua:
+
+* Ano de concepção e instituições envolvidas.
+* Objetivos iniciais do projeto.
+* Principais desafios enfrentados no desenvolvimento.
+* Inovações em relação ao antecessor (ex: substituto do K Computer, no caso do Fugaku).
+
+
+---
+
+## **4. Arquitetura e componentes técnicos**
+
+**Objetivo:** explicar como ele funciona internamente.
+
+Inclua:
+
+* Estrutura de hardware (número de processadores, núcleos, tipo de CPU/GPU).
+* Sistema operacional utilizado (geralmente Linux customizado).
+* Topologia de interconexão entre nós.
+* Capacidade de memória e armazenamento.
+* Sistemas de refrigeração e eficiência energética.
+
+
+**Dica visual:** inserir **diagrama da arquitetura** com destaque para processadores, rede e armazenamento.
+
+---
+
+## **5. Desempenho e métricas**
+
+**Objetivo:** quantificar o poder computacional.
+
+Inclua:
+
+* Desempenho em FLOPS (peta/exa).
+* Eficiência energética (FLOPS/watt).
+* Comparação com supercomputadores anteriores.
+* Posição no ranking *TOP500*.
+
+
+---
+
+## **6. Aplicações científicas e tecnológicas**
+
+**Objetivo:** mostrar como o supercomputador é utilizado na prática.
+
+Inclua:
+
+* Áreas de pesquisa beneficiadas.
+* Projetos emblemáticos realizados com ele.
+* Impacto social, ambiental ou industrial.
+
+
+---
+
+## **7. Comparativos técnicos**
+
+**Objetivo:** situar o supercomputador frente a outros modelos.
+
+**Dica:** use gráficos de barras para visualização de desempenho.
+
+---
+
+## **8. Eficiência energética e sustentabilidade**
+
+**Objetivo:** destacar soluções de otimização.
+
+Inclua:
+
+* Sistema de refrigeração e controle térmico.
+* Consumo de energia por operação.
+* Prêmios ou reconhecimentos (ex: *Green500*).
+* Estratégias de uso de energia renovável.
+
+---
+
+## **9. Futuro e impacto**
+
+**Objetivo:** concluir apontando tendências e relevância.
+
+Inclua:
+
+* Avanços esperados na arquitetura (exaescala, quântica, IA).
+* Contribuições científicas esperadas.
+* Relevância para o país e para a comunidade global.
+
+---
+
+## **10. Conclusão**
+
+**Objetivo:** reforçar a importância do estudo.
+
+Inclua:
+
+* Síntese do desempenho e aplicações.
+* Reflexão sobre o papel dos supercomputadores no avanço da ciência.
+* Frase de impacto final.
+
+---
+
+## **11. Referências**
+
+Inclua:
+
+* Sites oficiais
+* Artigos acadêmicos e fontes jornalísticas.
+* Data de acesso (se for online).
+
+---
+
+## **Sugestão de slides:**
+
+1. Capa
+2. Introdução
+3. Histórico
+4. Arquitetura (2 slides)
+5. Desempenho (2 slides)
+6. Aplicações (2 slides)
+7. Comparativos
+8. Eficiência energética (2 slides)
+9. Impacto e futuro (2 slides)
+10. Conclusão
+11. Referências
+
+---
+
+
+
+Grupo de Arquitetura
+
+Grupo 1 - Frontier
+Adailton silva menezes
+Gabriel domingos araújo meneses
+Rafael frança de araujo carvalho
+Emerson de Jesus
+
+
+Grupo 2 - Fugaku
+Aldair silva de araujo
+Guilherme silva guedes
+Juan luis de lima torres
+Bernardo santana de oliveira
+
+
+Grupo 3 - LUMI
+Levi jesus dos santos
+Flávio dos santos borges
+Victor antonio santos da sousa
+
+
+
+
+
+
+
+
+
