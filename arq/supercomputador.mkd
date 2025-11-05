@@ -3,7 +3,7 @@
 
 ---
 
-## 🔹 1. Conceito geral
+## 1. Conceito geral
 
 Um **supercomputador** é uma máquina projetada para alcançar o **máximo desempenho de processamento possível**, sendo capaz de executar **trilhões (ou até quatrilhões)** de operações matemáticas por segundo.
 Seu desempenho é medido em **FLOPS (Floating Point Operations per Second)** — ou seja, o número de operações de ponto flutuante que pode ser realizado em um segundo.
@@ -14,7 +14,7 @@ Esses sistemas são utilizados em **simulações científicas, inteligência art
 
 ---
 
-## 🔹 2. Estrutura e funcionamento
+## 2. Estrutura e funcionamento
 
 Os supercomputadores não são compostos por um único processador, mas sim por **milhares de unidades de processamento** que trabalham de forma **paralela**.
 Isso significa que um grande problema é dividido em diversas partes menores, e cada processador resolve uma dessas partes simultaneamente.
@@ -113,7 +113,7 @@ Além disso, a tendência é a **integração entre supercomputadores e intelig�
 
 ---
 
-## 🔹 8. Conclusão
+## 8. Conclusão
 
 Os supercomputadores representam o **ápice da capacidade computacional humana**.
 Eles tornam possível **analisar, prever e simular fenômenos** que antes dependiam de aproximações.
