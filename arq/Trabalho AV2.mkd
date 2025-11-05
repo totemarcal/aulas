@@ -1,11 +1,15 @@
+
+# **Roteiro Completo de Apresentação – Supercomputador **
+
 Apresentação dia 19/11
+
 Tempo de apresentação será de 15 minutos
 
 Cada equipe deverá escolher um supercomputador e fazer uma apresentação sobre ele.
-Deverá fazer uma apresentação prática sobre:
-- Utilizar de imagens e videos
 
-# **Roteiro Completo de Apresentação – Supercomputador **
+Deverá fazer uma apresentação prática sobre:
+    - Utilizar de imagens e videos
+
 
 ---
 
@@ -168,23 +172,23 @@ Inclua:
 Grupo de Arquitetura
 
 Grupo 1 - Frontier
-Adailton silva menezes
-Gabriel domingos araújo meneses
-Rafael frança de araujo carvalho
-Emerson de Jesus
+* Adailton silva menezes
+* Gabriel domingos araújo meneses
+* Rafael frança de araujo carvalho
+* Emerson de Jesus
 
 
 Grupo 2 - Fugaku
-Aldair silva de araujo
-Guilherme silva guedes
-Juan luis de lima torres
-Bernardo santana de oliveira
+* Aldair silva de araujo
+* Guilherme silva guedes
+* Juan luis de lima torres
+* Bernardo santana de oliveira
 
 
 Grupo 3 - LUMI
-Levi jesus dos santos
-Flávio dos santos borges
-Victor antonio santos da sousa
+* Levi jesus dos santos
+* Flávio dos santos borges
+* Victor antonio santos da sousa
 
 
 
