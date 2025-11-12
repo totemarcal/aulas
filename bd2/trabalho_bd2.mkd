@@ -1,0 +1,10 @@
+Trabalho de banco 2
+
+- Crie um banco de dados os seguintes requisitos:
+   - Para cada participante deve ter uma tabela;
+   - As tabelas devem se relacionar;
+   - Mínimo de 2 tabelas;
+   - Preciso do script das tabela;
+- Construa uma API para consumir o banco de dados:
+   - Para cada tabela deverá ter os endpoints de GET, PUT, POST e DELETE;
+   - Para cada participante, deverá ter um controller com dois endpoints de regra de negócio
