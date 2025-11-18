@@ -185,6 +185,6 @@ INSERT INTO pagamentos (id_aluno, valor, data_pagamento, metodo) VALUES
 
 ## Questão 1: Liste o nome dos alunos, o nome da disciplina e o nome do professor responsável por cada turma na qual o aluno está matriculado. Ordene pelo nome do aluno.
 
-## Questão 2: Liste o nome dos alunos, o nome da disciplina e o nome do professor responsável por cada turma na qual o aluno está matriculado. Ordene pelo nome do aluno.
+## Questão 2: Exiba o nome dos alunos e o valor total pago por cada um considerando a soma de todos os pagamentos já registrados. Inclua também os alunos que ainda não fizeram nenhum pagamento, mostrando o total como NULL ou 0 (dependendo do SGDB).
 
 ## Questão 3: Exiba o nome do aluno, o nome da disciplina e a média das notas obtidas por ele, somente para as turmas do ano de 2025. Considere apenas alunos que possuem notas registradas. Ordene pelo nome do aluno.
