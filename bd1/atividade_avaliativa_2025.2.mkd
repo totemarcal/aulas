@@ -183,8 +183,8 @@ INSERT INTO pagamentos (id_aluno, valor, data_pagamento, metodo) VALUES
 
 ```
 
-# Questão 1: Liste o nome dos alunos, o nome da disciplina e o nome do professor responsável por cada turma na qual o aluno está matriculado. Ordene pelo nome do aluno.
+## Questão 1: Liste o nome dos alunos, o nome da disciplina e o nome do professor responsável por cada turma na qual o aluno está matriculado. Ordene pelo nome do aluno.
 
-# Questão 2: Liste o nome dos alunos, o nome da disciplina e o nome do professor responsável por cada turma na qual o aluno está matriculado. Ordene pelo nome do aluno.
+## Questão 2: Liste o nome dos alunos, o nome da disciplina e o nome do professor responsável por cada turma na qual o aluno está matriculado. Ordene pelo nome do aluno.
 
-# Questão 3: Exiba o nome do aluno, o nome da disciplina e a média das notas obtidas por ele, somente para as turmas do ano de 2025. Considere apenas alunos que possuem notas registradas. Ordene pelo nome do aluno.
+## Questão 3: Exiba o nome do aluno, o nome da disciplina e a média das notas obtidas por ele, somente para as turmas do ano de 2025. Considere apenas alunos que possuem notas registradas. Ordene pelo nome do aluno.
