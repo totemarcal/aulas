@@ -1,0 +1,190 @@
+# Estudo de Caso – Sistema de Gestão Universitária (universidade_db)
+
+O banco de dados universidade_db foi projetado para gerenciar os principais processos acadêmicos de uma instituição de ensino superior. Ele contém 10 tabelas interligadas, cobrindo desde o cadastro de alunos até o acompanhamento de notas, professores, cursos, disciplinas e pagamentos.
+
+A tabela alunos guarda os dados básicos dos estudantes, enquanto a tabela enderecos armazena suas informações residenciais.
+
+Os professores são registrados com nome, titulação e contato.
+
+Os cursos oferecem diversas disciplinas, que são ministradas em turmas associadas a professores e semestres.
+
+Os alunos se inscrevem nas turmas por meio da tabela matriculas. Cada matrícula pode ter várias notas, que permitem acompanhar o desempenho acadêmico.
+
+A tabela pagamentos controla as mensalidades e taxas pagas pelos alunos.
+
+Por fim, a tabela log_notas registra automaticamente, através de uma trigger, todas as alterações feitas nas notas para fins de auditoria.
+
+Esse modelo permite que a universidade controle com eficiência tanto o lado acadêmico quanto o financeiro dos seus alunos.
+
+## Tabelas
+
+```sql
+
+CREATE DATABASE IF NOT EXISTS universidade_db;
+USE universidade_db;
+
+-- 1. Alunos
+CREATE TABLE alunos (
+    id_aluno INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    cpf VARCHAR(14) UNIQUE NOT NULL,
+    data_nascimento DATE NOT NULL,
+    email VARCHAR(150) UNIQUE NOT NULL,
+    data_cadastro TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- 2. Endereços
+CREATE TABLE enderecos (
+    id_endereco INT AUTO_INCREMENT PRIMARY KEY,
+    id_aluno INT,
+    rua VARCHAR(150),
+    cidade VARCHAR(100),
+    estado VARCHAR(50),
+    cep VARCHAR(15),
+    FOREIGN KEY (id_aluno) REFERENCES alunos(id_aluno)
+);
+
+-- 3. Professores
+CREATE TABLE professores (
+    id_professor INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    titulacao VARCHAR(50) NOT NULL,
+    email VARCHAR(150) UNIQUE NOT NULL
+);
+
+-- 4. Cursos
+CREATE TABLE cursos (
+    id_curso INT AUTO_INCREMENT PRIMARY KEY,
+    nome_curso VARCHAR(100) NOT NULL,
+    carga_horaria INT NOT NULL
+);
+
+-- 5. Disciplinas
+CREATE TABLE disciplinas (
+    id_disciplina INT AUTO_INCREMENT PRIMARY KEY,
+    nome_disciplina VARCHAR(100) NOT NULL,
+    carga_horaria INT NOT NULL,
+    id_curso INT,
+    FOREIGN KEY (id_curso) REFERENCES cursos(id_curso)
+);
+
+-- 6. Turmas
+CREATE TABLE turmas (
+    id_turma INT AUTO_INCREMENT PRIMARY KEY,
+    id_disciplina INT,
+    id_professor INT,
+    semestre VARCHAR(10) NOT NULL,
+    ano INT NOT NULL,
+    FOREIGN KEY (id_disciplina) REFERENCES disciplinas(id_disciplina),
+    FOREIGN KEY (id_professor) REFERENCES professores(id_professor)
+);
+
+-- 7. Matrículas
+CREATE TABLE matriculas (
+    id_matricula INT AUTO_INCREMENT PRIMARY KEY,
+    id_aluno INT,
+    id_turma INT,
+    data_matricula TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (id_aluno) REFERENCES alunos(id_aluno),
+    FOREIGN KEY (id_turma) REFERENCES turmas(id_turma)
+);
+
+-- 8. Notas
+CREATE TABLE notas (
+    id_nota INT AUTO_INCREMENT PRIMARY KEY,
+    id_matricula INT,
+    nota DECIMAL(4,2) NOT NULL,
+    data_avaliacao DATE NOT NULL,
+    FOREIGN KEY (id_matricula) REFERENCES matriculas(id_matricula)
+);
+
+-- 9. Pagamentos
+CREATE TABLE pagamentos (
+    id_pagamento INT AUTO_INCREMENT PRIMARY KEY,
+    id_aluno INT,
+    valor DECIMAL(10,2) NOT NULL,
+    data_pagamento DATE NOT NULL,
+    metodo ENUM('Cartão','Boleto','Pix') NOT NULL,
+    FOREIGN KEY (id_aluno) REFERENCES alunos(id_aluno)
+);
+
+-- 10. Log de Notas (para auditoria da trigger)
+CREATE TABLE log_notas (
+    id_log INT AUTO_INCREMENT PRIMARY KEY,
+    id_nota INT,
+    nota_antiga DECIMAL(4,2),
+    nota_nova DECIMAL(4,2),
+    data_alteracao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    usuario VARCHAR(100) DEFAULT USER()
+);
+
+```
+
+## Massa de dados
+
+```sql
+USE universidade_db;
+
+-- Alunos
+INSERT INTO alunos (nome, cpf, data_nascimento, email) VALUES
+('Maria Silva', '111.111.111-11', '2000-05-10', 'maria.silva@email.com'),
+('João Santos', '222.222.222-22', '1999-09-22', 'joao.santos@email.com'),
+('Ana Oliveira', '333.333.333-33', '2001-02-15', 'ana.oliveira@email.com');
+
+-- Endereços
+INSERT INTO enderecos (id_aluno, rua, cidade, estado, cep) VALUES
+(1, 'Rua das Flores, 100', 'Salvador', 'BA', '40000-000'),
+(2, 'Av. Central, 200', 'Feira de Santana', 'BA', '44000-000'),
+(3, 'Rua Bahia, 300', 'Lauro de Freitas', 'BA', '42700-000');
+
+-- Professores
+INSERT INTO professores (nome, titulacao, email) VALUES
+('Carlos Pereira', 'Mestre', 'carlos.pereira@uni.com'),
+('Fernanda Costa', 'Doutora', 'fernanda.costa@uni.com');
+
+-- Cursos
+INSERT INTO cursos (nome_curso, carga_horaria) VALUES
+('Ciência da Computação', 3200),
+('Administração', 3000);
+
+-- Disciplinas
+INSERT INTO disciplinas (nome_disciplina, carga_horaria, id_curso) VALUES
+('Banco de Dados', 80, 1),
+('Programação Orientada a Objetos', 100, 1),
+('Gestão Empresarial', 60, 2);
+
+-- Turmas
+INSERT INTO turmas (id_disciplina, id_professor, semestre, ano) VALUES
+(1, 1, '1º', 2025), -- Banco de Dados com Carlos
+(2, 1, '1º', 2025), -- POO com Carlos
+(3, 2, '1º', 2025); -- Gestão com Fernanda
+
+-- Matrículas
+INSERT INTO matriculas (id_aluno, id_turma) VALUES
+(1, 1), -- Maria em Banco de Dados
+(1, 2), -- Maria em POO
+(2, 1), -- João em Banco de Dados
+(3, 3); -- Ana em Gestão Empresarial
+
+-- Notas
+INSERT INTO notas (id_matricula, nota, data_avaliacao) VALUES
+(1, 8.5, '2025-03-15'),
+(1, 7.5, '2025-06-20'),
+(2, 9.0, '2025-03-18'),
+(3, 6.0, '2025-03-19'),
+(4, 7.0, '2025-03-21');
+
+-- Pagamentos
+INSERT INTO pagamentos (id_aluno, valor, data_pagamento, metodo) VALUES
+(1, 1200.00, '2025-01-10', 'Cartão'),
+(1, 1200.00, '2025-02-10', 'Cartão'),
+(2, 1000.00, '2025-01-12', 'Pix'),
+(3, 900.00, '2025-01-15', 'Boleto');
+
+```
+
+# Questão 1: Liste o nome dos alunos, o nome da disciplina e o nome do professor responsável por cada turma na qual o aluno está matriculado. Ordene pelo nome do aluno.
+
+# Questão 2: Liste o nome dos alunos, o nome da disciplina e o nome do professor responsável por cada turma na qual o aluno está matriculado. Ordene pelo nome do aluno.
+
+# Questão 3: Exiba o nome do aluno, o nome da disciplina e a média das notas obtidas por ele, somente para as turmas do ano de 2025. Considere apenas alunos que possuem notas registradas. Ordene pelo nome do aluno.
