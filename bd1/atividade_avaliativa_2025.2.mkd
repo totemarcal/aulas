@@ -115,7 +115,7 @@ CREATE TABLE log_notas (
     nota_antiga DECIMAL(4,2),
     nota_nova DECIMAL(4,2),
     data_alteracao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    usuario VARCHAR(100) DEFAULT USER()
+    usuario VARCHAR(100)
 );
 
 ```
