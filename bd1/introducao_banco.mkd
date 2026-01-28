@@ -211,9 +211,9 @@ Onde:
 
 O **produto cartesiano** dos domínios \( dom(A1), dom(A2), ..., dom(An) \) gera um conjunto de tuplas, onde cada tupla contém uma combinação dos valores possíveis de cada domínio. Por exemplo:
 
-- Se \( dom(A1) = \{1, 2\} \) e \( dom(A2) = \{x, y\} \), o produto cartesiano \( dom(A1) \times dom(A2) \) seria:
+- Se \( dom(A1) = \{1, 2\} \) e \( dom(A2) = \{x, y\} \), o produto cartesiano $\( dom(A1) $\times$ dom(A2) \)$ seria:
 
-$dom(A1) \times dom(A2) = \{(1, x), (1, y), (2, x), (2, y)\}$
+$dom(A1) $\times$ dom(A2) = \{(1, x), (1, y), (2, x), (2, y)\}$
 
 A relação \( r(R) \) será um subconjunto deste produto cartesiano. Ou seja, a relação \( R \) pode conter algumas (ou todas) as combinações possíveis, dependendo dos dados inseridos na tabela.
 
@@ -228,7 +228,7 @@ Considerando a relação **Aluno**, com os seguintes atributos e domínios:
 
 O produto cartesiano seria:
 
-$dom(matricula) \times dom(nome) \times dom(idade) = \{(1001, João, 18), (1001, João, 19), (1001, Maria, 18), (1001, Maria, 19), (1002, João, 18), (1002, João, 19), (1002, Maria, 18), (1002, Maria, 19)\}$
+$dom(matricula) $\times$ dom(nome) $\times$ dom(idade) = \{(1001, João, 18), (1001, João, 19), (1001, Maria, 18), (1001, Maria, 19), (1002, João, 18), (1002, João, 19), (1002, Maria, 18), (1002, Maria, 19)\}$
 
 Agora, a relação \( r(Aluno) \) poderia ser um subconjunto desse conjunto, por exemplo:
 
@@ -240,7 +240,7 @@ Este subconjunto contém apenas algumas das combinações possíveis.
 
 ### **Conclusão**
 - Uma **relação** no modelo relacional é um subconjunto do produto cartesiano dos domínios de seus atributos.
-- A fórmula \( r(R) \subseteq (dom(A1) \times dom(A2) \times ... \times dom(An)) \) descreve matematicamente essa estrutura.
+- A fórmula \( r(R) \subseteq (dom(A1) $\times$ dom(A2) $\times$ ... $\times$ dom(An)) \) descreve matematicamente essa estrutura.
 - O **produto cartesiano** gera todas as combinações possíveis de valores, e a relação seleciona quais dessas combinações são armazenadas.
 
 Esse entendimento é fundamental para modelar dados em **bancos de dados relacionais** e compreender como as **relações** são formadas e manipuladas.
