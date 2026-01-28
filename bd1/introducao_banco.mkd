@@ -213,7 +213,7 @@ O **produto cartesiano** dos domínios \( dom(A1), dom(A2), ..., dom(An) \) gera
 
 - Se \( dom(A1) = \{1, 2\} \) e \( dom(A2) = \{x, y\} \), o produto cartesiano \( dom(A1) \times dom(A2) \) seria:
 
-$ dom(A1) \times dom(A2) = \{(1, x), (1, y), (2, x), (2, y)\} $
+$dom(A1) \times dom(A2) = \{(1, x), (1, y), (2, x), (2, y)\}$
 
 A relação \( r(R) \) será um subconjunto deste produto cartesiano. Ou seja, a relação \( R \) pode conter algumas (ou todas) as combinações possíveis, dependendo dos dados inseridos na tabela.
 
